@@ -1,0 +1,11 @@
+/* Add application styles & imports to this file! */
+
+@import "~quill/dist/quill.snow.css";
+@import "~quill/dist/quill.bubble.css";
+@import "~highlight.js/styles/default.css";
+body .hljs{
+    background-color: transparent;
+}
+.ql-toolbar{
+    display: none;
+}
