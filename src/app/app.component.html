@@ -1,18 +1,40 @@
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-12 col-md-6 pt-3">
+
+    <div class="col-3 pt-3">
+      <h6>History</h6> 
+
+      <mat-nav-list>
+          <a mat-list-item 
+           *ngFor="let item of history"
+           (click)="selectHistory(item)"
+           [class.active]="selectedHistoryId == item.id"
+           >
+              {{item.key|slice:0:20}}
+              <mat-divider>
+                </mat-divider>
+          </a>
+          
+       </mat-nav-list>
+    </div>
+    <div class="col-9 col-md-6 pt-3">
       <div id="scrolling-container">
 
         <div id="editor-container">
         </div>
       </div>
+
+      <div class="row">
+          <div class="col-12">
+              <pre>
+                  <code #formattedCode [innerHTML]="code" >
+                  
+                  </code>
+                </pre>
+            </div>
+      </div>
+
     </div>
-    <div class="col-12 col-md-6">
-      <pre>
-          <code #formattedCode [innerHTML]="code" >
-          
-          </code>
-        </pre>
-    </div>
+   
   </div>
 </div>

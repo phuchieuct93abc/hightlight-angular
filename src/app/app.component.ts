@@ -1,3 +1,4 @@
+import { History } from './history.model';
 import Quill from 'quill';
 
 import { Component, OnInit, NgZone, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
@@ -10,6 +11,10 @@ import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 import java from 'highlight.js/lib/languages/java';
 import css from 'highlight.js/lib/languages/css';
+import getUuid from '../shared/uuid';
+
+
+
 @Component({
   selector: 'my-app',
   templateUrl: './app.component.html',
@@ -19,7 +24,9 @@ export class AppComponent implements OnInit {
 
   quill: Quill;
   code: string;
-  @ViewChild('formattedCode') formattedCode:ElementRef;
+  history: History[] = [];
+  selectedHistoryId:string;
+  @ViewChild('formattedCode') formattedCode: ElementRef;
 
 
   ngOnInit(): void {
@@ -33,10 +40,12 @@ export class AppComponent implements OnInit {
 
     this.enableQuill().pipe(debounceTime(500))
       .pipe(map(val => beauty(val)))
-      .subscribe(value => {
-        this.code = value;
-        this.formattedCode.nativeElement.className="";
-        setTimeout(()=>{
+      .subscribe(code => {
+
+        this.code = code;
+        this.updateHistory(code); this.formattedCode.nativeElement.className = "";
+       
+        setTimeout(() => {
 
           hljs.highlightBlock(this.formattedCode.nativeElement);
 
@@ -45,25 +54,37 @@ export class AppComponent implements OnInit {
   }
 
   enableQuill() {
-    let quill = new Quill('#editor-container', {
+    this.quill = new Quill('#editor-container', {
       modules: {
         "toolbar": false
       },
       placeholder: 'Paste code here',
-      theme: 'snow' 
+      theme: 'snow'
     });
     return new Observable(observer => {
-      quill.on('text-change', (delta, oldDelta, source) => {
-        observer.next(quill.getText())
+      this.quill.on('text-change', (delta, oldDelta, source) => {
+        observer.next(this.quill.getText())
 
       });
 
     })
+  }
+  selectHistory(history: History) {
 
-
-
-
+    this.quill.setText(history.code)
 
   }
+  updateHistory(code: string) {
+    let existedHistory = this.history.find(history=>history.code === code);
+    if(existedHistory==null){
+      let newHistory = new History(getUuid(), code)
+      this.selectedHistoryId = newHistory.id
+      this.history.unshift(newHistory);
+    }else{
+      this.selectedHistoryId = existedHistory.id;
+    }
+
+  }
+ 
 
 }
