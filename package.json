@@ -12,7 +12,6 @@
     "@angular/router": "^7.0.2",
     "@angular/cli": "~7.0.2",
     "@angular/compiler-cli": "~7.0.0",
-
     "core-js": "^2.5.7",
     "highlight.js": "^9.13.1",
     "hljs": "^6.2.3",
