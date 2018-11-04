@@ -1,33 +1,18 @@
- <div class="container">
-    <div class="row">
-      <div class="col-9">
-        <div class="form-group">
-          
-          <div id="editor-container" style=" height: 375px;">
-          </div>
-          <!-- <textarea class="form-control" rows="3" id="code"></textarea> -->
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-md-6 pt-3">
+      <div id="scrolling-container">
+
+        <div id="editor-container">
         </div>
       </div>
-      <div class="col-3">
-        <div class="form-group">
-         
-          <!-- <select class="form-control" id="language">
-            <option>java</option>
-            <option>js</option>
-          </select> -->
-        </div>
-        
-
-
-      </div>
-
     </div>
-   {{code}}
-    <pre>
-      <code #formattedCode [innerHTML]="code" >
-      
-      </code>
-    </pre>
-
-
+    <div class="col-12 col-md-6">
+      <pre>
+          <code #formattedCode [innerHTML]="code" >
+          
+          </code>
+        </pre>
+    </div>
   </div>
+</div>

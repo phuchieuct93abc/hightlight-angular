@@ -47,10 +47,10 @@ export class AppComponent implements OnInit {
   enableQuill() {
     let quill = new Quill('#editor-container', {
       modules: {
-
+        "toolbar": false
       },
       placeholder: 'Paste code here',
-      theme: 'snow'  // or 'bubble'
+      theme: 'snow' 
     });
     return new Observable(observer => {
       quill.on('text-change', (delta, oldDelta, source) => {
