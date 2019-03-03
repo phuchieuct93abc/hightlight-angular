@@ -2,7 +2,6 @@ import {AfterViewInit, Component, EventEmitter, Output} from '@angular/core';
 import Quill from 'quill';
 import {Observable} from "rxjs";
 import {debounceTime} from "rxjs/operators";
-import * as _ from 'lodash';
 
 @Component({
     selector: 'app-code-input',
@@ -37,7 +36,7 @@ export class CodeInputComponent implements AfterViewInit {
 
         return new Observable(observer => {
             this.quill.on('text-change', () => {
-                observer.next(_.escape(this.quill.getText()))
+                observer.next((this.quill.getText()))
             });
         })
 

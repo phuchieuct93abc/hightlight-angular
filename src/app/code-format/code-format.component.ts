@@ -6,6 +6,7 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import java from 'highlight.js/lib/languages/java';
 import css from 'highlight.js/lib/languages/css';
 import xml from 'highlight.js/lib/languages/xml';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-code-format',
@@ -16,6 +17,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     @Input()
     code: String;
+    escapedCode;
 
     @ViewChild('formattedCode')
     formattedCode: ElementRef<HTMLDivElement>;
@@ -36,13 +38,14 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
 
         if (!this.formattedCode) return;
+        this.escapedCode = _.escape(this.code)
         this.formattedCode.nativeElement.className = "";
 
         setTimeout(() => {
 
             hljs.highlightBlock(this.formattedCode.nativeElement);
 
-            this.code = (this.beauty((this.code), this.formattedCode.nativeElement.classList.item(1)))
+            this.escapedCode = (this.beauty((this.escapedCode), this.formattedCode.nativeElement.classList.item(1)))
             setTimeout(() => {
                 hljs.highlightBlock(this.formattedCode.nativeElement)
             })

@@ -4,13 +4,12 @@
         <div class="col-3 pt-3">
             <app-code-history (historySelected)="selectHistory($event)"></app-code-history>
         </div>
-        <div class="col-9 col-md-6 pt-3">
-            <app-code-input (onChange)="onCodeChange($event)"></app-code-input>
-
+        <div class="col pt-3">
             <div class="row">
-                <div class="col-12">
-                    <app-code-format [code]="code"></app-code-format>
-                </div>
+
+                <app-code-input (onChange)="onCodeChange($event)" class="col-6"></app-code-input>
+
+                <app-code-format [code]="code" class="col"></app-code-format>
             </div>
 
         </div>
