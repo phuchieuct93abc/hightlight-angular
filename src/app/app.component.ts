@@ -11,6 +11,7 @@ import hljs from 'highlight.js/lib/highlight';
 import javascript from 'highlight.js/lib/languages/javascript';
 import java from 'highlight.js/lib/languages/java';
 import css from 'highlight.js/lib/languages/css';
+import xml from 'highlight.js/lib/languages/xml';
 import getUuid from '../shared/uuid';
 
 
@@ -34,6 +35,8 @@ export class AppComponent implements OnInit {
     hljs.registerLanguage('javascript', javascript);
     hljs.registerLanguage('css', css);
     hljs.registerLanguage('java', java);
+    hljs.registerLanguage('html', xml);
+    hljs.registerLanguage('xml', xml);
 
 
     hljs.highlightBlock(this.formattedCode.nativeElement);
