@@ -1,16 +1,24 @@
-import { MaterialModule } from './material.module';
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import {MaterialModule} from './material.module';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {FormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {AppComponent} from './app.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {CodeInputComponent} from "./code-input/code-input.component";
+import {CodeHistoryComponent} from "./code-history/code-history.component";
+import {CodeFormatComponent} from "./code-format/code-format.component";
 
 @NgModule({
-  imports: [MaterialModule, BrowserModule, FormsModule, NgbModule, BrowserAnimationsModule],
-  exports: [MaterialModule],
-  declarations: [AppComponent],
-  bootstrap: [AppComponent]
+    imports: [MaterialModule, BrowserModule, FormsModule, NgbModule, BrowserAnimationsModule],
+    exports: [MaterialModule],
+    declarations: [
+        AppComponent,
+        CodeInputComponent,
+        CodeHistoryComponent,
+        CodeFormatComponent],
+    bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
