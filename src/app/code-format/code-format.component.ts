@@ -38,14 +38,14 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
 
         if (!this.formattedCode) return;
-        this.escapedCode = _.escape(this.code)
+        this.escapedCode = this.isHTML(this.code) ? _.escape(this.code) : this.code;
         this.formattedCode.nativeElement.className = "";
 
         setTimeout(() => {
 
             hljs.highlightBlock(this.formattedCode.nativeElement);
 
-            this.escapedCode = (this.beauty((this.escapedCode), this.formattedCode.nativeElement.classList.item(1)))
+            this.escapedCode = this.beauty(this.escapedCode, this.formattedCode.nativeElement.classList.item(1))
             setTimeout(() => {
                 hljs.highlightBlock(this.formattedCode.nativeElement)
             })
@@ -60,10 +60,15 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         if (lang == 'css') {
             beautify = beauty.css
         } else if (lang == 'html' || lang == 'xml') {
-            beautify = beauty.html
-            console.log('hyml')
+            beautify = beauty.html;
+
         }
         return beautify(val);
+    }
+
+    private isHTML(str) {
+        var doc = new DOMParser().parseFromString(str, "text/html");
+        return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
     }
 
 
