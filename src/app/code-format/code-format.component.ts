@@ -18,7 +18,8 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     @Input()
     code: String;
     escapedCode;
-
+    language: string;
+    copiedCode: string;
     @ViewChild('formattedCode')
     formattedCode: ElementRef<HTMLDivElement>;
 
@@ -45,30 +46,41 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
             hljs.highlightBlock(this.formattedCode.nativeElement);
 
-            this.escapedCode = this.beauty(this.escapedCode, this.formattedCode.nativeElement.classList.item(1))
+            this.language = this.getLanguage();
+            this.escapedCode = this.beauty(this.escapedCode)
             setTimeout(() => {
                 hljs.highlightBlock(this.formattedCode.nativeElement)
             })
+            this.copiedCode = _.unescape(this.escapedCode);
 
 
         })
 
     }
 
-    private beauty(val, lang): string {
+    private beauty(val): string {
         let beautify = beauty.js;
+        let lang = this.language;
         if (lang == 'css') {
             beautify = beauty.css
         } else if (lang == 'html' || lang == 'xml') {
             beautify = beauty.html;
 
         }
-        return beautify(val);
+
+        return beautify(val, {
+            'end_with_newline': true,
+            'jslint_happy': true
+        });
     }
 
     private isHTML(str) {
-        var doc = new DOMParser().parseFromString(str, "text/html");
+        let doc = new DOMParser().parseFromString(str, "text/html");
         return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
+    }
+
+    private getLanguage() {
+        return this.formattedCode.nativeElement.classList.item(1);
     }
 
 

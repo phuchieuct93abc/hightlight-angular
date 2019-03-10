@@ -1,15 +1,24 @@
-<div class="container-fluid">
-    <div class="row">
+<header>
+    <div class="content d-flex justify-content-center align-items-center flex-column position-absolute w-100 h-100">
+        <div class="display-4">HightlightJS</div>
+        <div class="mat-headline">Beautify and format code, usable in document offices (doc, powerpoint)</div>
+    </div>
+
+
+</header>
+<div class="container-fluid pt-2">
+
+    <div class="row content flex-nowrap">
 
         <div class="col-3 pt-3">
             <app-code-history (historySelected)="selectHistory($event)"></app-code-history>
         </div>
         <div class="col pt-3">
-            <div class="row">
+            <div class="row flex-nowrap">
 
                 <app-code-input (onChange)="onCodeChange($event)" class="col-6"></app-code-input>
 
-                <app-code-format [code]="code" class="col" style="overflow: auto"></app-code-format>
+                <app-code-format [code]="code" class="col-6"></app-code-format>
             </div>
 
         </div>

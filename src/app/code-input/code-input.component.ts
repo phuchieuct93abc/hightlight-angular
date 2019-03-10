@@ -6,7 +6,7 @@ import {debounceTime} from "rxjs/operators";
 @Component({
     selector: 'app-code-input',
     templateUrl: './code-input.component.html',
-    styleUrls: ['./code-input.component.css']
+    styleUrls: ['./code-input.component.scss']
 })
 export class CodeInputComponent implements AfterViewInit {
 

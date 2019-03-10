@@ -1,0 +1,13 @@
+#editor-container {
+  height: auto;
+  border: none;
+
+  ::ng-deep {
+    .ql-editor {
+      height: auto;
+      min-height: 200px;
+    }
+
+  }
+
+}
