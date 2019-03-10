@@ -22,9 +22,13 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     copiedCode: string;
     @ViewChild('formattedCode')
     formattedCode: ElementRef<HTMLDivElement>;
-
+    defaultOption:any;
 
     constructor() {
+        this.defaultOption = {
+            'end_with_newline': true,
+            'jslint_happy': true
+        }
     }
 
     ngOnInit() {
@@ -38,40 +42,41 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
 
-        if (!this.formattedCode) return;
-        this.escapedCode = this.isHTML(this.code) ? _.escape(this.code) : this.code;
+        if (!this.code) return;
+        this.escapedCode = this.code;
+        console.log(this.escapedCode)
         this.formattedCode.nativeElement.className = "";
 
         setTimeout(() => {
 
             hljs.highlightBlock(this.formattedCode.nativeElement);
 
-            this.language = this.getLanguage();
-            this.escapedCode = this.beauty(this.escapedCode)
+            this.escapedCode = this.beauty(this.code)
             setTimeout(() => {
                 hljs.highlightBlock(this.formattedCode.nativeElement)
             })
-            this.copiedCode = _.unescape(this.escapedCode);
-
+            this.language = this.getLanguage();
+            this.copiedCode = this.escapedCode;
+            console.log(this.copiedCode);
 
         })
 
     }
 
+
     private beauty(val): string {
         let beautify = beauty.js;
-        let lang = this.language;
+        let lang = this.getLanguage();
+
         if (lang == 'css') {
             beautify = beauty.css
-        } else if (lang == 'html' || lang == 'xml') {
+        } else if (lang == 'html' || lang == 'xml' || this.isHTML(val)) {
             beautify = beauty.html;
+            return (beautify(val,this.defaultOption));
 
         }
 
-        return beautify(val, {
-            'end_with_newline': true,
-            'jslint_happy': true
-        });
+        return beautify(val, this.defaultOption);
     }
 
     private isHTML(str) {
