@@ -32,13 +32,13 @@
   "scripts": {
     "ng": "ng",
     "serve": "ng serve",
-    "build": "ng build",
+    "build": "ng build --aot --prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ng build --aot",
     "start": "node index.js",
-    "deploy": "ng build && firebase deploy"
+    "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.10.7",
