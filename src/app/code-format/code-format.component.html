@@ -2,7 +2,7 @@
     <mat-card-header>
         <mat-card-title>
             <h4>Detected language: {{language}}</h4>
-            <button mat-raised-button ngxClipboard [cbContent]="copiedCode" color="primary">Copy</button>
+            <button mat-raised-button ngxClipboard [cbContent]="beautyCode" color="primary">Copy</button>
         </mat-card-title>
 
     </mat-card-header>
@@ -10,7 +10,7 @@
 
         <pre class="formatted-code">
 
-    <code #formattedCode [innerText]="escapedCode"></code>
+    <code #formattedCode [innerText]="beautyCode"></code>
 </pre>
 
     </mat-card-content>

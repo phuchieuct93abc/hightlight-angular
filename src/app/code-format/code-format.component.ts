@@ -6,7 +6,6 @@ import javascript from 'highlight.js/lib/languages/javascript';
 import java from 'highlight.js/lib/languages/java';
 import css from 'highlight.js/lib/languages/css';
 import xml from 'highlight.js/lib/languages/xml';
-import * as _ from 'lodash';
 
 @Component({
     selector: 'app-code-format',
@@ -17,17 +16,15 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     @Input()
     code: String;
-    escapedCode;
-    language: string;
-    copiedCode: string;
     @ViewChild('formattedCode')
     formattedCode: ElementRef<HTMLDivElement>;
-    defaultOption:any;
+    beautyCode: string;
+    language: string;
+    defaultOption: any;
 
     constructor() {
         this.defaultOption = {
-            'end_with_newline': true,
-            'jslint_happy': true
+            'end_with_newline': true
         }
     }
 
@@ -43,49 +40,42 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     ngOnChanges(changes: SimpleChanges) {
 
         if (!this.code) return;
-        this.escapedCode = this.code;
-        console.log(this.escapedCode)
-        this.formattedCode.nativeElement.className = "";
+        this.resetLanguage();
+        this.language = this.detectLanguage();
+        this.beautyCode = this.beauty(this.code, this.language);
+        this.highlight();
 
-        setTimeout(() => {
-
-            hljs.highlightBlock(this.formattedCode.nativeElement);
-
-            this.escapedCode = this.beauty(this.code)
-            setTimeout(() => {
-                hljs.highlightBlock(this.formattedCode.nativeElement)
-            })
-            this.language = this.getLanguage();
-            this.copiedCode = this.escapedCode;
-            console.log(this.copiedCode);
-
-        })
 
     }
 
 
-    private beauty(val): string {
+    private resetLanguage() {
+        this.formattedCode.nativeElement.className = "";
+    }
+
+    private beauty(val, lang): string {
         let beautify = beauty.js;
-        let lang = this.getLanguage();
 
         if (lang == 'css') {
             beautify = beauty.css
-        } else if (lang == 'html' || lang == 'xml' || this.isHTML(val)) {
+        } else if (lang == 'html' || lang == 'xml') {
             beautify = beauty.html;
-            return (beautify(val,this.defaultOption));
 
         }
 
         return beautify(val, this.defaultOption);
     }
 
-    private isHTML(str) {
-        let doc = new DOMParser().parseFromString(str, "text/html");
-        return Array.from(doc.body.childNodes).some(node => node.nodeType === 1);
+    private detectLanguage() {
+        return hljs.highlightAuto(this.code).language;
     }
 
-    private getLanguage() {
-        return this.formattedCode.nativeElement.classList.item(1);
+    private highlight() {
+        setTimeout(() => {
+            hljs.highlightBlock(this.formattedCode.nativeElement);
+
+
+        })
     }
 
 

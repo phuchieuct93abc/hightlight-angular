@@ -1,24 +1,14 @@
-
 <mat-card class="sticky-header">
     <mat-card-header>
-        <mat-card-title>
-            History
-        </mat-card-title>
-
+        <mat-card-title> History </mat-card-title>
     </mat-card-header>
     <mat-card-content>
-
         <mat-nav-list>
-            <a mat-list-item
-               *ngFor="let item of history"
+            <a mat-list-item *ngFor="let item of history"
                (click)="selectHistory(item)"
-               [class.active]="selectedHistoryId == item.id"
-            >
-                {{item.key|slice:0:20}}
-                <mat-divider>
-                </mat-divider>
+               [class.active]="selectedHistoryId == item.id"> {{item.key|slice:0:20}}
+                <mat-divider></mat-divider>
             </a>
-
         </mat-nav-list>
     </mat-card-content>
 </mat-card>
