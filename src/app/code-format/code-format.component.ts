@@ -45,6 +45,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         if (!this.code) return;
         console.log(this.code)
         this.resetLanguage();
+
         this.detectedLanguage = this.detectLanguage();
         this.beautyCode = this.beauty(this.code, this.detectedLanguage);
         this.highlight();

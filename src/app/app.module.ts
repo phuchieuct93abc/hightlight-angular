@@ -10,15 +10,19 @@ import {CodeInputComponent} from "./code-input/code-input.component";
 import {CodeHistoryComponent} from "./code-history/code-history.component";
 import {CodeFormatComponent} from "./code-format/code-format.component";
 import {ClipboardModule} from "ngx-clipboard";
+import {MatFileUploadModule} from "angular-material-fileupload";
+import {ImageRecognizationComponent} from "./code-input/image-recognization/image-recognization.component";
 
 @NgModule({
-    imports: [MaterialModule, BrowserModule, FormsModule, NgbModule, BrowserAnimationsModule,ClipboardModule],
+    imports: [MaterialModule, BrowserModule, FormsModule, NgbModule, BrowserAnimationsModule, ClipboardModule, MatFileUploadModule],
     exports: [MaterialModule],
     declarations: [
         AppComponent,
         CodeInputComponent,
         CodeHistoryComponent,
-        CodeFormatComponent],
+        CodeFormatComponent,
+        ImageRecognizationComponent
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
