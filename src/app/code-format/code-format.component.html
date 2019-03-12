@@ -1,16 +1,21 @@
 <mat-card class="sticky-header">
-    <mat-card-header>
-        <mat-card-title>
-            <h4>Detected language: {{language}}</h4>
-            <button mat-raised-button ngxClipboard [cbContent]="beautyCode" color="primary">Copy</button>
-        </mat-card-title>
-
-    </mat-card-header>
     <mat-card-content>
+        <mat-form-field>
+            <mat-select placeholder="Language" [(ngModel)]="selectedLanguage" (ngModelChange)="applyHighlightCode()">
 
+                <mat-option *ngFor="let language of languages"
+                            [value]="language">{{language}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="selectedLanguage === 'auto'">Detected Language: <strong>{{detectedLanguage}}</strong></div>
+
+
+        <mat-divider class="clearfix"></mat-divider>
+        <button class="float-right" mat-raised-button ngxClipboard [cbContent]="beautyCode" color="primary">Copy
+        </button>
         <pre class="formatted-code">
 
-    <code #formattedCode [innerText]="beautyCode"></code>
+    <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}}"></code>
 </pre>
 
     </mat-card-content>

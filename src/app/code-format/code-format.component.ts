@@ -18,9 +18,12 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     code: String;
     @ViewChild('formattedCode')
     formattedCode: ElementRef<HTMLDivElement>;
-    beautyCode: string;
-    language: string;
+    beautyCode='';
+    selectedLanguage = 'auto';
     defaultOption: any;
+    languages: string[];
+    detectedLanguage: string;
+
 
     constructor() {
         this.defaultOption = {
@@ -29,23 +32,27 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
+
         hljs.registerLanguage('javascript', javascript);
         hljs.registerLanguage('css', css);
         hljs.registerLanguage('java', java);
         hljs.registerLanguage('html', xml);
         hljs.registerLanguage('xml', xml);
+        this.languages = ['auto', 'java', 'javascript', 'html', 'css']
+    }
 
+    applyHighlightCode() {
+        if (!this.code) return;
+        console.log(this.code)
+        this.resetLanguage();
+        this.detectedLanguage = this.detectLanguage();
+        this.beautyCode = this.beauty(this.code, this.detectedLanguage);
+        this.highlight();
     }
 
     ngOnChanges(changes: SimpleChanges) {
 
-        if (!this.code) return;
-        this.resetLanguage();
-        this.language = this.detectLanguage();
-        this.beautyCode = this.beauty(this.code, this.language);
-        this.highlight();
-
-
+        this.applyHighlightCode();
     }
 
 
@@ -67,7 +74,11 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     }
 
     private detectLanguage() {
-        return hljs.highlightAuto(this.code).language;
+        if (this.selectedLanguage == 'auto') {
+
+            return hljs.highlightAuto(this.code).language;
+        }
+        return this.selectedLanguage;
     }
 
     private highlight() {
