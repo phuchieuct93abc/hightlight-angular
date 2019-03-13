@@ -11,11 +11,27 @@
 
 
         <mat-divider class="clearfix"></mat-divider>
-        <button class="float-right" mat-raised-button ngxClipboard [cbContent]="beautyCode" color="primary">Copy
+
+        <div></div>
+        <div class="alert alert-warning mt-2" role="alert">
+            Now, we can copy & paste with formatting in Evernote;
+            Please use copy button below
+            thank ku @Cuong
+
+        </div>
+
+        <mat-divider class="clearfix"></mat-divider>
+        <button (click)="onCopy()" class="float-right" mat-raised-button color="primary">Copy
         </button>
         <pre class="formatted-code">
 
     <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}}"></code>
+</pre>
+
+
+        <pre class="formatted-code d-none">
+
+    <code #formattedCodeCope [innerText]="beautyCodeCopy" class="{{detectedLanguage}}"></code>
 </pre>
 
     </mat-card-content>

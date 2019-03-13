@@ -26,9 +26,8 @@ export class ImageRecognizationComponent implements OnInit {
 
         reader.readAsDataURL(file[0]);
         // @ts-ignore
-        Tesseract.recognize(file[0])
+        Tesseract.recognize(file[0],{lang:'eng'})
             .progress(function (p) {
-                console.log('progress', p)
             })
             .then(result => {
                 this.uploading = false;
