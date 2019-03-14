@@ -12,21 +12,29 @@ export class ImageRecognizationComponent implements OnInit {
     uploading = false;
     thumbnail: string | ArrayBuffer;
 
+
     constructor() {
     }
 
     ngOnInit() {
     }
 
+    setImage(imageBase64: string) {
+        this.thumbnail = imageBase64;
+        this.extractImage(imageBase64);
+    }
+
 
     onFileSelected(file: File[]) {
-        this.uploading = true;
-        const reader = new FileReader();
-        reader.onload = e => this.thumbnail = reader.result;
+        this.convertFileToThumbnail(file[0]);
+        this.extractImage(file[0]);
+    }
 
-        reader.readAsDataURL(file[0]);
+    private extractImage(image: File | string) {
+        this.uploading = true;
+
         // @ts-ignore
-        Tesseract.recognize(file[0],{lang:'eng'})
+        Tesseract.recognize(image, {lang: 'eng'})
             .progress(function (p) {
             })
             .then(result => {
@@ -35,5 +43,12 @@ export class ImageRecognizationComponent implements OnInit {
 
 
             })
+    }
+
+    private convertFileToThumbnail(file: File) {
+        const reader = new FileReader();
+        reader.onload = e => this.thumbnail = reader.result;
+
+        reader.readAsDataURL(file);
     }
 }
