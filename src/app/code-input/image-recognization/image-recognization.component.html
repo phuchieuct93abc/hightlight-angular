@@ -1,13 +1,12 @@
 <div class="alert alert-primary" role="alert">
-    <strong>Or you can upload image file to extract code</strong>
+    Or you can upload image file to extract code
 </div>
 <input matRipple id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue"
        (onFileSelected)="onFileSelected($event)"/>
 <mat-spinner *ngIf="uploading" class="spinner"></mat-spinner>
 
 <mat-file-upload-queue #fileUploadQueue class="d-none"
-                       [fileAlias]="'file'"
-                       [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+                       [fileAlias]="'file'">
 
     <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
 </mat-file-upload-queue>
