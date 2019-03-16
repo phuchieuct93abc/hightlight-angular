@@ -1,7 +1,7 @@
 <mat-card class="sticky-header">
     <mat-card-content>
         <mat-form-field>
-            <mat-select placeholder="Language" [(ngModel)]="selectedLanguage" (ngModelChange)="applyHighlightCode()">
+            <mat-select placeholder="Language" [(ngModel)]="selectedLanguage" (ngModelChange)="onChangeLanguage()">
 
                 <mat-option *ngFor="let language of languages"
                             [value]="language">{{language}}</mat-option>

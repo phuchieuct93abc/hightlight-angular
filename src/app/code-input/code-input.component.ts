@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {debounceTime} from "rxjs/operators";
 import {ImageDrop} from 'quill-image-drop-module';
 import {ImageRecognizationComponent} from "./image-recognization/image-recognization.component";
+import {CodeFormatterService} from "../../shared/code-formatter.service";
 
 
 @Component({
@@ -20,10 +21,20 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     imageRecognize: ImageRecognizationComponent;
 
     quill: Quill;
+    previousCode: string;
 
-    constructor() {
+    constructor(private codeFormatter: CodeFormatterService) {
         this.enableCopyFromCLipboard();
     }
+
+    ngOnInit(): void {
+        Quill.register('modules/imageDrop', ImageDrop);
+        this.codeFormatter.onSelectLanguage.subscribe(()=>{
+            this.setText(this.codeFormatter.beautify(this.quill.getText()))
+        })
+
+    }
+
 
     private enableCopyFromCLipboard() {
         var IMAGE_MIME_REGEX = /^image\/(p?jpeg|gif|png)$/i;
@@ -95,14 +106,16 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     ngAfterViewInit(): void {
         this.enableQuill().pipe(debounceTime(500))
             .subscribe((code: string) => {
-                this.onChange.emit(code);
+                if (code == this.previousCode) {
+                    this.onChange.emit(code);
+
+                } else {
+                    this.previousCode = code;
+                    this.setText(this.codeFormatter.beautify(code));
+                }
             })
     }
 
-    ngOnInit(): void {
-        Quill.register('modules/imageDrop', ImageDrop);
-
-    }
 
 
 }
