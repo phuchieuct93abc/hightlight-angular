@@ -68,7 +68,6 @@ export class CodeFormatterService {
     }
 
     clearBeauty(afterBeauty: string) {
-        console.log(this.originalCode, afterBeauty)
         return this.originalCode[afterBeauty] ? this.originalCode[afterBeauty] : afterBeauty;
     }
 

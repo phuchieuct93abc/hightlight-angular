@@ -30,7 +30,7 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     ngOnInit(): void {
         Quill.register('modules/imageDrop', ImageDrop);
         this.codeFormatter.onSelectLanguage.subscribe(()=>{
-            this.setText(this.codeFormatter.beautify(this.quill.getText()))
+            //this.setText(this.codeFormatter.beautify(this.quill.getText()))
         })
 
     }
@@ -104,15 +104,16 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     }
 
     ngAfterViewInit(): void {
-        this.enableQuill().pipe(debounceTime(500))
-            .subscribe((code: string) => {
-                if (code == this.previousCode) {
-                    this.onChange.emit(code);
-
-                } else {
-                    this.previousCode = code;
-                    this.setText(this.codeFormatter.beautify(code));
-                }
+        this.enableQuill().subscribe((code: string) => {
+                this.onChange.emit(code);
+                //
+                // if (code == this.previousCode) {
+                //     this.onChange.emit(code);
+                //
+                // } else {
+                //     this.previousCode = code;
+                //     this.setText(this.codeFormatter.beautify(code));
+                // }
             })
     }
 

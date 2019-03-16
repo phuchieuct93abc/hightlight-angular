@@ -45,7 +45,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
         this.detectedLanguage = this.codeFormatter.detectLanguage(this.code);
         this.codeFormatter.changeLanguage(this.detectedLanguage);
-        this.beautyCode = this.code;
+        this.beautyCode = this.codeFormatter.beautify(this.code);
         this.beautyCodeCopy = this.codeFormatter.beautify(this.code, true);
         this.highlight();
     }
