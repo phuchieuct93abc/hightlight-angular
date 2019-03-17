@@ -17,6 +17,7 @@ export class CodeFormatterService {
     originalCode = {};
 
     constructor() {
+        hljs.configure({ useBR: true })
         hljs.registerLanguage('javascript', javascript);
         hljs.registerLanguage('css', css);
         hljs.registerLanguage('java', java);
@@ -45,7 +46,7 @@ export class CodeFormatterService {
         if (isChangeIndent) {
             option = {
                 "indent_size": 4,
-                "indent_char": "-",
+                "indent_char": " ",
                 "indent_with_tabs": false,
             };
         }

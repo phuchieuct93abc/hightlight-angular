@@ -9,11 +9,10 @@ export class CopyService {
     constructor() {
     }
 
-    copyHtml(innerHTML: string) {
-        var dt = new clipboard.DT();
-        var html = innerHTML.replace(/----/g, "&nbsp;&nbsp;&nbsp;&nbsp;")
-            .replace(/<bra>/g, "")
+    copyHtml(innerHTML: string):Promise<void> {
+        let dt = new clipboard.DT();
+        let html = innerHTML.trim().replace(/    /g, "&nbsp;&nbsp;&nbsp;&nbsp;")
         dt.setData("text/html", html)
-        clipboard.write(dt);
+        return clipboard.write(dt);
     }
 }

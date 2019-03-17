@@ -70,8 +70,9 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     onCopy() {
         let element = this.formattedCodeCope.nativeElement.parentElement;
         this.cssService.inlineCSS(element)
-        this.copyService.copyHtml(element.innerHTML);
-        this.snackBar.open("Copied code successful", null, {duration: 2000})
+        this.copyService.copyHtml(element.innerHTML).then(()=>{
+            this.snackBar.open("Copied code successful", null, {duration: 2000})
+        });
     }
 
     onChangeLanguage() {
