@@ -2,6 +2,8 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {History} from "../history.model";
 import getUuid from "../../shared/uuid";
 import {StorageService} from "../../shared/storage.service";
+import {Subject, timer} from "rxjs";
+import {debounce} from "rxjs/operators";
 
 @Component({
     selector: 'app-code-history',
@@ -14,35 +16,40 @@ export class CodeHistoryComponent implements OnInit {
 
 
     @Output()
-    historySelected = new EventEmitter<History>()
+    historySelected = new EventEmitter<History>();
+
+    updateHistoryDebounce = new Subject<string>();
 
     constructor(private storage: StorageService) {
+
     }
 
     ngOnInit() {
         this.history = this.storage.load("history") || [];
+        this.updateHistoryDebounce.pipe(debounce(() => timer(1000))).subscribe((code: string) => {
+            if (code.trim() == '') {
+                return;
+            }
+            let existedHistory = this.history.find(history => history.code === code);
+            if (existedHistory == null) {
+                let sameHistory = this.findSameHistory(code);
+                if (sameHistory) {
+                    this.selectedHistoryId = sameHistory.id
+                } else {
+                    this.updateNewHistory(code);
+                }
 
+
+            } else {
+                this.selectedHistoryId = existedHistory.id;
+            }
+            this.storage.save("history", this.history);
+        })
 
     }
 
     public updateHistory(code: string) {
-        if (code.trim() == '') {
-            return;
-        }
-        let existedHistory = this.history.find(history => history.code === code);
-        if (existedHistory == null) {
-            let sameHistory = this.findSameHistory(code);
-            if (sameHistory) {
-                this.selectedHistoryId = sameHistory.id
-            } else {
-                this.updateNewHistory(code);
-            }
-
-
-        } else {
-            this.selectedHistoryId = existedHistory.id;
-        }
-        this.storage.save("history", this.history);
+        this.updateHistoryDebounce.next(code);
 
     }
 

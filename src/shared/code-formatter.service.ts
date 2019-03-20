@@ -14,7 +14,6 @@ export class CodeFormatterService {
 
     currentLanguage = 'auto';
     onSelectLanguage = new Subject<string>();
-    originalCode = {};
 
     constructor() {
         hljs.configure({ useBR: true })
@@ -50,9 +49,7 @@ export class CodeFormatterService {
                 "indent_with_tabs": false,
             };
         }
-        let originalCode = this.clearBeauty(code);
-        let result = beautify(originalCode, option);
-        this.originalCode[result] = originalCode;
+        let result = beautify(code, option);
         return result;
 
     }
@@ -68,8 +65,6 @@ export class CodeFormatterService {
         })
     }
 
-    clearBeauty(afterBeauty: string) {
-        return this.originalCode[afterBeauty] ? this.originalCode[afterBeauty] : afterBeauty;
-    }
+
 
 }
