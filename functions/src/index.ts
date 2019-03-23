@@ -2,9 +2,10 @@ import * as functions from 'firebase-functions';
 import * as vision from '@google-cloud/vision';
 
 export const extractText = functions.https.onRequest((request, response) => {
-    console.log()
+    response.set('Access-Control-Allow-Origin', "*")
+    response.set('Access-Control-Allow-Methods', 'GET, POST');
     quickstart(request.body).then(mes => {
-        response.send(mes)
+        response.send({text:mes})
     }).catch(error => {
         response.send(error)
     })

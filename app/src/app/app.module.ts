@@ -12,9 +12,10 @@ import {CodeFormatComponent} from "./code-format/code-format.component";
 import {ClipboardModule} from "ngx-clipboard";
 import {MatFileUploadModule} from "angular-material-fileupload";
 import {ImageRecognizationComponent} from "./code-input/image-recognization/image-recognization.component";
+import {HttpClientModule} from "@angular/common/http";
 
 @NgModule({
-    imports: [MaterialModule, BrowserModule, FormsModule, NgbModule, BrowserAnimationsModule, ClipboardModule, MatFileUploadModule],
+    imports: [MaterialModule, BrowserModule, FormsModule, NgbModule, BrowserAnimationsModule, ClipboardModule, MatFileUploadModule, HttpClientModule],
     exports: [MaterialModule],
     declarations: [
         AppComponent,
