@@ -1,5 +1,6 @@
 {
   "projects": {
-    "highlight": "thai-601b6"
+    "highlight": "thai-601b6",
+    "default": "thai-601b6"
   }
 }

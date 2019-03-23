@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/demo",
+    "public": "app/dist/demo",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -12,5 +12,8 @@
         "destination": "/index.html"
       }
     ]
+  },
+  "functions": {
+    "predeploy": "npm --prefix \"$RESOURCE_DIR\" run build"
   }
 }
