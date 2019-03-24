@@ -5,19 +5,20 @@
 @import "~animate.css/animate.css";
 
 body .hljs {
-    background-color: transparent;
+  background-color: transparent;
 
 }
 
 body {
+  background-color: #fafafa;
 
-.sticky-header {
+  .sticky-header {
     padding-top: 1em;
     position: sticky;
     top: 0;
     background-color: white;
 
-}
+  }
 
 
 }

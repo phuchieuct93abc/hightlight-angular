@@ -60,6 +60,7 @@ export class CodeHistoryComponent implements OnInit {
     }
 
     selectHistory(history: History) {
+        this.selectedHistoryId = history.id
         this.historySelected.emit(history);
 
     }

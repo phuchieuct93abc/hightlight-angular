@@ -6,22 +6,31 @@
 
 
 </header>
-<div class="container-fluid pt-2">
+<div class="container-fluid pt-2 flex-fill">
 
-    <div class="row content flex-nowrap">
+    <div class="row content flex-nowrap h-100">
 
-        <div class="col-3 pt-3">
-            <app-code-history (historySelected)="selectHistory($event)"></app-code-history>
-        </div>
-        <div class="col pt-3">
-            <div class="row flex-nowrap">
+        <mat-sidenav-container class="w-100">
+            <mat-sidenav mode="side" [opened]="isOpenHistory">
+                <app-code-history (historySelected)="selectHistory($event)"></app-code-history>
+                <a mat-button class="close-history">
+                    <mat-icon color="primary" (click)="isOpenHistory = false">close</mat-icon>
+                </a>
+            </mat-sidenav>
 
-                <app-code-input (onChange)="onCodeChange($event)" class="col-6"></app-code-input>
+            <mat-sidenav-content>
+                <a mat-button (click)="isOpenHistory = true" *ngIf="!isOpenHistory">
+                    Open history
+                </a>
+                <div class="row flex-nowrap mx-2">
 
-                <app-code-format [code]="code" class="col-6"></app-code-format>
-            </div>
+                    <app-code-input (onChange)="onCodeChange($event)" class="col-6"></app-code-input>
 
-        </div>
+                    <app-code-format [code]="code" class="col-6"></app-code-format>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+
 
     </div>
 </div>

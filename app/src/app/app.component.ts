@@ -5,6 +5,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 
 import {CodeInputComponent} from "./code-input/code-input.component";
 import {CodeHistoryComponent} from "./code-history/code-history.component";
+import {MatSidenav} from "@angular/material";
 
 
 @Component({
@@ -20,7 +21,10 @@ export class AppComponent implements OnInit {
     codeInput: CodeInputComponent;
     @ViewChild(CodeHistoryComponent)
     codeHistory: CodeHistoryComponent;
+    @ViewChild(MatSidenav)
+    sideNav:MatSidenav;
 
+    isOpenHistory = true;
 
     ngOnInit(): void {
     }
@@ -41,5 +45,9 @@ export class AppComponent implements OnInit {
         this.code = (code);
         this.updateHistory(code);
 
+    }
+
+    closeHistory() {
+       this.isOpenHistory = false;
     }
 }

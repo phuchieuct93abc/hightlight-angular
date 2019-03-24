@@ -12,3 +12,15 @@ header {
   }
 
 }
+
+:host{
+  display: flex;
+  /* display: block; */
+  height: 100vh;
+  flex-direction: column;
+}
+.close-history{
+  position: absolute;
+  right: 0;
+  top: 0;
+}
