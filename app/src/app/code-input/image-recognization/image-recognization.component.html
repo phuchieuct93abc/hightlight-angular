@@ -1,24 +1,27 @@
-<div class="alert alert-primary" role="alert">
-
-</div>
-<file-drop  (onFileDrop)="dropped($event)"
+<file-drop class="file-drop mb-2"
+           (onFileDrop)="dropped($event)"
            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)"
-            [class.isDragging]="isDragging"
+           [class.isDragging]="isDragging"
+           (click)="uploadInput.click()"
 >
-    <span>Drop file to instantly extract code</span>
-    <!--<span class="drag">-->
-        <!--<img src="../../../assets/upload.png" class="upload-img"/>-->
-        <!---->
-    <!--</span>-->
+    <span class="drag">
+        <img [class.animated]="isDragging"
+
+
+             src="../../../assets/upload.png" class="upload-img  infinite "/>
+        <span>Drop file to instantly extract code</span>
+
+    </span>
 
 
 </file-drop>
-<ng-template #placeholder>
-    <span>Or you can upload image file to extract code</span>
-</ng-template>
-<!--<input matRipple id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue"-->
-       <!--(onFileSelected)="onFileSelected($event)"/>-->
 
+<input #uploadInput matRipple id="singleFile" type="file"  class="d-none" [fileUploadInputFor]="fileUploadQueue"
+       (onFileSelected)="onFileSelected($event)"/>
+<mat-file-upload-queue #fileUploadQueue class="d-none"
+                       [fileAlias]="'file'">
+
+</mat-file-upload-queue>
 <mat-spinner *ngIf="uploading" class="spinner"></mat-spinner>
 
 

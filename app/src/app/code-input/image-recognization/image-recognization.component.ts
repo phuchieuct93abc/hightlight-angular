@@ -1,12 +1,18 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TextExtractorService} from "../../../shared/text-extractor.service";
 import {Observable} from "rxjs";
-import {FileSystemDirectoryEntry, FileSystemFileEntry, UploadEvent, UploadFile} from "ngx-file-drop";
+import {FileSystemFileEntry, UploadEvent, UploadFile} from "ngx-file-drop";
+import {bounce} from "ng-animate";
+import {transition, trigger, useAnimation} from "@angular/animations";
 
 @Component({
     selector: 'app-image-recognization',
     templateUrl: './image-recognization.component.html',
-    styleUrls: ['./image-recognization.component.scss']
+    styleUrls: ['./image-recognization.component.scss'],
+    animations: [
+        trigger('bounce', [
+            transition('* => *', useAnimation(bounce, {}))])
+    ],
 })
 export class ImageRecognizationComponent implements OnInit {
 
@@ -30,7 +36,9 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
 
+
     onFileSelected(file: File[]) {
+        console.log(1)
         this.convertFileToThumbnail(file[0]).subscribe(data => {
             this.thumbnail = data;
             this.extractImage(data);
@@ -64,6 +72,7 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
     public dropped(event: UploadEvent) {
+        this.isDragging = false;
         this.files = event.files;
         for (const droppedFile of event.files) {
 
@@ -75,7 +84,7 @@ export class ImageRecognizationComponent implements OnInit {
 
                 });
             } else {
-               console.log("folder");
+                console.log("folder");
             }
         }
     }
