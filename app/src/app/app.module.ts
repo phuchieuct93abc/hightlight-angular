@@ -13,9 +13,18 @@ import {ClipboardModule} from "ngx-clipboard";
 import {MatFileUploadModule} from "angular-material-fileupload";
 import {ImageRecognizationComponent} from "./code-input/image-recognization/image-recognization.component";
 import {HttpClientModule} from "@angular/common/http";
+import {FileDropModule} from "ngx-file-drop";
 
 @NgModule({
-    imports: [MaterialModule, BrowserModule, FormsModule, NgbModule, BrowserAnimationsModule, ClipboardModule, MatFileUploadModule, HttpClientModule],
+    imports: [MaterialModule,
+        BrowserModule,
+        FormsModule,
+        NgbModule,
+        BrowserAnimationsModule,
+        ClipboardModule,
+        MatFileUploadModule,
+        HttpClientModule,
+        FileDropModule],
     exports: [MaterialModule],
     declarations: [
         AppComponent,

@@ -1,6 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TextExtractorService} from "../../../shared/text-extractor.service";
 import {Observable} from "rxjs";
+import {FileSystemDirectoryEntry, FileSystemFileEntry, UploadEvent, UploadFile} from "ngx-file-drop";
 
 @Component({
     selector: 'app-image-recognization',
@@ -13,6 +14,8 @@ export class ImageRecognizationComponent implements OnInit {
     onSelectedImage = new EventEmitter<string>();
     uploading = false;
     thumbnail: string | ArrayBuffer;
+    public files: UploadFile[] = [];
+    isDragging = false;
 
 
     constructor(private textExtractor: TextExtractorService) {
@@ -58,6 +61,34 @@ export class ImageRecognizationComponent implements OnInit {
             reader.readAsDataURL(file);
         })
 
+    }
+
+    public dropped(event: UploadEvent) {
+        this.files = event.files;
+        for (const droppedFile of event.files) {
+
+            // Is it a file?
+            if (droppedFile.fileEntry.isFile) {
+                const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+                fileEntry.file((file: File) => {
+                    this.onFileSelected([file]);
+
+                });
+            } else {
+               console.log("folder");
+            }
+        }
+    }
+
+    public fileOver(event) {
+        console.log('over')
+        this.isDragging = true
+    }
+
+    public fileLeave(event) {
+        console.log('leacve')
+
+        this.isDragging = false;
     }
 
 

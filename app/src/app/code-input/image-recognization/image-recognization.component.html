@@ -1,14 +1,26 @@
 <div class="alert alert-primary" role="alert">
-    Or you can upload image file to extract code
+
 </div>
-<input matRipple id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue"
-       (onFileSelected)="onFileSelected($event)"/>
+<file-drop  (onFileDrop)="dropped($event)"
+           (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)"
+            [class.isDragging]="isDragging"
+>
+    <span>Drop file to instantly extract code</span>
+    <!--<span class="drag">-->
+        <!--<img src="../../../assets/upload.png" class="upload-img"/>-->
+        <!---->
+    <!--</span>-->
+
+
+</file-drop>
+<ng-template #placeholder>
+    <span>Or you can upload image file to extract code</span>
+</ng-template>
+<!--<input matRipple id="singleFile" type="file" [fileUploadInputFor]="fileUploadQueue"-->
+       <!--(onFileSelected)="onFileSelected($event)"/>-->
+
 <mat-spinner *ngIf="uploading" class="spinner"></mat-spinner>
 
-<mat-file-upload-queue #fileUploadQueue class="d-none"
-                       [fileAlias]="'file'">
 
-    <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
-</mat-file-upload-queue>
 <img class="w-100" id="blah" *ngIf="thumbnail" [src]="thumbnail" alt="thmubnail"/>
 
