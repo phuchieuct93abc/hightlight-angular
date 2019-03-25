@@ -28,13 +28,13 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
     ngOnInit() {
+
     }
 
     setImage(imageBase64: string) {
         this.thumbnail = imageBase64;
         this.extractImage(imageBase64);
     }
-
 
 
     onFileSelected(file: File[]) {
@@ -50,14 +50,23 @@ export class ImageRecognizationComponent implements OnInit {
 
         this.uploading = true;
 
-        this.textExtractor.extracText(image.split(',')[1]).subscribe(result => {
-            console.log("run with google clould vision");
-            this.uploading = false;
-            this.onSelectedImage.emit(result.replace(/\u2013|\u2014/g, "-"))
+        this.textExtractor.extracTextByGoogleVision(image).subscribe(result1 => {
+
+
+            this.textExtractor.extractTextByTesseract(image).subscribe(result2 => {
+                let result = this.textExtractor.collectIgnoredCharacter(result2, result1);
+
+                this.uploading = false;
+                this.onSelectedImage.emit(result.replace(/\u2013|\u2014/g, "-").replace(/“/g, "\""))
+
+
+            })
+
+
         })
 
-
     }
+
 
     private convertFileToThumbnail(file: File): Observable<string> {
         return new Observable(resolver => {
