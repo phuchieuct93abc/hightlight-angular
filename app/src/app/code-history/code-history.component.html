@@ -1,6 +1,6 @@
 <nz-dropdown [nzClickHide]="false" [nzPlacement]="'bottomLeft'">
     <button nz-button nz-dropdown>History</button>
-    <ul nz-menu>
+    <ul nz-menu class="histories">
         <li nz-menu-item *ngFor="let item of history"
             (click)="selectHistory(item)">
             <a
