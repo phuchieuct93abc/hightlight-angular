@@ -1,34 +1,18 @@
 <nz-form-item>
-  <nz-form-label>Theme</nz-form-label>
-  <nz-form-control>
-    <button
-            nz-button
-            nz-popover
-            nzTitle="Select theme"
-            [nzContent]="contentTemplate"
-            nzTrigger="click"
-            nzPlacement="top"
-            nzOverlayClassName="theme-chooser"
-            [(nzVisible)]="visible"
-    >{{selectedTheme}}
+    <nz-form-label>Theme</nz-form-label>
+    <nz-form-control>
+        <nz-dropdown nzPlacement="top" nzOverlayClassName="theme-chooser">
+            <button nz-button nz-dropdown><span>{{selectedTheme}}</span> <i nz-icon type="down"></i></button>
+            <ul nz-menu nzSelectable>
 
-    </button>
-  </nz-form-control>
-  <ng-template #contentTemplate>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-4 py-1 px-1" *ngFor="let theme of themes">
-          <button nz-button nzType="default" [nzBlock]="true" class="theme-btn" (click)="onSelectTheme(theme)">
-
-
-
-            <img src="../../assets/theme/{{theme}}.png"/>
-            <div class="text-align-center">{{theme}}</div>
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </ng-template>
+                <li nz-menu-item class="col-4 p-2 d-inline-block" *ngFor="let theme of themes"
+                    (click)="onSelectTheme(theme)">
+                    <img src="../../assets/theme/{{theme}}.png"/>
+                    <div class="text-center">{{theme}}</div>
+                </li>
+            </ul>
+        </nz-dropdown>
+    </nz-form-control>
 
 </nz-form-item>
+
