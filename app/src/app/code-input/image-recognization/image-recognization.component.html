@@ -9,21 +9,20 @@
 
 
              src="../../../assets/upload.png" class="upload-img  infinite "/>
-        <span>Drop file to instantly extract code</span>
+        <span>Update image to extract code</span>
+<nz-spin nzSimple [nzSize]="'large'" *ngIf="uploading"></nz-spin>
 
     </span>
 
 
 </file-drop>
 
-<input #uploadInput matRipple id="singleFile" type="file"  class="d-none" [fileUploadInputFor]="fileUploadQueue"
+<input #uploadInput matRipple id="singleFile" type="file" class="d-none" [fileUploadInputFor]="fileUploadQueue"
        (onFileSelected)="onFileSelected($event)"/>
 <mat-file-upload-queue #fileUploadQueue class="d-none"
                        [fileAlias]="'file'">
 
 </mat-file-upload-queue>
-<mat-spinner *ngIf="uploading" class="spinner"></mat-spinner>
-
 
 <img class="w-100" id="blah" *ngIf="thumbnail" [src]="thumbnail" alt="thmubnail"/>
 

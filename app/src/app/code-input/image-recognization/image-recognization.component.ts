@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {FileSystemFileEntry, UploadEvent, UploadFile} from "ngx-file-drop";
 import {bounce} from "ng-animate";
 import {transition, trigger, useAnimation} from "@angular/animations";
+import {UploadChangeParam} from "ng-zorro-antd";
 
 @Component({
     selector: 'app-image-recognization',
@@ -110,5 +111,8 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
 
+    handleChange($event: UploadChangeParam) {
+
+    }
 };
 

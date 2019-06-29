@@ -3,6 +3,7 @@
 
   <mat-card-content>
 
+      <app-code-history (historySelected)="setText($event.code)"></app-code-history>
 
       <div id="editor-container">
       </div>

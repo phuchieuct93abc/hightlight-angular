@@ -23,18 +23,19 @@
 
             </nz-form-item>
 
-        <app-theme-chooser [(selectedTheme)]="selectedTheme" (selectedThemeChange)="applyHighlightCode()" ></app-theme-chooser>
+            <app-theme-chooser [(selectedTheme)]="selectedTheme"
+                               (selectedThemeChange)="applyHighlightCode()"></app-theme-chooser>
         </form>
 
 
         <mat-divider class="clearfix"></mat-divider>
 
 
-        <mat-divider class="clearfix"></mat-divider>
-        <button (click)="onCopy()" class="float-right" nz-button nzType="dashed">Copy
-        </button>
+
         <pre class="formatted-code w-100" [attr.data-theme]="selectedTheme"
              *ngFor="let code of [selectedLanguage + selectedTheme]">
+                 <button (click)="onCopy()" class="copy-btn" nz-button nzType="dashed">Copy
+        </button>
 
             <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}}"></code>
         </pre>

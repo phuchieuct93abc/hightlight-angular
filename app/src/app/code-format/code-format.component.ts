@@ -12,7 +12,7 @@ import {debounce} from "rxjs/operators";
 @Component({
     selector: 'app-code-format',
     templateUrl: './code-format.component.html',
-    styleUrls: ['./code-format.component.css']
+    styleUrls: ['./code-format.component.scss']
 })
 export class CodeFormatComponent implements OnInit, OnChanges {
 
@@ -51,7 +51,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         })
 
 
-        this.applyHighlight.pipe(debounce(() => timer(1000))).subscribe(() => {
+        this.applyHighlight.subscribe(() => {
             this.applyHighlightCode();
         })
 

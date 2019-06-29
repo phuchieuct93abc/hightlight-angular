@@ -1,0 +1,19 @@
+::ng-deep {
+  pre {
+    position: relative;
+
+    code {
+      position: relative;
+      top: -60px;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 10;
+    }
+
+  }
+
+}

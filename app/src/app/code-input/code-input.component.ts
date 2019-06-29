@@ -1,10 +1,11 @@
 import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import Quill from 'quill';
-import {Observable} from "rxjs";
-import {debounceTime} from "rxjs/operators";
+import {Observable, timer} from "rxjs";
 import {ImageDrop} from 'quill-image-drop-module';
 import {ImageRecognizationComponent} from "./image-recognization/image-recognization.component";
 import {CodeFormatterService} from "../../shared/code-formatter.service";
+import {debounce} from "rxjs/operators";
+import {CodeHistoryComponent} from "../code-history/code-history.component";
 
 
 @Component({
@@ -21,7 +22,8 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     imageRecognize: ImageRecognizationComponent;
 
     quill: Quill;
-    previousCode: string;
+    @ViewChild(CodeHistoryComponent)
+    codeHistory: CodeHistoryComponent;
 
     constructor(private codeFormatter: CodeFormatterService) {
         this.enableCopyFromCLipboard();
@@ -29,9 +31,6 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
 
     ngOnInit(): void {
         Quill.register('modules/imageDrop', ImageDrop);
-        this.codeFormatter.onSelectLanguage.subscribe(()=>{
-            //this.setText(this.codeFormatter.beautify(this.quill.getText()))
-        })
 
     }
 
@@ -104,19 +103,12 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     }
 
     ngAfterViewInit(): void {
-        this.enableQuill().subscribe((code: string) => {
-                this.onChange.emit(code);
-                //
-                // if (code == this.previousCode) {
-                //     this.onChange.emit(code);
-                //
-                // } else {
-                //     this.previousCode = code;
-                //     this.setText(this.codeFormatter.beautify(code));
-                // }
-            })
-    }
+        this.enableQuill().pipe(debounce(() => timer(500))).subscribe((code: string) => {
+            this.onChange.emit(code);
+            this.codeHistory.updateHistory(code);
 
+        })
+    }
 
 
 }
