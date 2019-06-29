@@ -1,38 +1,50 @@
 <mat-card class="sticky-header">
     <mat-card-content>
-        <mat-form-field>
-            <mat-select placeholder="Language" [(ngModel)]="selectedLanguage" (ngModelChange)="onChangeLanguage()">
+        <form nz-form [nzLayout]="'inline'" #form="ngForm">
+            <nz-form-item>
+                <nz-form-label>Language</nz-form-label>
 
-                <mat-option *ngFor="let language of languages"
-                            [value]="language">{{language}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div *ngIf="selectedLanguage === 'auto'">Detected Language: <strong>{{detectedLanguage}}</strong></div>
+                <nz-form-control>
+                    <nz-select style="width: 120px;" [(ngModel)]="selectedLanguage" nzPlaceHolder="Choose"
+                               name="language">
+
+                        <nz-option *ngFor="let language of languages"
+                                   [nzValue]="language" [nzLabel]="language"></nz-option>
+                    </nz-select>
+
+
+                </nz-form-control>
+                <div>
+
+                    <nz-form-label *ngIf="selectedLanguage === 'auto' && detectedLanguage">
+                        Detected language:
+                        <strong>{{detectedLanguage}}</strong></nz-form-label>
+                </div>
+
+            </nz-form-item>
+
+        <app-theme-chooser [(selectedTheme)]="selectedTheme" (selectedThemeChange)="applyHighlightCode()" ></app-theme-chooser>
+        </form>
 
 
         <mat-divider class="clearfix"></mat-divider>
 
-        <div></div>
-        <div class="alert alert-warning mt-2" role="alert">
-            Now, we can copy & paste with formatting in Evernote;
-            Please use copy button below
-            thank ku @Cuong
-
-        </div>
 
         <mat-divider class="clearfix"></mat-divider>
-        <button (click)="onCopy()" class="float-right" mat-raised-button color="primary">Copy
+        <button (click)="onCopy()" class="float-right" nz-button nzType="dashed">Copy
         </button>
-        <pre class="formatted-code">
+        <pre class="formatted-code w-100" [attr.data-theme]="selectedTheme"
+             *ngFor="let code of [selectedLanguage + selectedTheme]">
 
-    <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}}"></code>
-</pre>
+            <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}}"></code>
+        </pre>
 
 
-        <pre class="formatted-code d-none">
+        <pre class="formatted-code d-none" [attr.data-theme]="selectedTheme"
+             *ngFor="let code of [selectedLanguage + selectedTheme]">
 
-    <code #formattedCodeCope [innerText]="beautyCodeCopy" class="{{detectedLanguage}}"></code>
-</pre>
+            <code #formattedCodeCope [innerText]="beautyCodeCopy" class="{{detectedLanguage}}"></code>
+        </pre>
 
     </mat-card-content>
 </mat-card>

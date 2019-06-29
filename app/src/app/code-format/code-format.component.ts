@@ -5,6 +5,9 @@ import {MatSnackBar} from "@angular/material";
 import {CopyService} from "../../shared/copy.service";
 import {CssService} from "../../shared/css.service";
 import {CodeFormatterService} from "../../shared/code-formatter.service";
+import {NgForm} from "@angular/forms";
+import {Subject, timer} from "rxjs";
+import {debounce} from "rxjs/operators";
 
 @Component({
     selector: 'app-code-format',
@@ -19,13 +22,21 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     formattedCode: ElementRef<HTMLDivElement>;
     beautyCode = '';
     beautyCodeCopy = '';
-    selectedLanguage = 'auto';
     languages: string[];
     detectedLanguage: string;
+    themes: string[];
+    selectedLanguage = 'auto';
+
+    selectedTheme = 'default';
 
 
     @ViewChild('formattedCodeCope')
     formattedCodeCope: ElementRef<HTMLDivElement>;
+
+    @ViewChild('form')
+    form: NgForm;
+
+    applyHighlight = new Subject();
 
 
     constructor(private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
@@ -34,25 +45,38 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     ngOnInit() {
 
-        this.languages = ['auto', 'java', 'javascript', 'html', 'css']
+        this.languages = ['auto', 'java', 'javascript', 'html', 'css'];
+        this.form.valueChanges.subscribe((value) => {
+            setTimeout(this.applyHighlightCode.bind(this));
+        })
+
+
+        this.applyHighlight.pipe(debounce(() => timer(1000))).subscribe(() => {
+            this.applyHighlightCode();
+        })
+
     }
 
     applyHighlightCode() {
-
+        console.log('apply')
         if (!this.code) return;
         this.resetLanguage();
         this.codeFormatter.changeLanguage(this.selectedLanguage);
 
         this.detectedLanguage = this.codeFormatter.detectLanguage(this.code);
         this.codeFormatter.changeLanguage(this.detectedLanguage);
+
         this.beautyCode = this.codeFormatter.beautify(this.code);
         this.beautyCodeCopy = this.codeFormatter.beautify(this.code, true);
-        this.highlight();
+        setTimeout(() => {
+            this.codeFormatter.formatBlock(this.formattedCode.nativeElement);
+            this.codeFormatter.formatBlock(this.formattedCodeCope.nativeElement);
+        })
     }
 
     ngOnChanges(changes: SimpleChanges) {
 
-        this.applyHighlightCode();
+        this.applyHighlight.next();
     }
 
 
@@ -60,17 +84,10 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         this.formattedCode.nativeElement.className = "";
     }
 
-    private highlight() {
-        this.codeFormatter.formatBlock(this.formattedCode.nativeElement);
-        this.codeFormatter.formatBlock(this.formattedCodeCope.nativeElement);
-
-    }
-
-
     onCopy() {
         let element = this.formattedCodeCope.nativeElement.parentElement;
         this.cssService.inlineCSS(element)
-        this.copyService.copyHtml(element.innerHTML).then(()=>{
+        this.copyService.copyHtml(element.innerHTML).then(() => {
             this.snackBar.open("Copied code successful", null, {duration: 2000})
         });
     }
