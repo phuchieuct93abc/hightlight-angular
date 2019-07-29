@@ -33,7 +33,11 @@
 
         <pre class="formatted-code w-100" [attr.data-theme]="selectedTheme"
              *ngFor="let code of [selectedLanguage + selectedTheme]">
-                 <button (click)="onCopy()" class="copy-btn" nz-button nzType="dashed" nzType="primary">Copy
+
+
+                 <button (click)="onCopy()" mat-button class="action">
+
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>
         </button>
 
             <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}} mh-100"></code>
