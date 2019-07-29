@@ -34,11 +34,17 @@
         <pre class="formatted-code w-100" [attr.data-theme]="selectedTheme"
              *ngFor="let code of [selectedLanguage + selectedTheme]">
 
-
-                 <button (click)="onCopy()" mat-button class="action">
+<div class="action">
+     <button (click)="maximize()" mat-button matTooltip="Maximize window">
 
                       <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>
         </button>
+   <button (click)="onCopy()" mat-button matTooltip="Copy">
+
+                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>
+        </button>
+</div>
+
 
             <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}} mh-100"></code>
         </pre>

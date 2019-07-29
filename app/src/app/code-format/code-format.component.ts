@@ -97,4 +97,8 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         this.codeFormatter.onSelectLanguage.next();
 
     }
+
+    maximize() {
+
+    }
 }
