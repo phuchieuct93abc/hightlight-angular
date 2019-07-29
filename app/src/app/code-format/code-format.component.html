@@ -1,5 +1,5 @@
-<mat-card class="sticky-header">
-    <mat-card-content>
+<mat-card class="h-100">
+    <mat-card-content class="h-100 content">
         <form nz-form [nzLayout]="'inline'" #form="ngForm">
             <nz-form-item>
                 <nz-form-label>Language</nz-form-label>
@@ -28,16 +28,15 @@
         </form>
 
 
-        <mat-divider class="clearfix"></mat-divider>
-
+        <mat-divider class="clearfix position-relative"></mat-divider>
 
 
         <pre class="formatted-code w-100" [attr.data-theme]="selectedTheme"
              *ngFor="let code of [selectedLanguage + selectedTheme]">
-                 <button (click)="onCopy()" class="copy-btn" nz-button nzType="dashed">Copy
+                 <button (click)="onCopy()" class="copy-btn" nz-button nzType="dashed" nzType="primary">Copy
         </button>
 
-            <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}}"></code>
+            <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}} mh-100"></code>
         </pre>
 
 

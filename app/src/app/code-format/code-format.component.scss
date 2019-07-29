@@ -2,9 +2,10 @@
   pre {
     position: relative;
 
+    display: inline-block;
     code {
       position: relative;
-      top: -60px;
+      top: -63px;
     }
 
     .copy-btn {
@@ -16,4 +17,9 @@
 
   }
 
+}
+
+.content{
+  display: grid;
+  grid-template: 50px 10px 1fr / 1fr;
 }
