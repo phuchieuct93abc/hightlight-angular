@@ -1,5 +1,5 @@
-<mat-card class="h-100">
-    <mat-card-content class="h-100 content">
+<nz-card class="h-100">
+    <div class="h-100 content">
         <form nz-form [nzLayout]="'inline'" #form="ngForm">
             <nz-form-item>
                 <nz-form-label>Language</nz-form-label>
@@ -27,8 +27,9 @@
                                (selectedThemeChange)="applyHighlightCode()"></app-theme-chooser>
         </form>
 
+        <nz-divider nzType="vertical"></nz-divider>
 
-        <mat-divider class="clearfix position-relative"></mat-divider>
+<!--        <mat-divider class="clearfix position-relative"></mat-divider>-->
 
 
         <pre class="formatted-code w-100" [attr.data-theme]="selectedTheme"
@@ -37,11 +38,11 @@
 <div class="action">
      <button (click)="maximize()" mat-button matTooltip="Maximize window">
 
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>
+<!--                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>-->
         </button>
    <button (click)="onCopy()" mat-button matTooltip="Copy">
 
-                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>
+<!--                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>-->
         </button>
 </div>
 
@@ -56,5 +57,5 @@
             <code #formattedCodeCope [innerText]="beautyCodeCopy" class="{{detectedLanguage}}"></code>
         </pre>
 
-    </mat-card-content>
-</mat-card>
+    </div>
+</nz-card>

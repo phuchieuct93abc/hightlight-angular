@@ -26,11 +26,11 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     codeHistory: CodeHistoryComponent;
 
     constructor(private codeFormatter: CodeFormatterService) {
-        this.enableCopyFromCLipboard();
     }
 
     ngOnInit(): void {
         Quill.register('modules/imageDrop', ImageDrop);
+        this.enableCopyFromCLipboard();
 
     }
 
@@ -63,7 +63,6 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
 
     setText(code: string) {
         this.quill.setText(code)
-
     }
 
 
@@ -86,13 +85,22 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
                     this.quill.setText("")
                 } else {
 
-                    observer.next((this.quill.getText()))
+                    observer.next(this.quill.getText())
 
                 }
             });
         })
 
 
+    }
+
+    private formatQuill() {
+        let originalText = this.quill.getText();
+        let beautyCode = this.codeFormatter.beautify(originalText);
+        if (beautyCode + "\n" !== originalText) {
+            this.quill.setText(beautyCode)
+
+        }
     }
 
     extractImage(): string[] {

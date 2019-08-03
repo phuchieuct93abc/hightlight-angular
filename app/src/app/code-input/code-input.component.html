@@ -1,15 +1,15 @@
+<nz-card class="h-100 ">
+    <div class="content">
+        <div class="action">
+            <app-code-history (historySelected)="setText($event.code)"></app-code-history>
 
-<mat-card class=" h-100">
-
-  <mat-card-content class="h-100 content">
-
-      <app-code-history (historySelected)="setText($event.code)"></app-code-history>
-
-      <div id="editor-container">
-      </div>
-
-      <app-image-recognization (onSelectedImage)="setText($event)"></app-image-recognization>
+        </div>
 
 
-  </mat-card-content>
-</mat-card>
+        <div id="editor-container">
+        </div>
+
+        <app-image-recognization (onSelectedImage)="setText($event)"></app-image-recognization>
+    </div>
+
+</nz-card>

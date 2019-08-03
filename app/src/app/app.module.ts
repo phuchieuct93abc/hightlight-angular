@@ -18,7 +18,7 @@ import {NgZorroAntdModule} from "ng-zorro-antd";
 import {ThemeChooserComponent} from "./theme-chooser/theme-chooser.component";
 
 @NgModule({
-    imports: [MaterialModule,
+    imports: [
         BrowserModule,
         FormsModule,
         NgbModule,

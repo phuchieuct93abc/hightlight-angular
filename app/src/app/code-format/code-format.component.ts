@@ -58,7 +58,6 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     }
 
     applyHighlightCode() {
-        console.log('apply')
         if (!this.code) return;
         this.resetLanguage();
         this.codeFormatter.changeLanguage(this.selectedLanguage);
@@ -76,6 +75,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges) {
 
+        console.log("a")
         this.applyHighlight.next();
     }
 
