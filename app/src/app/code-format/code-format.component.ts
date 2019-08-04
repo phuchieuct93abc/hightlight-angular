@@ -8,6 +8,8 @@ import {CodeFormatterService} from "../../shared/code-formatter.service";
 import {NgForm} from "@angular/forms";
 import {Subject} from "rxjs";
 import {NzMessageService} from "ng-zorro-antd";
+import html2canvas from 'html2canvas';
+import * as $ from "jquery"
 
 @Component({
     selector: 'app-code-format',
@@ -39,6 +41,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     applyHighlight = new Subject();
     wrap = false;
     isFullScreen = false;
+    isScreenShotting = false;
 
 
     constructor(private message: NzMessageService, private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
@@ -101,6 +104,30 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     }
 
     maximize() {
+
         this.isFullScreen = !this.isFullScreen;
+    }
+
+    screenShot() {
+        this.isScreenShotting = true;
+        let originalFullScreen = this.isFullScreen;
+        this.isFullScreen = true;
+
+        setTimeout(() => {
+            html2canvas(this.formattedCode.nativeElement).then(canvas => {
+                canvas.toBlob((data) => {
+                    var a = $("<a style='display: none;'/>");
+                    var url = window.URL.createObjectURL(new Blob([data], {type: "image/png"}));
+                    a.attr("href", url);
+                    a.attr("download", "screenshot");
+                    $("body").append(a);
+                    a[0].click();
+                    window.URL.revokeObjectURL(url);
+                    a.remove();
+                    this.isFullScreen = originalFullScreen;
+                    this.isScreenShotting=false;
+                });
+            })
+        })
     }
 }

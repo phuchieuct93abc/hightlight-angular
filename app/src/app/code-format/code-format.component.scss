@@ -30,6 +30,19 @@
             height: 100%;
             width: 100%;
             z-index: 999;
+
+            code {
+              max-height: initial !important;
+              min-height: 100%;
+
+              height: auto;
+            }
+          }
+
+          &.screen-shooting {
+            code {
+              min-height: initial;
+            }
           }
 
           code {

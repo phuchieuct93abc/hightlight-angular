@@ -32,12 +32,17 @@
         </form>
 
 
-        <pre class="formatted-code w-100 {{isFullScreen?'full-screen':''}} " [attr.data-theme]="selectedTheme"
+        <pre class="formatted-code w-100 {{isFullScreen?'full-screen':''}} {{isScreenShotting?'screen-shooting':''}} " [attr.data-theme]="selectedTheme"
              *ngFor="let code of [selectedLanguage + selectedTheme]">
 
 <div class="action">
+     <button (click)="screenShot()" nz-dropdown nz-button nzType="link" nzSize="small">
+                <i nz-icon nzType="camera"></i>ScreenShot
+   </button>
+        <nz-divider nzType="vertical" class="m-0"></nz-divider>
+
    <button (click)="maximize()" nz-dropdown nz-button nzType="link" nzSize="small">
-                <i nz-icon nzType="arrows-alt"></i>Fullscreen
+                <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
    </button>
     <nz-divider nzType="vertical" class="m-0"></nz-divider>
     <button (click)="onCopy()" nz-dropdown nz-button nzType="link" nzSize="small">
