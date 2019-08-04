@@ -6,8 +6,8 @@ import {CopyService} from "../../shared/copy.service";
 import {CssService} from "../../shared/css.service";
 import {CodeFormatterService} from "../../shared/code-formatter.service";
 import {NgForm} from "@angular/forms";
-import {Subject, timer} from "rxjs";
-import {debounce} from "rxjs/operators";
+import {Subject} from "rxjs";
+import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
     selector: 'app-code-format',
@@ -37,9 +37,11 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     form: NgForm;
 
     applyHighlight = new Subject();
+    wrap = false;
+    isFullScreen = false;
 
 
-    constructor(private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
+    constructor(private message: NzMessageService, private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
 
     }
 
@@ -88,7 +90,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         let element = this.formattedCodeCope.nativeElement.parentElement;
         this.cssService.inlineCSS(element)
         this.copyService.copyHtml(element.innerHTML).then(() => {
-            this.snackBar.open("Copied code successful", null, {duration: 2000})
+            this.message.success("Copied code successful")
         });
     }
 
@@ -99,6 +101,6 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     }
 
     maximize() {
-
+        this.isFullScreen = !this.isFullScreen;
     }
 }

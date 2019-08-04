@@ -1,10 +1,11 @@
 <nz-card class="h-100">
     <div class="h-100 content">
-        <form nz-form [nzLayout]="'inline'" #form="ngForm">
-            <nz-form-item>
-                <nz-form-label>Language</nz-form-label>
+        <form nz-form [nzLayout]="'inline'" #form="ngForm" class="form">
+            <nz-form-item class="language-detector">
 
                 <nz-form-control>
+                    <nz-form-label>Language</nz-form-label>
+
                     <nz-select style="width: 120px;" [(ngModel)]="selectedLanguage" nzPlaceHolder="Choose"
                                name="language">
 
@@ -21,33 +22,32 @@
                         <strong>{{detectedLanguage}}</strong></nz-form-label>
                 </div>
 
+
             </nz-form-item>
 
             <app-theme-chooser [(selectedTheme)]="selectedTheme"
                                (selectedThemeChange)="applyHighlightCode()"></app-theme-chooser>
+            <label nz-checkbox [(ngModel)]="wrap" name="wrap">Wrap</label>
+
         </form>
 
-        <nz-divider nzType="vertical"></nz-divider>
 
-<!--        <mat-divider class="clearfix position-relative"></mat-divider>-->
-
-
-        <pre class="formatted-code w-100" [attr.data-theme]="selectedTheme"
+        <pre class="formatted-code w-100 {{isFullScreen?'full-screen':''}} " [attr.data-theme]="selectedTheme"
              *ngFor="let code of [selectedLanguage + selectedTheme]">
 
 <div class="action">
-     <button (click)="maximize()" mat-button matTooltip="Maximize window">
-
-<!--                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>-->
-        </button>
-   <button (click)="onCopy()" mat-button matTooltip="Copy">
-
-<!--                      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_none</mat-icon>-->
-        </button>
+   <button (click)="maximize()" nz-dropdown nz-button nzType="link" nzSize="small">
+                <i nz-icon nzType="arrows-alt"></i>Fullscreen
+   </button>
+    <nz-divider nzType="vertical" class="m-0"></nz-divider>
+    <button (click)="onCopy()" nz-dropdown nz-button nzType="link" nzSize="small">
+                <i nz-icon nzType="copy"></i>Copy
+            </button>
 </div>
 
 
-            <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}} mh-100"></code>
+            <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}} mh-100 "
+                  [ngStyle]="{whiteSpace:wrap?'pre-wrap':'inherit'}"></code>
         </pre>
 
 
