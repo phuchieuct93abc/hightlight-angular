@@ -2,6 +2,8 @@
 @import "~quill/dist/quill.snow";
 @import "~quill/dist/quill.bubble";
 @import "~animate.css/animate";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
 body .hljs {
   background-color: transparent;
@@ -17,6 +19,10 @@ body {
     top: 0;
     background-color: white;
 
+  }
+  .ant-btn{
+    display: inline-flex;
+    align-items: center;
   }
 
 
@@ -46,6 +52,7 @@ body {
   @import "~highlight.js/styles/googlecode";
 
 }
+
 [data-theme=xcode] {
   @import "~highlight.js/styles/xcode";
 

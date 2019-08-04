@@ -19,15 +19,19 @@
 
     .action {
       position: absolute;
-      top: 0;
+      top: -1em;
       width: auto;
       right: 0;
       z-index: 10;
+
+
     }
   }
 }
-.content{
+
+.content {
+  position: relative;
   height: 100%;
   display: grid;
-  grid-template: minmax(100px,1fr) auto / 1fr;
+  grid-template: minmax(100px, 1fr) auto / 1fr;
 }

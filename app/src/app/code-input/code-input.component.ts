@@ -97,10 +97,7 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     private formatQuill() {
         let originalText = this.quill.getText();
         let beautyCode = this.codeFormatter.beautify(originalText);
-        if (beautyCode + "\n" !== originalText) {
-            this.quill.setText(beautyCode)
-
-        }
+        this.quill.setText(beautyCode);
     }
 
     extractImage(): string[] {

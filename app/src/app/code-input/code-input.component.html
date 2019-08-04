@@ -1,7 +1,11 @@
 <nz-card class="h-100 ">
     <div class="content">
         <div class="action">
-            <app-code-history (historySelected)="setText($event.code)"></app-code-history>
+            <button (click)="formatQuill()" nz-dropdown nz-button nzType="link" nzSize="small" >
+                <i nz-icon nzType="align-left"></i>Format
+            </button>
+            <nz-divider nzType="vertical" class="m-0"></nz-divider>
+            <app-code-history class="d-inline-block" (historySelected)="setText($event.code)"></app-code-history>
 
         </div>
 
