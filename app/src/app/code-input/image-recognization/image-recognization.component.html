@@ -5,10 +5,8 @@
            (click)="uploadInput.click()"
 >
     <span class="drag">
-        <img [class.animated]="isDragging"
-
-
-             src="../../../assets/upload.png" class="upload-img  infinite "/>
+        <img
+                src="../../../assets/upload.png" class="upload-img  infinite animated "/>
         <span>Update image to extract code</span>
 <nz-spin nzSimple [nzSize]="'large'" *ngIf="uploading" class="ml-2"></nz-spin>
 
@@ -23,6 +21,15 @@
                        [fileAlias]="'file'">
 
 </mat-file-upload-queue>
+<div class="thumbnail-wrapper" *ngIf="thumbnail">
 
-<img class="w-100" id="blah" *ngIf="thumbnail" [src]="thumbnail" alt="thmubnail"/>
+    <nz-badge [nzCount]="iconClose">
+        <img class="w-100" id="blah" [src]="thumbnail" alt="thumbnail" class="thumbnail"/>
+    </nz-badge>
+    <ng-template #iconClose>
+
+        <i (click)="close()"  nz-icon nzType="close-circle" class="ant-scroll-number-custom-component delete-thumbnail"
+           style="color: #f5222d"></i>
+    </ng-template>
+</div>
 

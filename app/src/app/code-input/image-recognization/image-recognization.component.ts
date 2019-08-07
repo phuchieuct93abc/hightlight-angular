@@ -4,7 +4,6 @@ import {Observable} from "rxjs";
 import {FileSystemFileEntry, UploadEvent, UploadFile} from "ngx-file-drop";
 import {bounce} from "ng-animate";
 import {transition, trigger, useAnimation} from "@angular/animations";
-import {UploadChangeParam} from "ng-zorro-antd";
 
 @Component({
     selector: 'app-image-recognization',
@@ -39,7 +38,6 @@ export class ImageRecognizationComponent implements OnInit {
 
 
     onFileSelected(file: File[]) {
-        console.log(1)
         this.convertFileToThumbnail(file[0]).subscribe(data => {
             this.thumbnail = data;
             this.extractImage(data);
@@ -51,18 +49,17 @@ export class ImageRecognizationComponent implements OnInit {
 
         this.uploading = true;
 
-        this.textExtractor.extracTextByGoogleVision(image).subscribe(result1 => {
 
+        Promise.all([
+            this.textExtractor.extracTextByGoogleVision(image),
+            this.textExtractor.extractTextByTesseract(image)]
+        ).then(result => {
+            let result1 = result[0];
+            let result2 = result[1];
+            let extractedText = this.textExtractor.collectIgnoredCharacter(result2, result1);
 
-            this.textExtractor.extractTextByTesseract(image).subscribe(result2 => {
-                let result = this.textExtractor.collectIgnoredCharacter(result2, result1);
-
-                this.uploading = false;
-                this.onSelectedImage.emit(result.replace(/\u2013|\u2014/g, "-").replace(/“/g, "\""))
-
-
-            })
-
+            this.uploading = false;
+            this.onSelectedImage.emit(extractedText.replace(/\u2013|\u2014/g, "-").replace(/“/g, "\""))
 
         })
 
@@ -100,19 +97,18 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
     public fileOver(event) {
-        console.log('over')
         this.isDragging = true
     }
 
     public fileLeave(event) {
-        console.log('leacve')
-
         this.isDragging = false;
     }
 
 
-    handleChange($event: UploadChangeParam) {
-
+    close() {
+        this.thumbnail = null;
+        this.isDragging = false;
+        this.onSelectedImage.emit("");
     }
 };
 

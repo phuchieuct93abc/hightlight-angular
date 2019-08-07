@@ -17,9 +17,10 @@
                 </nz-form-control>
                 <div>
 
-                    <nz-form-label *ngIf="selectedLanguage === 'auto' && detectedLanguage">
+                    <nz-form-label>
                         Detected language:
-                        <strong>{{detectedLanguage}}</strong></nz-form-label>
+                        <strong *ngIf="detectedLanguage">{{detectedLanguage}}</strong>
+                        <strong *ngIf="!detectedLanguage">Unknown</strong></nz-form-label>
                 </div>
 
 
@@ -32,20 +33,21 @@
         </form>
 
 
-        <pre class="formatted-code w-100 {{isFullScreen?'full-screen':''}} {{isScreenShotting?'screen-shooting':''}} " [attr.data-theme]="selectedTheme"
+        <pre class="formatted-code w-100 {{isFullScreen?'full-screen':''}} {{isScreenShotting?'screen-shooting':''}} "
+             [attr.data-theme]="selectedTheme"
              *ngFor="let code of [selectedLanguage + selectedTheme]">
 
 <div class="action">
-     <button (click)="screenShot()" nz-dropdown nz-button nzType="link" nzSize="small">
+     <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
                 <i nz-icon nzType="camera"></i>ScreenShot
    </button>
-        <nz-divider nzType="vertical" class="m-0"></nz-divider>
+        <nz-divider nzType="vertical"></nz-divider>
 
-   <button (click)="maximize()" nz-dropdown nz-button nzType="link" nzSize="small">
+   <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
                 <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
    </button>
-    <nz-divider nzType="vertical" class="m-0"></nz-divider>
-    <button (click)="onCopy()" nz-dropdown nz-button nzType="link" nzSize="small">
+    <nz-divider nzType="vertical"></nz-divider>
+    <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
                 <i nz-icon nzType="copy"></i>Copy
             </button>
 </div>

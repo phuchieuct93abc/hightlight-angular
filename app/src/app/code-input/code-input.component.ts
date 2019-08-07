@@ -94,7 +94,7 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
 
     }
 
-    private formatQuill() {
+    formatQuill() {
         let originalText = this.quill.getText();
         let beautyCode = this.codeFormatter.beautify(originalText);
         this.quill.setText(beautyCode);
