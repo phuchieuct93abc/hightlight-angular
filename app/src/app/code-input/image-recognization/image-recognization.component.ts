@@ -22,6 +22,7 @@ export class ImageRecognizationComponent implements OnInit {
     thumbnail: string | ArrayBuffer;
     public files: UploadFile[] = [];
     isDragging = false;
+    base64regex = /^data*/;
 
 
     constructor(private textExtractor: TextExtractorService) {
@@ -32,10 +33,19 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
     setImage(imageBase64: string) {
-        this.thumbnail = imageBase64;
-        this.extractImage(imageBase64);
-    }
+        console.log(imageBase64)
+        if (this.base64regex.test(imageBase64) ) {
+            this.thumbnail = imageBase64;
+            this.extractImage(imageBase64);
+        }else{
+            this.close()
+        }
 
+    }
+    private isURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)?'); // fragment locator
+        return pattern.test(str);
+    }
 
     onFileSelected(file: File[]) {
         this.convertFileToThumbnail(file[0]).subscribe(data => {
@@ -46,7 +56,6 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
     private extractImage(image: string) {
-
         this.uploading = true;
 
 
@@ -54,6 +63,7 @@ export class ImageRecognizationComponent implements OnInit {
             this.textExtractor.extracTextByGoogleVision(image),
             this.textExtractor.extractTextByTesseract(image)]
         ).then(result => {
+            console.log(result)
             let result1 = result[0];
             let result2 = result[1];
             let extractedText = this.textExtractor.collectIgnoredCharacter(result2, result1);

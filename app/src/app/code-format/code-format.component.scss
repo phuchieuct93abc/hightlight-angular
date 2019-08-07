@@ -64,8 +64,8 @@
 
       .action {
         position: absolute;
-        top: 0px;
-        right: 0;
+        top: 0.5em;
+        right: 0.5em;
         height: auto;
         z-index: 10;
         display: flex;
@@ -74,7 +74,7 @@
         opacity: 0.5;
 
         &:hover {
-          background-color: #F0F0F0;
+          //background-color: #F0F0F0;
           opacity: 1;
         }
 

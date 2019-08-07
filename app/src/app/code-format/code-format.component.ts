@@ -79,8 +79,6 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges) {
-
-        console.log("a")
         this.applyHighlight.next();
     }
 
