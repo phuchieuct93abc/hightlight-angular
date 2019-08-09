@@ -91,7 +91,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         let element = this.formattedCodeCope.nativeElement.parentElement;
         this.cssService.inlineCSS(element)
         this.copyService.copyHtml(element.innerHTML).then(() => {
-            this.message.success("Copied code successful")
+            this.message.success("Copied code successful! Now you can paste to doc, docx, evernote with the format")
         });
     }
 
