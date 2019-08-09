@@ -42,6 +42,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     wrap = false;
     isFullScreen = false;
     isScreenShotting = false;
+    fontSize = 13;
 
 
     constructor(private message: NzMessageService, private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
@@ -123,7 +124,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
                     window.URL.revokeObjectURL(url);
                     a.remove();
                     this.isFullScreen = originalFullScreen;
-                    this.isScreenShotting=false;
+                    this.isScreenShotting = false;
                 });
             })
         })

@@ -18,10 +18,8 @@
           }
         }
 
-        pre {
+        .formatted-code {
           position: relative;
-
-          display: inline-block;
 
           &.full-screen {
             position: fixed;
@@ -42,8 +40,15 @@
           &.screen-shooting {
             code {
               min-height: initial;
+              width: auto;
             }
           }
+        }
+
+        pre {
+
+          display: inline-block;
+
 
           code {
             position: absolute;

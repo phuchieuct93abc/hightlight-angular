@@ -32,30 +32,52 @@
 
         </form>
 
+        <div class="formatted-code "
+             [class.full-screen]="isFullScreen"
+             [class.screen-shooting]="isScreenShotting">
+            <div class="action">
 
-        <pre class="formatted-code w-100 {{isFullScreen?'full-screen':''}} {{isScreenShotting?'screen-shooting':''}} "
-             [attr.data-theme]="selectedTheme"
-             *ngFor="let code of [selectedLanguage + selectedTheme]">
+                <button nz-button nz-popover  nzSize="small" [nzTitle]="titleTemplate" [nzContent]="contentTemplate">
+                    Font size: {{fontSize}}
+                </button>
 
-<div class="action">
-     <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
-                <i nz-icon nzType="camera"></i>ScreenShot
-   </button>
-        <nz-divider nzType="vertical"></nz-divider>
+                <ng-template #titleTemplate>Select font size</ng-template>
+                <ng-template #contentTemplate>
 
-   <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
-                <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
-   </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
-                <i nz-icon nzType="copy"></i>Copy
-            </button>
-</div>
+
+                    <nz-slider  [(ngModel)]="fontSize" [nzMax]="20" [nzMin]="13"></nz-slider>
+
+                </ng-template>
+                <nz-divider nzType="vertical"></nz-divider>
+
+                <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
+                    <i nz-icon nzType="camera"></i>ScreenShot
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+
+                <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
+                    <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+                <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
+                    <i nz-icon nzType="copy"></i>Copy
+                </button>
+
+
+
+            </div>
+
+            <pre class=" w-100 " [ngStyle]="{'font-size.px':fontSize}"
+                 [attr.data-theme]="selectedTheme"
+                 *ngFor="let code of [selectedLanguage + selectedTheme]">
+
+
 
 
             <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}} mh-100 "
                   [ngStyle]="{whiteSpace:wrap?'pre-wrap':'inherit'}"></code>
         </pre>
+        </div>
 
 
         <pre class="formatted-code d-none" [attr.data-theme]="selectedTheme"

@@ -1,0 +1,16 @@
+{
+  "name": "Highlight",
+  "short_name": "Highlight",
+  "start_url": "/",
+  "background_color": "#e5e5e5",
+  "theme_color": "#673ab7",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "gcm_sender_id": "103953800507",
+
+  "icons": [{
+    "src": "assets/logo.jpg",
+    "sizes": "1080x1080",
+    "type": "image/jpg"
+  }]
+}
