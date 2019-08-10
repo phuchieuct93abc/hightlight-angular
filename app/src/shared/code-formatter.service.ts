@@ -47,9 +47,8 @@ export class CodeFormatterService {
                 beautify = beauty.html;
                 break;
         }
-        console.log(beautify)
         if (!beautify) {
-            return code;
+            return code.replace(/\t/g, '    ');;
         }
 
         if (isChangeIndent) {
