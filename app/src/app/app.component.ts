@@ -1,11 +1,11 @@
 import {History} from './history.model';
 
-import {Component, OnInit, ViewChild} from '@angular/core';
 
 
 import {CodeInputComponent} from "./code-input/code-input.component";
 import {CodeHistoryComponent} from "./code-history/code-history.component";
 import {MatSidenav} from "@angular/material";
+import {Component, OnInit, ViewChild} from "@angular/core";
 
 
 @Component({
@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
 
     code: string;
 
-    @ViewChild(CodeInputComponent)
+    @ViewChild(CodeInputComponent,{static:true})
     codeInput: CodeInputComponent;
 
-    @ViewChild(MatSidenav)
+    @ViewChild(MatSidenav,{static:true})
     sideNav:MatSidenav;
 
     isOpenHistory = true;

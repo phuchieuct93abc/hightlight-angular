@@ -20,7 +20,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     @Input()
     code: string;
-    @ViewChild('formattedCode')
+    @ViewChild('formattedCode',{static:false})
     formattedCode: ElementRef<HTMLDivElement>;
     beautyCode = '';
     beautyCodeCopy = '';
@@ -32,10 +32,10 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     selectedTheme = 'default';
 
 
-    @ViewChild('formattedCodeCope')
+    @ViewChild('formattedCodeCope',{static:false})
     formattedCodeCope: ElementRef<HTMLDivElement>;
 
-    @ViewChild('form')
+    @ViewChild('form',{static:true})
     form: NgForm;
 
     applyHighlight = new Subject();
@@ -72,6 +72,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         this.codeFormatter.changeLanguage(this.detectedLanguage);
 
         this.beautyCode = this.codeFormatter.beautify(this.code);
+
         this.beautyCodeCopy = this.codeFormatter.beautify(this.code, true);
         setTimeout(() => {
             this.codeFormatter.formatBlock(this.formattedCode.nativeElement);

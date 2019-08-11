@@ -1,4 +1,4 @@
-<file-drop class="file-drop mb-2"
+<!--<file-drop class="file-drop mb-2"
            (onFileDrop)="dropped($event)"
            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)"
            [class.isDragging]="isDragging"
@@ -17,10 +17,28 @@
 
 <input #uploadInput matRipple id="singleFile" type="file" class="d-none" [fileUploadInputFor]="fileUploadQueue"
        (onFileSelected)="onFileSelected($event)"/>
+
 <mat-file-upload-queue #fileUploadQueue class="d-none"
                        [fileAlias]="'file'">
 
-</mat-file-upload-queue>
+</mat-file-upload-queue>-->
+
+<nz-upload
+        nzType="drag"
+        [nzMultiple]="false"
+        [nzLimit]="2"
+        [nzBeforeUpload]="beforeUpload"
+        (nzChange)="dropped($event)"
+>
+    <p class="ant-upload-drag-icon">
+        <i nz-icon nzType="upload" *ngIf="!uploading"></i>
+        <nz-spin nzSimple [nzSize]="'large'" *ngIf="uploading"></nz-spin>
+
+    </p>
+    <p class="ant-upload-text">Click or drag file to this area to upload image file</p>
+
+</nz-upload>
+
 <div class="thumbnail-wrapper" *ngIf="thumbnail">
 
     <nz-badge [nzCount]="iconClose">

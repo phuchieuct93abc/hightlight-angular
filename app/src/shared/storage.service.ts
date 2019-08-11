@@ -9,6 +9,7 @@ export class StorageService {
     }
 
     save(key: string, value: any) {
+        console.log('save')
         localStorage.setItem(key, JSON.stringify(value));
     }
 

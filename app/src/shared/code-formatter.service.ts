@@ -1,9 +1,22 @@
-import {Injectable} from '@angular/core';
 import hljs from 'highlight.js';
 import * as beauty from "js-beautify"
 import {Subject} from "rxjs";
 import css from 'highlight.js/lib/languages/css';
 import xml from 'highlight.js/lib/languages/xml';
+import {Injectable} from "@angular/core";
+
+// @ts-ignore
+const prettier = require("prettier/standalone");
+// @ts-ignore
+// const thirdparty = require("prettier/third-party");
+// @ts-ignore
+const prettierBabylon = require("prettier/parser-babylon");
+// @ts-ignore
+const prettierTS = require("prettier/parser-typescript");
+
+// @ts-ignore
+//  const prettierJava = require("../libs/prettier/prettier-plugin-java");
+
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +33,7 @@ export class CodeFormatterService {
         // hljs.registerLanguage('java', java);
         // hljs.registerLanguage('html', xml);
         // hljs.registerLanguage('xml', xml);
+        console.log(prettier)
     }
 
     detectLanguage(code: string) {
@@ -48,7 +62,10 @@ export class CodeFormatterService {
                 break;
         }
         if (!beautify) {
-            return code.replace(/\t/g, '    ');;
+
+            //  console.log(code,prettier.format(code,{parser:"graphql",plugins: [graphql]}))
+           // return prettier.format(code,{parser:"graphql",plugins: [graphql]});
+           return code.replace(/\t/g, '    ');;
         }
 
         if (isChangeIndent) {
