@@ -1,9 +1,10 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TextExtractorService} from "../../../shared/text-extractor.service";
 import {Observable} from "rxjs";
-import {FileSystemFileEntry, UploadEvent, UploadFile} from "ngx-file-drop";
+import {UploadEvent, UploadFile} from "ngx-file-drop";
 import {bounce} from "ng-animate";
 import {transition, trigger, useAnimation} from "@angular/animations";
+import {NzMessageService} from "ng-zorro-antd";
 
 @Component({
     selector: 'app-image-recognization',
@@ -20,35 +21,36 @@ export class ImageRecognizationComponent implements OnInit {
     onSelectedImage = new EventEmitter<string>();
     uploading = false;
     thumbnail: string | ArrayBuffer;
-    public files: UploadFile[] = [];
+    public files: any[] = [];
     isDragging = false;
     base64regex = /^data*/;
 
 
-    constructor(private textExtractor: TextExtractorService) {
+    constructor(private textExtractor: TextExtractorService, private message: NzMessageService) {
     }
 
     ngOnInit() {
 
     }
 
+    beforeUpload = (file: UploadFile): boolean => {
+        this.onFileSelected(<File><unknown>file)
+        return false;
+    };
+
     setImage(imageBase64: string) {
-        console.log(imageBase64)
-        if (this.base64regex.test(imageBase64) ) {
+        if (this.base64regex.test(imageBase64)) {
             this.thumbnail = imageBase64;
             this.extractImage(imageBase64);
-        }else{
+        } else {
             this.close()
         }
 
     }
-    private isURL(str) {
-        var pattern = new RegExp('^(https?:\\/\\/)?'); // fragment locator
-        return pattern.test(str);
-    }
 
-    onFileSelected(file: File[]) {
-        this.convertFileToThumbnail(file[0]).subscribe(data => {
+
+    onFileSelected(file: File) {
+        this.convertFileToThumbnail(file).subscribe(data => {
             this.thumbnail = data;
             this.extractImage(data);
 
@@ -82,28 +84,31 @@ export class ImageRecognizationComponent implements OnInit {
             reader.onload = e => {
                 resolver.next(<string>reader.result)
             };
-
+            reader.onerror = e => {
+                this.message.error("Can't recognize text. Please only upload image file that contains the code inside")
+            }
+            console.log("finished on load")
             reader.readAsDataURL(file);
         })
 
     }
 
     public dropped(event: UploadEvent) {
-        this.isDragging = false;
-        this.files = event.files;
-        for (const droppedFile of event.files) {
-
-            // Is it a file?
-            if (droppedFile.fileEntry.isFile) {
-                const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-                fileEntry.file((file: File) => {
-                    this.onFileSelected([file]);
-
-                });
-            } else {
-                console.log("folder");
-            }
-        }
+        // this.isDragging = false;
+        // this.files = event.files;
+        // for (const droppedFile of event.files) {
+        //
+        //     // Is it a file?
+        //     if (droppedFile.fileEntry.isFile) {
+        //         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        //         fileEntry.file((file: File) => {
+        //             this.onFileSelected([file]);
+        //
+        //         });
+        //     } else {
+        //         console.log("folder");
+        //     }
+        // }
     }
 
     public fileOver(event) {
