@@ -35,7 +35,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     @ViewChild('formattedCodeCope',{static:false})
     formattedCodeCope: ElementRef<HTMLDivElement>;
 
-    @ViewChild('form',{static:true})
+    @ViewChild('form',{static:false})
     form: NgForm;
 
     applyHighlight = new Subject();
