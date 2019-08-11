@@ -33,8 +33,8 @@ export class ImageRecognizationComponent implements OnInit {
     }
 
     beforeUpload = (file: any): boolean => {
-        this.onFileSelected(<File><unknown>file)
-        return false;
+        this.onFileSelected(<File><unknown>file);
+         return false;
     };
 
     setImage(imageBase64: string) {
