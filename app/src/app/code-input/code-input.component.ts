@@ -18,11 +18,11 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     @Output()
     onChange = new EventEmitter<string>();
 
-    @ViewChild(ImageRecognizationComponent)
+    @ViewChild(ImageRecognizationComponent,{static:false})
     imageRecognize: ImageRecognizationComponent;
 
     quill: Quill;
-    @ViewChild(CodeHistoryComponent)
+    @ViewChild(CodeHistoryComponent,{static:false})
     codeHistory: CodeHistoryComponent;
 
     constructor(private codeFormatter: CodeFormatterService) {

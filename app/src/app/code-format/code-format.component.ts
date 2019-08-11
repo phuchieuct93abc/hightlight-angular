@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, ElementRef, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
 
 
 import {MatSnackBar} from "@angular/material";
@@ -10,6 +10,7 @@ import {Subject} from "rxjs";
 import {NzMessageService} from "ng-zorro-antd";
 import html2canvas from 'html2canvas';
 import * as $ from "jquery"
+import {CodeInputComponent} from "../code-input/code-input.component";
 
 @Component({
     selector: 'app-code-format',
@@ -20,7 +21,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     @Input()
     code: string;
-    @ViewChild('formattedCode')
+    @ViewChild('formattedCode',{static:false})
     formattedCode: ElementRef<HTMLDivElement>;
     beautyCode = '';
     beautyCodeCopy = '';
@@ -32,10 +33,10 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     selectedTheme = 'default';
 
 
-    @ViewChild('formattedCodeCope')
+    @ViewChild('formattedCodeCope',{static:false})
     formattedCodeCope: ElementRef<HTMLDivElement>;
 
-    @ViewChild('form')
+    @ViewChild('form',{static:true})
     form: NgForm;
 
     applyHighlight = new Subject();
@@ -45,7 +46,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     fontSize = 13;
 
 
-    constructor(private message: NzMessageService, private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
+    constructor(private zone:NgZone,private message: NzMessageService, private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
 
     }
 
@@ -123,8 +124,11 @@ export class CodeFormatComponent implements OnInit, OnChanges {
                     a[0].click();
                     window.URL.revokeObjectURL(url);
                     a.remove();
-                    this.isFullScreen = originalFullScreen;
-                    this.isScreenShotting = false;
+                    this.zone.run(()=>{
+
+                        this.isFullScreen = originalFullScreen;
+                        this.isScreenShotting = false;
+                    })
                 });
             })
         })
