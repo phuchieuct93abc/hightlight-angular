@@ -17,10 +17,10 @@ export class AppComponent implements OnInit {
 
     code: string;
 
-    @ViewChild(CodeInputComponent)
+    @ViewChild(CodeInputComponent,{static:false})
     codeInput: CodeInputComponent;
 
-    @ViewChild(MatSidenav)
+    @ViewChild(MatSidenav,{static:false})
     sideNav:MatSidenav;
 
     isOpenHistory = true;

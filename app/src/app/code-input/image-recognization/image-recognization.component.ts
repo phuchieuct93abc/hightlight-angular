@@ -1,7 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TextExtractorService} from "../../../shared/text-extractor.service";
 import {Observable} from "rxjs";
-import {UploadEvent, UploadFile} from "ngx-file-drop";
 import {bounce} from "ng-animate";
 import {transition, trigger, useAnimation} from "@angular/animations";
 import {NzMessageService} from "ng-zorro-antd";
@@ -33,7 +32,7 @@ export class ImageRecognizationComponent implements OnInit {
 
     }
 
-    beforeUpload = (file: UploadFile): boolean => {
+    beforeUpload = (file: any): boolean => {
         this.onFileSelected(<File><unknown>file)
         return false;
     };
@@ -93,7 +92,7 @@ export class ImageRecognizationComponent implements OnInit {
 
     }
 
-    public dropped(event: UploadEvent) {
+    public dropped(event: any) {
         // this.isDragging = false;
         // this.files = event.files;
         // for (const droppedFile of event.files) {
