@@ -1,48 +1,75 @@
-.spinner,::ng-deep svg{
-    width: 20px !important;
-    height: 20px !important;
-
-}
-.spinner{
-    display: inline-block;
-}
-.drag{
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-
-    border: 1px solid transparent;
-    border-radius: 2px;
-    font-size: 14px;
-    line-height: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+:host {
+  display: block;
+  cursor: pointer;
+  text-align: center;
 }
 
-::ng-deep .ngx-file-drop__drop-zone--over,.ngx-file-drop__drop-zone{
-    position: relative;
-    background-color: white !important;
+.spinner {
+  width: 20px !important;
+  height: 20px !important;
+
 }
 
-.file-drop{
-    height: 200px;
+.spinner {
+  display: inline-block;
 }
-.upload-img{
-    width: 50px;
 
-    animation-name: upload;
-    animation-duration: 0.5s;
-    animation-direction: alternate;
+.drag {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid transparent;
+  border-radius: 2px;
+  font-size: 14px;
+  line-height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+::ng-deep .ngx-file-drop__drop-zone--over, .ngx-file-drop__drop-zone {
+  position: relative;
+  background-color: white !important;
+}
+
+.file-drop {
+  height: 200px;
+}
+
+.upload-img {
+  width: 50px;
+
+  animation-name: upload;
+  animation-duration: 0.5s;
+  animation-direction: alternate;
+}
+
+.thumbnail-wrapper {
+
+  padding: 1em;
+
+  .delete-thumbnail {
+    cursor: pointer;
+    font-size: 1.5em;
+  }
+
+  .thumbnail {
+    max-height: 10em;
+    max-width: 100%;
+    width: auto;
+    margin: 0 auto;
+    object-fit: contain;
+  }
 }
 
 @keyframes upload {
-    from{
-        transform: translateY(0px);
-    }
-    to{
-        transform: translateY(-10px);
-    }
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-10px);
+  }
 
 }

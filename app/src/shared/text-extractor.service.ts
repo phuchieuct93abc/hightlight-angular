@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
 import {map} from "rxjs/operators";
 
 @Injectable({
@@ -11,22 +10,16 @@ export class TextExtractorService {
     constructor(private httpClient: HttpClient) {
     }
 
-    extracTextByGoogleVision(imageBase64: string): Observable<string> {
+    extracTextByGoogleVision(imageBase64: string): Promise<string> {
         return this.httpClient.post("https://us-central1-thai-601b6.cloudfunctions.net/extractText", imageBase64.split(',')[1])
-            .pipe(map(data => data["text"]));
+            .pipe(map(data => data["text"])).toPromise();
     }
 
-    extractTextByTesseract(file: string): Observable<string> {
-        return new Observable(observer => {
+    extractTextByTesseract(file: string): Promise<string> {
+        return new Promise(resolve => {
             // @ts-ignore
             Tesseract.recognize(file, {lang: 'eng'})
-                .progress(function (p) {
-                })
-                .then(result => {
-                    observer.next(result.text);
-
-
-                })
+                .then(result => resolve(result.text))
         })
 
 

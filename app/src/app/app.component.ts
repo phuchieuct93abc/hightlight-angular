@@ -19,8 +19,7 @@ export class AppComponent implements OnInit {
 
     @ViewChild(CodeInputComponent)
     codeInput: CodeInputComponent;
-    @ViewChild(CodeHistoryComponent)
-    codeHistory: CodeHistoryComponent;
+
     @ViewChild(MatSidenav)
     sideNav:MatSidenav;
 
@@ -35,15 +34,8 @@ export class AppComponent implements OnInit {
 
     }
 
-    updateHistory(code: string) {
-        this.codeHistory.updateHistory(code);
-
-    }
-
-
     onCodeChange(code: string) {
         this.code = (code);
-        this.updateHistory(code);
 
     }
 

@@ -1,14 +1,21 @@
+<nz-card class="h-100 position-relative">
+    <div class="action">
+        <button (click)="formatQuill()" nz-dropdown nz-button nzType="default"  nzSize="small" >
+            <i nz-icon nzType="align-left"></i>Format
+        </button>
+        <nz-divider nzType="vertical"></nz-divider>
+        <app-code-history class="d-inline-block" (historySelected)="setText($event.code)"></app-code-history>
 
-<mat-card class="sticky-header">
+    </div>
 
-  <mat-card-content>
-
-
-      <div id="editor-container">
-      </div>
-
-      <app-image-recognization (onSelectedImage)="setText($event)"></app-image-recognization>
+    <div class="content">
 
 
-  </mat-card-content>
-</mat-card>
+
+        <div id="editor-container">
+        </div>
+
+        <app-image-recognization (onSelectedImage)="setText($event)"></app-image-recognization>
+    </div>
+
+</nz-card>

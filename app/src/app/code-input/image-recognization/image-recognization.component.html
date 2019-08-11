@@ -1,29 +1,50 @@
-<file-drop class="file-drop mb-2"
+<!--<file-drop class="file-drop mb-2"
            (onFileDrop)="dropped($event)"
            (onFileOver)="fileOver($event)" (onFileLeave)="fileLeave($event)"
            [class.isDragging]="isDragging"
            (click)="uploadInput.click()"
 >
     <span class="drag">
-        <img [class.animated]="isDragging"
-
-
-             src="../../../assets/upload.png" class="upload-img  infinite "/>
-        <span>Drop file to instantly extract code</span>
+        <img
+                src="../../../assets/upload.png" class="upload-img  infinite animated "/>
+        <span>Update image to extract code</span>
+<nz-spin nzSimple [nzSize]="'large'" *ngIf="uploading" class="ml-2"></nz-spin>
 
     </span>
 
 
 </file-drop>
 
-<input #uploadInput matRipple id="singleFile" type="file"  class="d-none" [fileUploadInputFor]="fileUploadQueue"
+<input #uploadInput matRipple id="singleFile" type="file" class="d-none" [fileUploadInputFor]="fileUploadQueue"
        (onFileSelected)="onFileSelected($event)"/>
 <mat-file-upload-queue #fileUploadQueue class="d-none"
                        [fileAlias]="'file'">
 
-</mat-file-upload-queue>
-<mat-spinner *ngIf="uploading" class="spinner"></mat-spinner>
+</mat-file-upload-queue>-->
+<nz-upload
+        nzType="drag"
+        [nzMultiple]="false"
+        [nzLimit]="2"
+        [nzBeforeUpload]="beforeUpload"
+        (nzChange)="dropped($event)"
+>
+    <p class="ant-upload-drag-icon">
+        <i nz-icon nzType="upload" *ngIf="!uploading"></i>
+        <nz-spin nzSimple [nzSize]="'large'" *ngIf="uploading"></nz-spin>
 
+    </p>
+    <p class="ant-upload-text">Click or drag file to this area to upload image file</p>
 
-<img class="w-100" id="blah" *ngIf="thumbnail" [src]="thumbnail" alt="thmubnail"/>
+</nz-upload>
+<div class="thumbnail-wrapper" *ngIf="thumbnail">
+
+    <nz-badge [nzCount]="iconClose">
+        <img class="w-100" id="blah" [src]="thumbnail" alt="thumbnail" class="thumbnail"/>
+    </nz-badge>
+    <ng-template #iconClose>
+
+        <i (click)="close()"  nz-icon nzType="close-circle" class="ant-scroll-number-custom-component delete-thumbnail"
+           style="color: #f5222d"></i>
+    </ng-template>
+</div>
 

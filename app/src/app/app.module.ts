@@ -14,9 +14,11 @@ import {MatFileUploadModule} from "angular-material-fileupload";
 import {ImageRecognizationComponent} from "./code-input/image-recognization/image-recognization.component";
 import {HttpClientModule} from "@angular/common/http";
 import {FileDropModule} from "ngx-file-drop";
+import {NgZorroAntdModule} from "ng-zorro-antd";
+import {ThemeChooserComponent} from "./theme-chooser/theme-chooser.component";
 
 @NgModule({
-    imports: [MaterialModule,
+    imports: [
         BrowserModule,
         FormsModule,
         NgbModule,
@@ -24,14 +26,16 @@ import {FileDropModule} from "ngx-file-drop";
         ClipboardModule,
         MatFileUploadModule,
         HttpClientModule,
-        FileDropModule],
+        FileDropModule,
+        NgZorroAntdModule],
     exports: [MaterialModule],
     declarations: [
         AppComponent,
         CodeInputComponent,
         CodeHistoryComponent,
         CodeFormatComponent,
-        ImageRecognizationComponent
+        ImageRecognizationComponent,
+        ThemeChooserComponent
     ],
     bootstrap: [AppComponent]
 })

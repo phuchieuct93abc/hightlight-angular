@@ -1,0 +1,44 @@
+[debug] [2019-08-03T13:08:21.369Z] ----------------------------------------------------------------------
+[debug] [2019-08-03T13:08:21.371Z] Command:       /usr/local/bin/node /usr/local/bin/firebase serve --only functions
+[debug] [2019-08-03T13:08:21.371Z] CLI Version:   7.0.2
+[debug] [2019-08-03T13:08:21.371Z] Platform:      darwin
+[debug] [2019-08-03T13:08:21.371Z] Node Version:  v10.15.0
+[debug] [2019-08-03T13:08:21.374Z] Time:          Sat Aug 03 2019 20:08:21 GMT+0700 (Indochina Time)
+[debug] [2019-08-03T13:08:21.374Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-03T13:08:21.389Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-03T13:08:21.389Z] > authorizing via signed-in user
+[debug] [2019-08-03T13:08:21.390Z] [iam] checking project thai-601b6 for permissions ["firebase.projects.get"]
+[debug] [2019-08-03T13:08:21.391Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-08-03T13:08:21.391Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-08-03T13:08:21.638Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-03T13:08:21.649Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/thai-601b6:testIamPermissions  
+
+[debug] [2019-08-03T13:08:23.057Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-03T13:08:23.059Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/thai-601b6  
+ 
+[debug] [2019-08-03T13:08:24.385Z] <<< HTTP RESPONSE 200
+[warn] ⚠  Your requested "node" version "8" doesn't match your global version "10"
+[debug] [2019-08-03T13:08:24.398Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1046992314471:getServerAppConfig  
+ 
+[debug] [2019-08-03T13:08:26.131Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: Emulator started at http://localhost:5000
+[info] i  functions: Watching "/Users/phuchieu/Projects/hightlight-angular/functions" for Cloud Functions...
+[debug] [2019-08-03T13:08:26.448Z] Functions runtime initialized.
+[debug] [2019-08-03T13:08:26.448Z] Disabled runtime features: {"functions_config_helper":true,"network_filtering":true,"timeout":true,"memory_limiting":true,"protect_env":true,"admin_stubs":true}
+[warn] ⚠  The Cloud Functions emulator requires the module "firebase-admin" to be version >8.0.0 so your version is too old. You can probably fix this by running "npm install firebase-admin@latest" in your functions directory.
+[info] i  functions: Your functions could not be parsed due to an issue with your node_modules (see above)
+[debug] [2019-08-03T13:10:18.500Z] ----------------------------------------------------------------------
+[debug] [2019-08-03T13:10:18.502Z] Command:       /usr/local/bin/node /usr/local/bin/firebase functions:shell
+[debug] [2019-08-03T13:10:18.502Z] CLI Version:   7.0.2
+[debug] [2019-08-03T13:10:18.502Z] Platform:      darwin
+[debug] [2019-08-03T13:10:18.502Z] Node Version:  v10.15.0
+[debug] [2019-08-03T13:10:18.503Z] Time:          Sat Aug 03 2019 20:10:18 GMT+0700 (Indochina Time)
+[debug] [2019-08-03T13:10:18.503Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-03T13:10:18.514Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-03T13:10:18.514Z] > authorizing via signed-in user
+[debug] [2019-08-03T13:10:18.514Z] [iam] checking project thai-601b6 for permissions ["firebase.projects.get"]
+[debug] [2019-08-03T13:10:18.516Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/thai-601b6:testIamPermissions  
+

@@ -1,7 +1,12 @@
-.mat-list-item.active{
+.mat-list-item.active {
     background-color: #dcdcdc;
 }
-:host{
-    width: 250px;
+
+:host {
     display: block;
+}
+
+.histories {
+    max-height: 500px;
+    overflow: auto;
 }

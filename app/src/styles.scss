@@ -1,8 +1,9 @@
 /* Add application styles & imports to this file! */
-@import "~quill/dist/quill.snow.css";
-@import "~quill/dist/quill.bubble.css";
-@import "~highlight.js/styles/default.css";
-@import "~animate.css/animate.css";
+@import "~quill/dist/quill.snow";
+@import "~quill/dist/quill.bubble";
+@import "~animate.css/animate";
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~ng-zorro-antd/ng-zorro-antd.min.css";
 
 body .hljs {
   background-color: transparent;
@@ -20,5 +21,41 @@ body {
 
   }
 
+  .ant-btn,.ant-message-custom-content {
+    display: inline-flex;
+    align-items: center;
+  }
+
+
+
+}
+
+[data-theme=default] {
+  @import "~highlight.js/styles/default";
+
+}
+
+[data-theme=darcula] {
+  @import "~highlight.js/styles/darcula";
+
+}
+
+[data-theme=github] {
+  @import "~highlight.js/styles/github";
+
+}
+
+[data-theme=codepen] {
+  @import "~highlight.js/styles/codepen-embed";
+
+}
+
+[data-theme=googlecode] {
+  @import "~highlight.js/styles/googlecode";
+
+}
+
+[data-theme=xcode] {
+  @import "~highlight.js/styles/xcode";
 
 }

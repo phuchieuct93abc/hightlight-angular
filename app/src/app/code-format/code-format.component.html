@@ -1,38 +1,90 @@
-<mat-card class="sticky-header">
-    <mat-card-content>
-        <mat-form-field>
-            <mat-select placeholder="Language" [(ngModel)]="selectedLanguage" (ngModelChange)="onChangeLanguage()">
+<nz-card class="h-100">
+    <div class="h-100 content">
+        <form nz-form [nzLayout]="'inline'" #form="ngForm" class="form">
+            <nz-form-item class="language-detector">
 
-                <mat-option *ngFor="let language of languages"
-                            [value]="language">{{language}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <div *ngIf="selectedLanguage === 'auto'">Detected Language: <strong>{{detectedLanguage}}</strong></div>
+                <nz-form-control>
+                    <nz-form-label>Language</nz-form-label>
+
+                    <nz-select style="width: 120px;" [(ngModel)]="selectedLanguage" nzPlaceHolder="Choose"
+                               name="language">
+
+                        <nz-option *ngFor="let language of languages"
+                                   [nzValue]="language" [nzLabel]="language"></nz-option>
+                    </nz-select>
 
 
-        <mat-divider class="clearfix"></mat-divider>
+                </nz-form-control>
+                <div>
 
-        <div></div>
-        <div class="alert alert-warning mt-2" role="alert">
-            Now, we can copy & paste with formatting in Evernote;
-            Please use copy button below
-            thank ku @Cuong
+                    <nz-form-label>
+                        Detected language:
+                        <strong *ngIf="detectedLanguage">{{detectedLanguage}}</strong>
+                        <strong *ngIf="!detectedLanguage">Unknown</strong></nz-form-label>
+                </div>
 
+
+            </nz-form-item>
+
+            <app-theme-chooser [(selectedTheme)]="selectedTheme"
+                               (selectedThemeChange)="applyHighlightCode()"></app-theme-chooser>
+            <label nz-checkbox [(ngModel)]="wrap" name="wrap">Wrap</label>
+
+        </form>
+
+        <div class="formatted-code "
+             [class.full-screen]="isFullScreen"
+             [class.screen-shooting]="isScreenShotting">
+            <div class="action">
+
+                <button nz-button nz-popover  nzSize="small" [nzTitle]="titleTemplate" [nzContent]="contentTemplate">
+                    Font size: {{fontSize}}
+                </button>
+
+                <ng-template #titleTemplate>Select font size</ng-template>
+                <ng-template #contentTemplate>
+
+
+                    <nz-slider  [(ngModel)]="fontSize" [nzMax]="20" [nzMin]="13"></nz-slider>
+
+                </ng-template>
+                <nz-divider nzType="vertical"></nz-divider>
+
+                <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
+                    <i nz-icon nzType="camera"></i>ScreenShot
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+
+                <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
+                    <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
+                </button>
+                <nz-divider nzType="vertical"></nz-divider>
+                <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
+                    <i nz-icon nzType="copy"></i>Copy
+                </button>
+
+
+
+            </div>
+
+            <pre class=" w-100 " [ngStyle]="{'font-size.px':fontSize}"
+                 [attr.data-theme]="selectedTheme"
+                 *ngFor="let code of [selectedLanguage + selectedTheme]">
+
+
+
+
+            <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}} mh-100 "
+                  [ngStyle]="{whiteSpace:wrap?'pre-wrap':'inherit'}"></code>
+        </pre>
         </div>
 
-        <mat-divider class="clearfix"></mat-divider>
-        <button (click)="onCopy()" class="float-right" mat-raised-button color="primary">Copy
-        </button>
-        <pre class="formatted-code">
 
-    <code #formattedCode [innerText]="beautyCode" class="{{detectedLanguage}}"></code>
-</pre>
+        <pre class="formatted-code d-none" [attr.data-theme]="selectedTheme"
+             *ngFor="let code of [selectedLanguage + selectedTheme]">
 
+            <code #formattedCodeCope [innerText]="beautyCodeCopy" class="{{detectedLanguage}}"></code>
+        </pre>
 
-        <pre class="formatted-code d-none">
-
-    <code #formattedCodeCope [innerText]="beautyCodeCopy" class="{{detectedLanguage}}"></code>
-</pre>
-
-    </mat-card-content>
-</mat-card>
+    </div>
+</nz-card>

@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
-import hljs from 'highlight.js/lib/highlight';
+import hljs from 'highlight.js';
 import * as beauty from "js-beautify"
 import {Subject} from "rxjs";
-import javascript from 'highlight.js/lib/languages/javascript';
-import java from 'highlight.js/lib/languages/java';
 import css from 'highlight.js/lib/languages/css';
 import xml from 'highlight.js/lib/languages/xml';
 
@@ -16,12 +14,12 @@ export class CodeFormatterService {
     onSelectLanguage = new Subject<string>();
 
     constructor() {
-        hljs.configure({ useBR: true })
-        hljs.registerLanguage('javascript', javascript);
-        hljs.registerLanguage('css', css);
-        hljs.registerLanguage('java', java);
-        hljs.registerLanguage('html', xml);
-        hljs.registerLanguage('xml', xml);
+        hljs.configure({useBR: true});
+        // hljs.registerLanguage('javascript', javascript);
+        // hljs.registerLanguage('css', css);
+        // hljs.registerLanguage('java', java);
+        // hljs.registerLanguage('html', xml);
+        // hljs.registerLanguage('xml', xml);
     }
 
     detectLanguage(code: string) {
@@ -31,15 +29,26 @@ export class CodeFormatterService {
     }
 
     beautify(code: string, isChangeIndent = false) {
-        let beautify = beauty.js;
         let language = this.detectLanguage(code);
         let option = {}
+        let beautify;
 
-        if (language == 'css') {
-            beautify = beauty.css
-        } else if (language == 'html' || language == 'xml') {
-            beautify = beauty.html;
-
+        switch (language) {
+            case 'css':
+            case "scss":
+                beautify = beauty.css;
+                break;
+            case 'js':
+            case 'javascript':
+                beautify = beauty.js;
+                break;
+            case 'xml':
+            case 'html':
+                beautify = beauty.html;
+                break;
+        }
+        if (!beautify) {
+            return code.replace(/\t/g, '    ');;
         }
 
         if (isChangeIndent) {
@@ -64,7 +73,6 @@ export class CodeFormatterService {
             hljs.highlightBlock(element);
         })
     }
-
 
 
 }

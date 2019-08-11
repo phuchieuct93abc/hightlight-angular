@@ -1,15 +1,19 @@
 
-<div class="mat-h2 px-3">
-    History
-    <a mat-button (click)="clearAll()">Clear all</a>
-</div>
-<mat-divider></mat-divider>
-<mat-nav-list>
-    <a mat-list-item *ngFor="let item of history"
-       (click)="selectHistory(item)"
-       [class.active]="selectedHistoryId == item.id">
-        <span matLine class="py-1" style="white-space: normal">{{item.key|slice:0:60}}</span>
-        <mat-divider matLine></mat-divider>
-    </a>
-</mat-nav-list>
+<nz-dropdown [nzClickHide]="false" [nzPlacement]="'bottomLeft'">
 
+
+    <button nz-dropdown nz-button nzType="default"  nzSize="small"><i nz-icon nzType="history"></i>History</button>
+
+
+    <ul nz-menu class="histories">
+        <li nz-menu-item *ngFor="let item of history"
+            (click)="selectHistory(item)">
+            <a
+                    [class.active]="selectedHistoryId == item.id">
+                <span matLine class="py-1" style="white-space: normal">{{item.key|slice:0:60}}</span>
+            </a>
+
+        </li>
+
+    </ul>
+</nz-dropdown>
