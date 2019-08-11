@@ -13,6 +13,7 @@ import {ImageRecognizationComponent} from "./code-input/image-recognization/imag
 import {HttpClientModule} from "@angular/common/http";
 import {NgZorroAntdModule} from "ng-zorro-antd";
 import {ThemeChooserComponent} from "./theme-chooser/theme-chooser.component";
+import {ThumbnailComponent} from "./code-input/image-recognization/thumbnail/thumbnail.component";
 
 @NgModule({
     imports: [
@@ -21,7 +22,9 @@ import {ThemeChooserComponent} from "./theme-chooser/theme-chooser.component";
         NgbModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        NgZorroAntdModule],
+        NgZorroAntdModule
+
+    ],
     exports: [MaterialModule],
     declarations: [
         AppComponent,
@@ -29,7 +32,8 @@ import {ThemeChooserComponent} from "./theme-chooser/theme-chooser.component";
         CodeHistoryComponent,
         CodeFormatComponent,
         ImageRecognizationComponent,
-        ThemeChooserComponent
+        ThemeChooserComponent,
+        ThumbnailComponent
     ],
     bootstrap: [AppComponent]
 })

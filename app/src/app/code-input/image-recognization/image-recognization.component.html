@@ -27,6 +27,8 @@
         [nzLimit]="2"
         [nzBeforeUpload]="beforeUpload"
         (nzChange)="dropped($event)"
+
+
 >
     <p class="ant-upload-drag-icon">
         <i nz-icon nzType="upload" *ngIf="!uploading"></i>
@@ -36,15 +38,17 @@
     <p class="ant-upload-text">Click or drag file to this area to upload image file</p>
 
 </nz-upload>
-<div class="thumbnail-wrapper" *ngIf="thumbnail">
 
-    <nz-badge [nzCount]="iconClose">
-        <img class="w-100" id="blah" [src]="thumbnail" alt="thumbnail" class="thumbnail"/>
-    </nz-badge>
-    <ng-template #iconClose>
+<app-thumbnail [thumbnail]="thumbnail" *ngIf="thumbnail" (onClose)="close()"></app-thumbnail>
+<!--<div class="thumbnail-wrapper" *ngIf="thumbnail">-->
 
-        <i (click)="close()"  nz-icon nzType="close-circle" class="ant-scroll-number-custom-component delete-thumbnail"
-           style="color: #f5222d"></i>
-    </ng-template>
-</div>
+<!--    <nz-badge [nzCount]="iconClose">-->
+<!--        <img class="w-100" id="blah" [src]="thumbnail" alt="thumbnail" class="thumbnail"/>-->
+<!--    </nz-badge>-->
+<!--    <ng-template #iconClose>-->
+
+<!--        <i (click)="close()" nz-icon nzType="close-circle" class="ant-scroll-number-custom-component delete-thumbnail"-->
+<!--           style="color: #f5222d"></i>-->
+<!--    </ng-template>-->
+<!--</div>-->
 

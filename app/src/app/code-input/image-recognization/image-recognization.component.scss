@@ -46,23 +46,6 @@
   animation-direction: alternate;
 }
 
-.thumbnail-wrapper {
-
-  padding: 1em;
-
-  .delete-thumbnail {
-    cursor: pointer;
-    font-size: 1.5em;
-  }
-
-  .thumbnail {
-    max-height: 10em;
-    max-width: 100%;
-    width: auto;
-    margin: 0 auto;
-    object-fit: contain;
-  }
-}
 
 @keyframes upload {
   from {
