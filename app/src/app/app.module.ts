@@ -14,6 +14,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {NgZorroAntdModule} from "ng-zorro-antd";
 import {ThemeChooserComponent} from "./theme-chooser/theme-chooser.component";
 import {ThumbnailComponent} from "./code-input/image-recognization/thumbnail/thumbnail.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
+import { environment } from '../environments/environment';
 
 @NgModule({
     imports: [
@@ -22,7 +24,8 @@ import {ThumbnailComponent} from "./code-input/image-recognization/thumbnail/thu
         NgbModule,
         BrowserAnimationsModule,
         HttpClientModule,
-        NgZorroAntdModule
+        NgZorroAntdModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
     ],
     exports: [MaterialModule],

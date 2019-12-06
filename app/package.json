@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "dependencies": {
+    "@angular-devkit/build-angular": "^0.803.20",
     "@angular/animations": "^8.2.1",
     "@angular/cdk": "^7.3.3",
     "@angular/cli": "^8.2.1",
@@ -14,7 +15,9 @@
     "@angular/material": "^7.3.3",
     "@angular/platform-browser": "^8.2.1",
     "@angular/platform-browser-dynamic": "^8.2.1",
+    "@angular/pwa": "^0.803.20",
     "@angular/router": "^8.2.1",
+    "@angular/service-worker": "^8.2.1",
     "@ng-bootstrap/ng-bootstrap": "^4.1.0",
     "@types/quill": "^2.0.2",
     "animate.css": "^3.7.0",
@@ -50,7 +53,6 @@
     "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "^0.802.1",
     "@angular/language-service": "^8.2.1",
     "@types/jasmine": "^2.8.16",
     "@types/jasminewd2": "^2.0.6",
