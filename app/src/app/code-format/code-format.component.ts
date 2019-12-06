@@ -73,9 +73,10 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
         this.beautyCode = this.codeFormatter.beautify(this.code);
         this.beautyCodeCopy = this.codeFormatter.beautify(this.code, true);
+        console.log(this.code,this.beautyCode)
         setTimeout(() => {
-            this.codeFormatter.formatBlock(this.formattedCode.nativeElement);
-            this.codeFormatter.formatBlock(this.formattedCodeCope.nativeElement);
+            this.codeFormatter.highlight(this.formattedCode.nativeElement);
+            this.codeFormatter.highlight(this.formattedCodeCope.nativeElement);
         })
     }
 

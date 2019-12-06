@@ -76,7 +76,7 @@ export class CodeFormatterService {
 
     }
 
-    formatBlock(element: HTMLElement) {
+    highlight(element: HTMLElement) {
         setTimeout(() => {
             hljs.highlightBlock(element);
         })
