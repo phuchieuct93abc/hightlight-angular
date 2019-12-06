@@ -1,0 +1,166 @@
+[debug] [2019-12-06T14:23:24.313Z] ----------------------------------------------------------------------
+[debug] [2019-12-06T14:23:24.315Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2019-12-06T14:23:24.315Z] CLI Version:   7.0.2
+[debug] [2019-12-06T14:23:24.315Z] Platform:      darwin
+[debug] [2019-12-06T14:23:24.315Z] Node Version:  v10.15.0
+[debug] [2019-12-06T14:23:24.316Z] Time:          Fri Dec 06 2019 21:23:24 GMT+0700 (Indochina Time)
+[debug] [2019-12-06T14:23:24.317Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-12-06T14:23:24.333Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-06T14:23:24.333Z] > authorizing via signed-in user
+[debug] [2019-12-06T14:23:24.333Z] [iam] checking project thai-601b6 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-12-06T14:23:24.335Z] > refreshing access token with scopes: ["email","https://www.googleapis.com/auth/cloud-platform","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","openid"]
+[debug] [2019-12-06T14:23:24.335Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2019-12-06T14:23:24.598Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:23:24.618Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/thai-601b6:testIamPermissions  
+
+[debug] [2019-12-06T14:23:26.516Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:23:26.517Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/thai-601b6  
+ 
+[debug] [2019-12-06T14:23:27.682Z] <<< HTTP RESPONSE 200
+[warn] ⚠  functions: package.json indicates an outdated version of firebase-functions.
+ Please upgrade using npm install --save firebase-functions@latest in your functions directory.
+[info] 
+[info] === Deploying to 'thai-601b6'...
+[info] 
+[info] i  deploying functions, hosting
+[info] Running command: npm --prefix "$RESOURCE_DIR" run build
+[info] ✔  functions: Finished running predeploy script.
+[debug] [2019-12-06T14:23:33.794Z] > [functions] package.json contents: {
+  "name": "functions",
+  "scripts": {
+    "build": "tsc",
+    "serve": "npm run credential && npm run build && firebase serve --only functions",
+    "shell": "npm run build && firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log",
+    "credential": "export GOOGLE_APPLICATION_CREDENTIALS=\"/Users/phuchieu/Downloads/highlight-d84268d319e0.json\""
+  },
+  "main": "lib/index.js",
+  "dependencies": {
+    "@google-cloud/vision": "^0.25.0",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "firebase-admin": "~6.0.0",
+    "firebase-functions": "^2.1.0"
+  },
+  "private": true,
+  "devDependencies": {
+    "@types/gapi.client.vision": "^1.0.1",
+    "typescript": "^3.3.4000"
+  },
+  "engines": {
+    "node": "8"
+  }
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-12-06T14:23:33.794Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudfunctions.googleapis.com/projectSettings/thai-601b6?view=CONSUMER_VIEW  
+ 
+[debug] [2019-12-06T14:23:33.795Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/runtimeconfig.googleapis.com/projectSettings/thai-601b6?view=CONSUMER_VIEW  
+ 
+[debug] [2019-12-06T14:23:36.565Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:23:36.731Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-12-06T14:23:36.733Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/thai-601b6  
+ 
+[debug] [2019-12-06T14:23:37.948Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:23:37.949Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/1046992314471:getServerAppConfig  
+ 
+[debug] [2019-12-06T14:23:38.941Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:23:38.944Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/thai-601b6/versions  
+
+[debug] [2019-12-06T14:23:41.533Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-12-06T14:23:41.537Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/thai-601b6/configs  
+ 
+[debug] [2019-12-06T14:23:43.069Z] <<< HTTP RESPONSE 200
+[info] i  functions: packaged functions (686 KB) for uploading
+[debug] [2019-12-06T14:23:44.262Z] >>> HTTP REQUEST POST https://cloudfunctions.googleapis.com/v1/projects/thai-601b6/locations/us-central1/functions:generateUploadUrl  
+ 
+[debug] [2019-12-06T14:23:47.070Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:23:47.071Z] >>> HTTP REQUEST PUT https://storage.googleapis.com/gcf-upload-us-central1-dd5f4e7e-f73b-4205-b8a8-c2e9cc522068/40001683-4f4e-4539-ae21-dd51faefb811.zip?GoogleAccessId=service-1046992314471@gcf-admin-robot.iam.gserviceaccount.com&Expires=1575644026&Signature=yd6UnJG9qcD1nXWFgsUdqt3EQEKtV%2BKi9CY1Hy3q5L98fPI4bokJHVfTVTBlpIxO2AGXfU1NLevqNxIQ8mHcTI5Vttydrkp6MIQarfFeg5UKlNpacPFnw5oSZCYateEkaKRyqHAXuKRrAUiiCo7JAPSRsgwdSkgxBgpcTFBFnGN%2Byeofk7AR%2BuZDb7Kfw2eUDN3UQsmbXPyxmAtx%2FdBiTE1JP3dJVEw21QraG3KEq6PLgUUAdRAzywiFroxOXBI6CE5h9FGCKTpABm30qvmsMHBA0iqT4jwTIF%2FJ6ynO4x1UNDNW%2B9aPTuyBvxoYgpdjljvl7NT9cbo5kHCmS1mzbA%3D%3D  
+
+[debug] [2019-12-06T14:23:53.674Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: functions folder uploaded successfully
+[info] i  hosting[thai-601b6]: beginning deploy...
+[info] i  hosting[thai-601b6]: found 1509 files in app/dist/demo
+[debug] [2019-12-06T14:23:53.883Z] [hosting] hash cache [YXBwL2Rpc3QvZGVtbw] load error: lines is not defined
+[debug] [2019-12-06T14:23:54.517Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/thai-601b6/versions/58b30ea786188de0:populateFiles  
+ <request body omitted>
+[debug] [2019-12-06T14:23:55.508Z] [hosting] hash cache [YXBwL2Rpc3QvZGVtbw] stored for 1509 files
+[debug] [2019-12-06T14:23:55.508Z] [hosting][hash queue][FINAL]
+[debug] [2019-12-06T14:23:55.508Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/thai-601b6/versions/58b30ea786188de0:populateFiles  
+ <request body omitted>
+[debug] [2019-12-06T14:24:03.944Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:04.473Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:04.474Z] [hosting][populate queue][FINAL]
+[debug] [2019-12-06T14:24:04.474Z] [hosting] uploads queued: 1229
+[debug] [2019-12-06T14:24:06.577Z] [hosting][upload]
+[debug] [2019-12-06T14:24:08.253Z] [hosting][upload]
+[debug] [2019-12-06T14:24:09.777Z] [hosting][upload]
+[debug] [2019-12-06T14:24:10.847Z] [hosting][upload]
+[debug] [2019-12-06T14:24:12.218Z] [hosting][upload]
+[debug] [2019-12-06T14:24:13.823Z] [hosting][upload]
+[debug] [2019-12-06T14:24:14.941Z] [hosting][upload]
+[debug] [2019-12-06T14:24:16.950Z] [hosting][upload]
+[debug] [2019-12-06T14:24:19.032Z] [hosting][upload]
+[debug] [2019-12-06T14:24:20.955Z] [hosting][upload]
+[debug] [2019-12-06T14:24:24.907Z] [hosting][upload]
+[debug] [2019-12-06T14:24:29.823Z] [hosting][upload queue][FINAL]
+[info] ✔  hosting[thai-601b6]: file upload complete
+[debug] [2019-12-06T14:24:29.824Z] [hosting] deploy completed after 36147ms
+[debug] [2019-12-06T14:24:31.118Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/thai-601b6/locations/-/functions  
+ 
+[debug] [2019-12-06T14:24:33.726Z] <<< HTTP RESPONSE 200
+[info] i  functions: updating Node.js 8 function extractText(us-central1)...
+[debug] [2019-12-06T14:24:33.730Z] Trigger is:  {"httpsTrigger":{}}
+[debug] [2019-12-06T14:24:33.731Z] >>> HTTP REQUEST GET https://servicemanagement.googleapis.com/v1/services/cloudscheduler.googleapis.com/projectSettings/thai-601b6?view=CONSUMER_VIEW  
+ 
+[debug] [2019-12-06T14:24:35.018Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:35.019Z] >>> HTTP REQUEST PATCH https://cloudfunctions.googleapis.com/v1/projects/thai-601b6/locations/us-central1/functions/extractText {"updateMask":"sourceUploadUrl,name,labels,runtime,httpsTrigger"} 
+
+[debug] [2019-12-06T14:24:36.207Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:36.210Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/projects/thai-601b6/locations/-/functions  
+ 
+[debug] [2019-12-06T14:24:37.835Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:37.836Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:38.353Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:40.355Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:40.714Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:42.717Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:43.173Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:45.178Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:46.064Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:48.065Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:48.570Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:50.569Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:51.186Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:53.191Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:54.065Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:56.067Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:56.554Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:24:58.556Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:24:59.359Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:25:01.359Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:25:02.311Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:25:04.313Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:25:05.972Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:25:07.972Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:25:09.375Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-06T14:25:11.377Z] >>> HTTP REQUEST GET https://cloudfunctions.googleapis.com/v1/operations/dGhhaS02MDFiNi91cy1jZW50cmFsMS9leHRyYWN0VGV4dC9TNzN1a2hJSHBNZw  
+ 
+[debug] [2019-12-06T14:25:13.864Z] <<< HTTP RESPONSE 200
