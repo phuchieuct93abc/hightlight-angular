@@ -68,7 +68,6 @@ export class CodeFormatComponent implements OnInit, OnChanges {
         if (!this.code) return;
         this.resetLanguage();
         this.codeFormatter.changeLanguage(this.selectedLanguage);
-
         this.detectedLanguage = this.codeFormatter.detectLanguage(this.code);
         this.codeFormatter.changeLanguage(this.detectedLanguage);
 

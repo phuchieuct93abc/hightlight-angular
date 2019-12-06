@@ -12,14 +12,18 @@ export class CodeFormatterService {
 
     currentLanguage = 'auto';
     onSelectLanguage = new Subject<string>();
+    defaultBeautifyOption = {
+        "e4x": true,
+        "jslint_happy": true,
+        "selector_separator_newline": false,
+        "max_preserve_newlines": "-1",
+        "preserve_newlines": false,
+    };
 
     constructor() {
         hljs.configure({useBR: true});
-        // hljs.registerLanguage('javascript', javascript);
-        // hljs.registerLanguage('css', css);
-        // hljs.registerLanguage('java', java);
-        // hljs.registerLanguage('html', xml);
-        // hljs.registerLanguage('xml', xml);
+
+
     }
 
     detectLanguage(code: string) {
@@ -40,6 +44,8 @@ export class CodeFormatterService {
                 break;
             case 'js':
             case 'javascript':
+            case 'json':
+            case 'java':
                 beautify = beauty.js;
                 break;
             case 'xml':
@@ -48,7 +54,8 @@ export class CodeFormatterService {
                 break;
         }
         if (!beautify) {
-            return code.replace(/\t/g, '    ');;
+            return code.replace(/\t/g, '    ');
+            ;
         }
 
         if (isChangeIndent) {
@@ -58,7 +65,8 @@ export class CodeFormatterService {
                 "indent_with_tabs": false,
             };
         }
-        let result = beautify(code, option);
+        console.log(beautify);
+        let result = beautify(code, {...option, ...this.defaultBeautifyOption});
         return result;
 
     }
