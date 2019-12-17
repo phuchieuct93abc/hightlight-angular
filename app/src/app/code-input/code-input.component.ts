@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import Quill from 'quill';
-import {Observable, timer} from "rxjs";
-import {ImageDrop} from 'quill-image-drop-module';
-import {ImageRecognizationComponent} from "./image-recognization/image-recognization.component";
-import {CodeFormatterService} from "../../shared/code-formatter.service";
-import {debounce} from "rxjs/operators";
-import {CodeHistoryComponent} from "../code-history/code-history.component";
+import { Observable, timer } from "rxjs";
+import { ImageDrop } from 'quill-image-drop-module';
+import { ImageRecognizationComponent } from "./image-recognization/image-recognization.component";
+import { CodeFormatterService } from "../../shared/code-formatter.service";
+import { debounce } from "rxjs/operators";
+import { CodeHistoryComponent } from "../code-history/code-history.component";
 
 
 @Component({
@@ -18,12 +18,14 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     @Output()
     onChange = new EventEmitter<string>();
 
-    @ViewChild(ImageRecognizationComponent,{static:false})
+    @ViewChild(ImageRecognizationComponent, { static: false })
     imageRecognize: ImageRecognizationComponent;
 
     quill: Quill;
-    @ViewChild(CodeHistoryComponent,{static:false})
+    @ViewChild(CodeHistoryComponent, { static: false })
     codeHistory: CodeHistoryComponent;
+
+    isFormat: boolean;
 
     constructor(private codeFormatter: CodeFormatterService) {
     }
@@ -31,6 +33,9 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
     ngOnInit(): void {
         Quill.register('modules/imageDrop', ImageDrop);
         this.enableCopyFromCLipboard();
+        this.codeFormatter.getOnCurrentLanguageChange().subscribe(() => {
+            this.format();
+        })
 
     }
 
@@ -93,8 +98,12 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
 
 
     }
-
-    formatQuill() {
+    format() {
+        if (this.isFormat) {
+            this.formatQuill();
+        }
+    }
+    private formatQuill() {
         let originalText = this.quill.getText();
         let beautyCode = this.codeFormatter.beautify(originalText);
         this.quill.setText(beautyCode);

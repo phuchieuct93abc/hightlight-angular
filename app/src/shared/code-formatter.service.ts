@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import hljs from 'highlight.js';
 import * as beauty from "js-beautify"
-import {Subject} from "rxjs";
+import { Subject } from "rxjs";
 import css from 'highlight.js/lib/languages/css';
 import xml from 'highlight.js/lib/languages/xml';
 
@@ -19,9 +19,12 @@ export class CodeFormatterService {
         "max_preserve_newlines": "-1",
         "preserve_newlines": false,
     };
+    onCurrentLanguageChange: Subject<string> = new Subject();
+
+    getOnCurrentLanguageChange = () => this.onCurrentLanguageChange;
 
     constructor() {
-        hljs.configure({useBR: true});
+        hljs.configure({ useBR: true });
 
 
     }
@@ -65,14 +68,14 @@ export class CodeFormatterService {
                 "indent_with_tabs": false,
             };
         }
-        console.log(beautify);
-        let result = beautify(code, {...option, ...this.defaultBeautifyOption});
+        let result = beautify(code, { ...option, ...this.defaultBeautifyOption });
         return result;
 
     }
 
     changeLanguage(selectedLanguage: string) {
         this.currentLanguage = selectedLanguage;
+        this.onCurrentLanguageChange.next(this.currentLanguage);
 
     }
 
