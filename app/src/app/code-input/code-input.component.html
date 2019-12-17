@@ -1,10 +1,6 @@
 <nz-card class="h-100 position-relative">
     <div class="action">
         <label nz-checkbox [(ngModel)]="isFormat" (ngModelChange)="format()">Format</label>
-
-        <button (click)="formatQuill()" nz-dropdown nz-button nzType="default"  nzSize="small" >
-            <i nz-icon nzType="align-left"></i>Format
-        </button>
         <nz-divider nzType="vertical"></nz-divider>
         <app-code-history class="d-inline-block" (historySelected)="setText($event.code)"></app-code-history>
 

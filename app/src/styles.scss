@@ -32,6 +32,11 @@ body {
 
 
 }
+.ant-checkbox-wrapper.left-label{
+  .ant-checkbox + span{
+    float: left;
+  }
+}
 
 [data-theme=default] {
   @import "~highlight.js/styles/default";

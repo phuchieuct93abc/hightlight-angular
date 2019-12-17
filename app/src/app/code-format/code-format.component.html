@@ -1,43 +1,49 @@
 <nz-card class="h-100">
     <div class="h-100 content">
-        <form nz-form [nzLayout]="'inline'" #form="ngForm" class="form">
+        <form  nz-form [nzLayout]="'inline'" #form="ngForm" class="form">
             <nz-form-item class="language-detector">
 
                 <nz-form-control>
-                    <nz-form-label>Language</nz-form-label>
-
+                    <nz-form-label>
+                        Detected language:
+                        <strong *ngIf="detectedLanguage">{{detectedLanguage}}</strong>
+                        <strong *ngIf="!detectedLanguage">Unknown</strong>
+                    </nz-form-label>
                     <nz-select style="width: 120px;" [(ngModel)]="selectedLanguage" nzPlaceHolder="Choose"
-                               name="language">
+                        name="language">
 
-                        <nz-option *ngFor="let language of languages"
-                                   [nzValue]="language" [nzLabel]="language"></nz-option>
+                        <nz-option *ngFor="let language of languages" [nzValue]="language" [nzLabel]="language">
+                        </nz-option>
                     </nz-select>
 
 
                 </nz-form-control>
-                <div>
 
-                    <nz-form-label>
-                        Detected language:
-                        <strong *ngIf="detectedLanguage">{{detectedLanguage}}</strong>
-                        <strong *ngIf="!detectedLanguage">Unknown</strong></nz-form-label>
-                </div>
+
+            </nz-form-item>
+            <nz-divider nzType="vertical"></nz-divider>
+
+            <app-theme-chooser [(selectedTheme)]="selectedTheme" (selectedThemeChange)="applyHighlightCode()">
+            </app-theme-chooser>
+            <nz-divider nzType="vertical"></nz-divider>
+
+            <nz-form-item class="wrap-code h-100">
+
+                <nz-form-control>
+                    <label nz-checkbox [(ngModel)]="wrap" name="wrap" class="left-label"> Wrap</label>
+
+
+                </nz-form-control>
 
 
             </nz-form-item>
 
-            <app-theme-chooser [(selectedTheme)]="selectedTheme"
-                               (selectedThemeChange)="applyHighlightCode()"></app-theme-chooser>
-            <label nz-checkbox [(ngModel)]="wrap" name="wrap">Wrap</label>
+        </form >
 
-        </form>
-
-        <div class="formatted-code "
-             [class.full-screen]="isFullScreen"
-             [class.screen-shooting]="isScreenShotting">
+        <div class="formatted-code " [class.full-screen]="isFullScreen" [class.screen-shooting]="isScreenShotting">
             <div class="action">
 
-                <button nz-button nz-popover  nzSize="small" [nzTitle]="titleTemplate" [nzContent]="contentTemplate">
+                <button nz-button nz-popover nzSize="small" [nzTitle]="titleTemplate" [nzContent]="contentTemplate">
                     Font size: {{fontSize}}
                 </button>
 
@@ -45,7 +51,7 @@
                 <ng-template #contentTemplate>
 
 
-                    <nz-slider  [(ngModel)]="fontSize" [nzMax]="20" [nzMin]="13"></nz-slider>
+                    <nz-slider [(ngModel)]="fontSize" [nzMax]="20" [nzMin]="13"></nz-slider>
 
                 </ng-template>
                 <nz-divider nzType="vertical"></nz-divider>
@@ -67,9 +73,8 @@
 
             </div>
 
-            <pre class=" w-100 " [ngStyle]="{'font-size.px':fontSize}"
-                 [attr.data-theme]="selectedTheme"
-                 *ngFor="let code of [selectedLanguage + selectedTheme]">
+            <pre class=" w-100 " [ngStyle]="{'font-size.px':fontSize}" [attr.data-theme]="selectedTheme"
+                *ngFor="let code of [selectedLanguage + selectedTheme]">
 
 
 
@@ -81,7 +86,7 @@
 
 
         <pre class="formatted-code d-none" [attr.data-theme]="selectedTheme"
-             *ngFor="let code of [selectedLanguage + selectedTheme]">
+            *ngFor="let code of [selectedLanguage + selectedTheme]">
 
             <code #formattedCodeCope [innerText]="beautyCodeCopy" class="{{detectedLanguage}}"></code>
         </pre>

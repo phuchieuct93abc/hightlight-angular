@@ -11,8 +11,12 @@
 
         .form {
           display: grid;
-          grid-template: 55px auto / auto auto;
+          grid-template: auto /auto 30px auto 30px auto; 
+          align-items: center;
 
+          .ant-divider{
+            height: 50%;
+          }
           .language-detector {
             grid-row: 1 / 3;
           }
