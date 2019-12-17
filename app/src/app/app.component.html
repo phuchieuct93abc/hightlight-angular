@@ -1,10 +1,6 @@
 <div class="d-md-none">
-    <nz-alert
-            nzType="error"
-
-            nzMessage="Oop!"
-            nzDescription="Phiên bản mobile đang được hoàn thiện.  Mời bạn truy cập bằng phiên bản desktop"
-    >
+    <nz-alert nzType="error" nzMessage="Oop!"
+        nzDescription="Phiên bản mobile đang được hoàn thiện.  Mời bạn truy cập bằng phiên bản desktop">
     </nz-alert>
 
     <br>
@@ -13,28 +9,18 @@
 <div class="d-none d-md-flex flex-column h-100 ">
     <div>
         <div class="banner">
-            <div class="content d-flex justify-content-center align-items-center flex-column position-absolute w-100 h-100">
+            <div
+                class="content d-flex justify-content-center align-items-center flex-column position-absolute w-100 h-100">
                 <div class="display-4">HighlightCode</div>
                 <div class="mat-headline">Beautify and format code</div>
-                <!-- <h1 nz-title>HighlightCode</h1>
-                <h4 nz-title class="mat-headline">Beautify and format code</h4> -->
             </div>
-
-
         </div>
     </div>
 
 
-    <div class="container-fluid pt-2 flex-fill overflow-hidden ">
-
-        <div class="row content flex-nowrap h-100 " style="overflow: hidden">
-            <app-code-input (onChange)="onCodeChange($event)" class="col-6 py-3"></app-code-input>
-
-
-            <app-code-format [code]="code" class="col-6 py-3"></app-code-format>
-
-
-        </div>
+    <div nz-row nzGutter="8" class="p-2 flex-fill overflow-hidden content  h-100 ">
+        <app-code-input nz-col nzSpan="12" (onChange)="onCodeChange($event)" class="h-100"></app-code-input>
+        <app-code-format nz-col nzSpan="12" [code]="code" class="h-100"></app-code-format>
     </div>
 
 </div>
