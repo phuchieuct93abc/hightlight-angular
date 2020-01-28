@@ -16,15 +16,18 @@ import {ThemeChooserComponent} from "./theme-chooser/theme-chooser.component";
 import {ThumbnailComponent} from "./code-input/image-recognization/thumbnail/thumbnail.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { CodeEditorComponent } from './code-editor/code-editor.component';
+import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 
 @NgModule({
     imports: [
-        BrowserModule,
+    BrowserModule,
         FormsModule,
         NgbModule,
         BrowserAnimationsModule,
         HttpClientModule,
         NgZorroAntdModule,
+        NzCodeEditorModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
 
     ],
@@ -36,7 +39,8 @@ import { environment } from '../environments/environment';
         CodeFormatComponent,
         ImageRecognizationComponent,
         ThemeChooserComponent,
-        ThumbnailComponent
+        ThumbnailComponent,
+        CodeEditorComponent
     ],
     bootstrap: [AppComponent]
 })

@@ -19,7 +19,8 @@
 
 
     <div nz-row nzGutter="8" class="p-2 flex-fill overflow-hidden content  h-100 ">
-        <app-code-input nz-col nzSpan="12" (onChange)="onCodeChange($event)" class="h-100"></app-code-input>
+        <!-- <app-code-input nz-col nzSpan="12" (onChange)="onCodeChange($event)" class="h-100"></app-code-input> -->
+        <app-code-editor></app-code-editor>
         <app-code-format nz-col nzSpan="12" [code]="code" class="h-100"></app-code-format>
     </div>
 
