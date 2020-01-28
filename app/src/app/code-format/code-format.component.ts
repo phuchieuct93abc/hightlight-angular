@@ -46,7 +46,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     fontSize = 13;
 
 
-    constructor(private zone:NgZone,private message: NzMessageService, private snackBar: MatSnackBar, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
+    constructor(private zone:NgZone,private message: NzMessageService, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
 
     }
 

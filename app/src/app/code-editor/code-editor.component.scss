@@ -1,5 +1,26 @@
-.editor{
-    height: 500px; 
+.editor {
+    height: 500px;
     display: inline-block;
     width: 100%;
-} 
+
+    &.screen-shooting {
+        ::ng-deep {
+
+            .view-line,
+            .view-lines {
+                width: auto !important;
+                height: auto !important;
+                position: relative !important;
+                display: inline-block !important;
+            }
+
+            .view-line {
+                position: relative;
+            }
+
+            .view-lines {
+                padding: 2em;
+            }
+        }
+    }
+}
