@@ -6,7 +6,9 @@ import { CssService } from 'src/shared/css.service';
 import { CodeFormatterService } from 'src/shared/code-formatter.service';
 import html2canvas from 'html2canvas';
 import * as $ from "jquery"
+import { editor } from 'monaco-editor';
 
+declare const monaco: any;
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -17,23 +19,58 @@ export class CodeEditorComponent implements OnInit {
   code: string;
   isFullScreen = false;
   isScreenShotting;
+  screenshotData: string = `
+
+  `
+  editor: editor.ICodeEditor;
+
+
   @ViewChild('codeEditor', { static: false })
   codeEditor: NzCodeEditorComponent
   constructor(private zone: NgZone, private nzCodeEditorService: NzCodeEditorService, private copyService: CopyService, private message: NzMessageService, private cssService: CssService, private codeFormatter: CodeFormatterService) { }
 
   ngOnInit() {
-    this.code = `var x = {    }  `
+    this.code = `var x = {
+      a: 1,
+  
+      b: 2
+  }    `
     this.nzCodeEditorService.updateDefaultOption({
       formatOnType: true,
-      formatOnPaste: true
+      formatOnPaste: true,
+      copyWithSyntaxHighlighting: true,
+      contextmenu: false,
+      cursorBlinking: 'smooth'
     })
   }
+  onSelectedImage(code: string) {
+    this.setModel(code,'javascript')
+  }
+  onEditorInit(e: editor.ICodeEditor): void {
+    this.editor = e;
+    console.log(monaco.editor)
+    this.editor.setModel(monaco.editor.createModel(this.code, 'javascript'));
+  }
+  format() {
+    this.editor.getAction('editor.action.formatDocument').run();
+
+  }
+  setModel(code: string, language: string) {
+    this.editor.setModel(monaco.editor.createModel(code, 'javascript'));
+    this.format();
+  }
   onCopy() {
-    let editorElement = this.getCodeEditorElement();
-    this.cssService.inlineCSS(editorElement);
-    this.copyService.copyHtml(editorElement.innerHTML).then(() => {
-      this.message.success("Copied code successful! Now you can paste to doc, docx, evernote with the format")
-    });
+    
+    this.setModel(this.editor.getModel().getValue(),'javascript');
+
+    setTimeout(() => {
+
+      let editorElement = this.getCodeEditorElement();
+      this.cssService.inlineCSS(editorElement);
+      this.copyService.copyHtml(editorElement.innerHTML).then(() => {
+        this.message.success("Copied code successful! Now you can paste to doc, docx, evernote with the format")
+      });
+    }, 100);
   }
 
 
@@ -49,7 +86,7 @@ export class CodeEditorComponent implements OnInit {
     this.isFullScreen = true;
 
     setTimeout(() => {
-      let editorElement = this.getCodeEditorElement(); 
+      let editorElement = this.getCodeEditorElement();
 
       html2canvas(editorElement).then(canvas => {
         canvas.toBlob((data) => {
@@ -75,5 +112,8 @@ export class CodeEditorComponent implements OnInit {
     return (<HTMLElement>this.codeEditor.el).querySelector(".view-lines");
 
   }
+  private getCodeEditorElementWithLineNumber(): HTMLElement {
+    return (<HTMLElement>this.codeEditor.el);
 
+  }
 }

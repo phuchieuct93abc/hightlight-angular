@@ -15,4 +15,12 @@ export class CopyService {
         dt.setData("text/html", html)
         return clipboard.write(dt);
     }
+
+
+    copyText(innerHTML: string):Promise<void> {
+        let dt = new clipboard.DT();
+        let html = innerHTML.trim().replace(/    /g, "&nbsp;&nbsp;&nbsp;&nbsp;")
+        dt.setData("text", html)
+        return clipboard.write(dt);
+    }
 }

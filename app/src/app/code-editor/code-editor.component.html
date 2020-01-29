@@ -1,14 +1,20 @@
-<button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
-    <i nz-icon nzType="camera"></i>ScreenShot
-</button>
-<nz-divider nzType="vertical"></nz-divider>
+<div [innerHTML]="screenshotData">
 
-<button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
-    <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
-</button>
-<nz-divider nzType="vertical"></nz-divider>
-<button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
-    <i nz-icon nzType="copy"></i>Copy
-</button>
+</div>
+<nz-code-editor [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" [nzToolkit]="toolkit" [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen"
+    #codeEditor class="editor" [(ngModel)]="code" [nzEditorOption]="{ language: 'typescript' }"></nz-code-editor>
+<ng-template #toolkit>
+    <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
+        <i nz-icon nzType="camera"></i>ScreenShot
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
 
-<nz-code-editor [class.screen-shooting]="isScreenShotting" #codeEditor class="editor" [ngModel]="code" [nzEditorOption]="{ language: 'typescript' }"></nz-code-editor>
+    <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
+        <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
+        <i nz-icon nzType="copy"></i>Copy
+    </button>
+</ng-template>
+<app-image-recognization (onSelectedImage)="onSelectedImage($event)"></app-image-recognization>      
