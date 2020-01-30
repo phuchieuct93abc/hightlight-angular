@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
-import { NzCodeEditorService, NzCodeEditorComponent } from 'ng-zorro-antd/code-editor';
+import { NzCodeEditorService, NzCodeEditorComponent, } from 'ng-zorro-antd/code-editor';
 import { CopyService } from '../../shared/copy.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { CssService } from 'src/shared/css.service';
@@ -18,11 +18,10 @@ export class CodeEditorComponent implements OnInit {
 
   code: string;
   isFullScreen = false;
-  isScreenShotting;
-  screenshotData: string = `
-
-  `
+  isScreenShotting = false;
   editor: editor.ICodeEditor;
+  isShowEditor = true;
+  option: editor.IEditorConstructionOptions = {}
 
 
   @ViewChild('codeEditor', { static: false })
@@ -32,37 +31,42 @@ export class CodeEditorComponent implements OnInit {
   ngOnInit() {
     this.code = `var x = {
       a: 1,
-  
-      b: 2
+        b: 2,
+        c:3
   }    `
     this.nzCodeEditorService.updateDefaultOption({
       formatOnType: true,
       formatOnPaste: true,
       copyWithSyntaxHighlighting: true,
       contextmenu: false,
-      cursorBlinking: 'smooth'
+      cursorBlinking: 'smooth',
+      wordWrap: "on",
+      automaticLayout: false,
+      minimap:{enabled:false}
+
     })
   }
   onSelectedImage(code: string) {
-    this.setModel(code,'javascript')
+    this.setModel(code, 'javascript')
   }
   onEditorInit(e: editor.ICodeEditor): void {
     this.editor = e;
-    console.log(monaco.editor)
-    this.editor.setModel(monaco.editor.createModel(this.code, 'javascript'));
+    this.setModel(this.code, 'javascript');
   }
   format() {
     this.editor.getAction('editor.action.formatDocument').run();
 
   }
+
+
+
   setModel(code: string, language: string) {
-    this.editor.setModel(monaco.editor.createModel(code, 'javascript'));
-    this.format();
+    this.editor.setModel(monaco.editor.createModel(code, language));
+    setTimeout(() => this.format());
   }
   onCopy() {
-    
-    this.setModel(this.editor.getModel().getValue(),'javascript');
 
+    this.reset()
     setTimeout(() => {
 
       let editorElement = this.getCodeEditorElement();
@@ -73,6 +77,17 @@ export class CodeEditorComponent implements OnInit {
     }, 100);
   }
 
+  reset(): Promise<any> {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        this.setModel(this.editor.getModel().getValue(), 'javascript');
+        setTimeout(() => {
+          resolve();
+        }, 2000);
+      }, 2000);
+
+    })
+  }
 
 
   maximize() {
@@ -80,40 +95,71 @@ export class CodeEditorComponent implements OnInit {
     this.isFullScreen = !this.isFullScreen;
   }
 
-  screenShot() {
+  async screenShot() {
+
+    console.log('start')
     this.isScreenShotting = true;
     let originalFullScreen = this.isFullScreen;
     this.isFullScreen = true;
+    // this.isShowEditor = false;
+    this.code = this.editor.getModel().getValue();
+
+    this.option.automaticLayout = true
 
     setTimeout(() => {
-      let editorElement = this.getCodeEditorElement();
+      this.isShowEditor = true
+      this.editor.layout()
+      this.reset()
+      setTimeout(() => {
 
-      html2canvas(editorElement).then(canvas => {
-        canvas.toBlob((data) => {
-          var a = $("<a style='display: none;'/>");
-          var url = window.URL.createObjectURL(new Blob([data], { type: "image/png" }));
-          a.attr("href", url);
-          a.attr("download", "screenshot");
-          $("body").append(a);
-          a[0].click();
-          window.URL.revokeObjectURL(url);
-          a.remove();
-          this.zone.run(() => {
+        setTimeout(() => {
+          html2canvas(this.getCodeEditorParent()).then(canvas => {
+            canvas.toBlob((data) => {
+              var a = $("<a style='display: none;'/>");
+              var url = window.URL.createObjectURL(new Blob([data], { type: "image/png" }));
+              a.attr("href", url);
+              a.attr("download", "screenshot"); 
+              $("body").append(a);
+              a[0].click();
+              window.URL.revokeObjectURL(url);
+              a.remove();
+              this.zone.run(() => {
 
-            this.isFullScreen = originalFullScreen;
-            this.isScreenShotting = false;
+                this.isFullScreen = originalFullScreen;
+                this.isScreenShotting = false;
+                this.nzCodeEditorService.updateDefaultOption({
+
+                  automaticLayout: true
+
+                })
+              })
+            });
           })
-        });
-      })
+        }, 500);
+
+      }, 2000);
+
+
+
+
+
+
+
     })
-  }
+  };
+
+
 
   private getCodeEditorElement(): HTMLElement {
     return (<HTMLElement>this.codeEditor.el).querySelector(".view-lines");
 
   }
-  private getCodeEditorElementWithLineNumber(): HTMLElement {
+
+  private getCodeEditorParent(): HTMLElement {
     return (<HTMLElement>this.codeEditor.el);
 
   }
+
+
+
 }

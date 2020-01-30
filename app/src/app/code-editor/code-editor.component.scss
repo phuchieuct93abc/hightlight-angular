@@ -2,30 +2,51 @@
     display: flex;
     flex-direction: column;
     height: 100%;
-overflow: hidden;
+    overflow: hidden;
+
     .editor {
         display: inline-block;
         width: 100%;
 
         flex: 1;
 
+        &.full-screen {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            z-index: 999 !important;
+        }
+
         &.screen-shooting {
+            height: 10000px !important;
+            flex: none;
+
+
             ::ng-deep {
+                    .monaco-editor {
+                        // height: 10000px !important;
+
+                    }
                 .ant-code-editor-toolkit {
                     display: hidden;
                 }
-
-                .view-line,
-                .view-lines {
-                    // width: auto !important;
-                    // height: auto !important;
-                    // position: relative !important;
-                    // display: inline-block !important; 
+                .view-overlays{
+                    display: none;
                 }
 
-                .view-line {
-                    // position: relative;
-                }
+                // .view-line,
+                // .view-lines {
+                //     width: auto !important;
+                //     height: auto !important;
+                //     position: relative !important;
+                //     display: block !important;
+                // }
+
+                // .view-line {
+                //     position: static !important;
+                //     top:0 !important;
+                // }
 
                 .view-lines {
                     padding: 2em;
@@ -33,14 +54,6 @@ overflow: hidden;
             }
         }
 
-        &.full-screen {
-            position: fixed !important;
-            top: 0 !important;
-            left: 0 !important;
-            height: 100% !important;
-            width: 100% !important;
-            z-index: 999 !important;
-        }
 
     }
 }

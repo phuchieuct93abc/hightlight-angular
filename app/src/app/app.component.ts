@@ -11,10 +11,9 @@ import {MatSidenav} from "@angular/material";
 @Component({
     selector: 'my-app',
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+    styleUrls: ['./app.component.scss'] 
 })
 export class AppComponent implements OnInit {
-
     code: string;
 
     @ViewChild(CodeInputComponent,{static:false})
