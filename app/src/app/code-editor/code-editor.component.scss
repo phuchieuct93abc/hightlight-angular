@@ -19,19 +19,21 @@
         }
 
         &.screen-shooting {
-            height: 10000px !important;
             flex: none;
 
 
             ::ng-deep {
-                    .monaco-editor {
-                        // height: 10000px !important;
+                .monaco-editor {
+                    height: 10000px !important;
 
-                    }
-                .ant-code-editor-toolkit {
-                    display: hidden;
                 }
-                .view-overlays{
+
+                .view-overlays,
+                .ant-code-editor-toolkit,
+                .scrollbar,
+                .cursors-layer,
+                .margin-view-overlays .cldr,
+                .decorationsOverviewRuler {
                     display: none;
                 }
 

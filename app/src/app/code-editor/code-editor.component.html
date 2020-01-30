@@ -1,7 +1,7 @@
 <div [innerHTML]="screenshotData">
 
 </div>
-<nz-code-editor *ngIf="isShowEditor"  [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" [nzToolkit]="toolkit" [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen"
+<nz-code-editor  [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" [nzToolkit]="toolkit" [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen"
     #codeEditor class="editor" [(ngModel)]="code" [nzEditorOption]="option"></nz-code-editor>
 <ng-template #toolkit>
     <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
