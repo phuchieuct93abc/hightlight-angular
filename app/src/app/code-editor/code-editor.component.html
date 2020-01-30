@@ -1,8 +1,9 @@
 <div [innerHTML]="screenshotData">
 
 </div>
-<nz-code-editor  [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" [nzToolkit]="toolkit" [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen"
-    #codeEditor class="editor" [(ngModel)]="code" [nzEditorOption]="option"></nz-code-editor>
+<nz-code-editor [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" [nzToolkit]="toolkit"
+    [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen" #codeEditor class="editor"
+    [(ngModel)]="code" [nzEditorOption]="option"></nz-code-editor>
 <ng-template #toolkit>
     <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
         <i nz-icon nzType="camera"></i>ScreenShot
@@ -16,5 +17,9 @@
     <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
         <i nz-icon nzType="copy"></i>Copy
     </button>
+
+    <button (click)="theme()" nz-dropdown nz-button nzType="default" nzSize="small">
+        <i nz-icon nzType="copy"></i>Copy
+    </button>
 </ng-template>
-<app-image-recognization (onSelectedImage)="onSelectedImage($event)"></app-image-recognization>      
+<app-image-recognization (onSelectedImage)="onSelectedImage($event)"></app-image-recognization>

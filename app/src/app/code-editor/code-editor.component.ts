@@ -135,6 +135,9 @@ export class CodeEditorComponent implements OnInit {
 
 
 
+theme(){
+  this.nzCodeEditorService.updateDefaultOption({ theme:  'vs-dark'  });
+}
   private getCodeEditorElement(): HTMLElement {
     return (<HTMLElement>this.codeEditor.el).querySelector(".view-lines");
 
