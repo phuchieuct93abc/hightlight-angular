@@ -1,37 +1,42 @@
-<nz-code-editor [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" [nzToolkit]="toolkit"
-    [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen" #codeEditor class="editor"
-    [(ngModel)]="code" [nzEditorOption]="option"></nz-code-editor>
-<ng-template #toolkit>
-    <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
+<div class="p-2">
+    <app-theme-chooser  [themes]="themes" [selectedTheme]="selectedTheme"
+    (selectedThemeChange)="onSelectTheme($event)"></app-theme-chooser>
+<app-language-selector  class="ml-2" [defaultLanguage]="selectedLanguage" [languages]="languages"
+    (onSelect)="onSelectLanguage($event)"></app-language-selector>
+
+    <nz-divider nzType="vertical" class=" mx-4"></nz-divider>
+
+    
+    <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
         <i nz-icon nzType="camera"></i>ScreenShot
     </button>
 
-    <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
+
+    <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
         <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
     </button>
-    <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
+    <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
         <i nz-icon nzType="copy"></i>Copy
     </button>
     <nz-divider nzType="vertical"></nz-divider>
 
-    <button (click)="format()" nz-dropdown nz-button nzType="default" nzSize="small">
+    <button (click)="format()" nz-dropdown nz-button nzType="default" nzSize="default">
         <i nz-icon nzType="copy"></i>Format
     </button>
 
 
 
-    <a nz-dropdown [nzDropdownMenu]="themesMenu" [nzOverlayClassName]="'max-height-menu'">
-        {{selectedTheme}}
-        <i nz-icon nzType="down"></i>
-    </a>
-    <nz-dropdown-menu #themesMenu="nzDropdownMenu">
-        <ul nz-menu nzSelectable>
-            <li nz-menu-item *ngFor="let theme of themes" (click)="onSelectTheme(theme)">{{theme}}</li>
+ 
+</div>
 
-        </ul>
-    </nz-dropdown-menu>
-<app-theme-chooser [themes]="themes" [selectedTheme]="selectedTheme" (selectedThemeChange)="onSelectTheme($event)"></app-theme-chooser>
-<app-language-selector [defaultLanguage]="selectedLanguage"  [languages]="languages" (onSelect)="onSelectLanguage($event)"></app-language-selector> 
 
-</ng-template>
+<div class="editor-wrapper" #codeEditor [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen">
+    <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1 minimize">
+        <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
+    </button>
+    <nz-code-editor [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" class="editor"
+        [(ngModel)]="code" [nzEditorOption]="option"></nz-code-editor>
+</div>
+
+
 <app-image-recognization (onSelectedImage)="onSelectedImage($event)"></app-image-recognization>

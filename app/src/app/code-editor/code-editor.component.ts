@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, ElementRef, AfterViewInit } from '@angular/core';
 import { NzCodeEditorService, NzCodeEditorComponent, } from 'ng-zorro-antd/code-editor';
 import { CopyService } from '../shared/copy.service';
 import { NzMessageService } from 'ng-zorro-antd';
@@ -15,6 +15,7 @@ declare const monaco: any;
 })
 export class CodeEditorComponent implements OnInit {
 
+
   code: string;
   isFullScreen = false;
   isScreenShotting = false;
@@ -23,11 +24,12 @@ export class CodeEditorComponent implements OnInit {
   option: editor.IEditorConstructionOptions = {}
   themes: string[] = ['vs', 'vs-dark']
   selectedTheme: string = "vs"
-  selectedLanguage: string = 'javascript';
+  selectedLanguage: string = 'typescript';
   languages: string[];
   autoDetecLanguage: string;
+  loading = true;
 
-  @ViewChild('codeEditor', { static: false, read: ElementRef })
+  @ViewChild('codeEditor', { static: true, read: ElementRef })
   codeEditor: ElementRef
   constructor(private zone: NgZone,
     private nzCodeEditorService: NzCodeEditorService,
@@ -38,16 +40,13 @@ export class CodeEditorComponent implements OnInit {
     private languageDetector: LanguageDetectorService) { }
 
   ngOnInit() {
-    console.time('start')
     this.code = `class Car {
-      readonly carName:string;
-
-      private present() {
-        var message = "I have a " + this.carName
-        return message;
-      }
-    } 
-    `
+  readonly carName: string;
+  private present() {
+    var message = "I have a " + this.carName
+    return message;
+  }
+}`
     this.nzCodeEditorService.updateDefaultOption({
       formatOnType: true,
       formatOnPaste: true,
@@ -58,6 +57,7 @@ export class CodeEditorComponent implements OnInit {
       minimap: { enabled: false },
 
     })
+
   }
 
   onSelectedImage(code: string) {
@@ -68,7 +68,7 @@ export class CodeEditorComponent implements OnInit {
       console.timeEnd('start')
 
       this.editor = e;
-      this.setModel(this.code, this.selectedLanguage);
+      this.setModel(this.code, this.selectedLanguage); 
       this.loadTheme();
       this.loadLanguage();
     })
@@ -113,16 +113,16 @@ export class CodeEditorComponent implements OnInit {
 
 
 
-  maximize() {
+  async maximize() {
 
     this.isFullScreen = !this.isFullScreen;
+    await this.sleep();
+    this.editor.layout();
   }
 
   async screenShot() {
 
     this.isScreenShotting = true;
-    let originalFullScreen = this.isFullScreen;
-    this.isFullScreen = true;
     this.code = this.editor.getModel().getValue();
 
     this.option.automaticLayout = true
@@ -133,7 +133,6 @@ export class CodeEditorComponent implements OnInit {
     const contentHeight: number = this.editor.getModel().getLineCount() * 19;
     const contentWidth: number = this.getCodeEditorParent().clientWidth;
 
-    console.log(contentHeight, contentWidth, this.editor.getLayoutInfo().contentWidth)
     this.editor.layout();
     await this.reset()
 
@@ -142,8 +141,9 @@ export class CodeEditorComponent implements OnInit {
     // 19 is the line height of default theme.
     await this.imageExtractor.extract(this.getCodeEditorParent(), { height: contentHeight, width: contentWidth });
 
-    this.isFullScreen = originalFullScreen;
     this.isScreenShotting = false;
+    await this.sleep(2000)
+    this.editor.layout();
     await this.reset()
 
 
