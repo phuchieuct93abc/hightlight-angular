@@ -23,7 +23,7 @@ export class CodeEditorComponent implements OnInit {
   option: editor.IEditorConstructionOptions = {}
   themeList: string[] = ['vs', 'vs-dark']
   selectedTheme: string = "vs"
-  selectedLanguage: string = 'java';
+  selectedLanguage: string = 'html';
 
   @ViewChild('codeEditor', { static: false })
   codeEditor: NzCodeEditorComponent
@@ -72,7 +72,9 @@ export class CodeEditorComponent implements OnInit {
   }
   async onCopy() {
 
+    this.selectedLanguage = "kotlin"
     await this.reset()
+
     await this.sleep(1000);
 
 
@@ -91,6 +93,7 @@ export class CodeEditorComponent implements OnInit {
 
     })
   }
+ 
 
 
   maximize() {
@@ -158,6 +161,7 @@ export class CodeEditorComponent implements OnInit {
   onSelectTheme(selectedTheme) {
     monaco.editor.setTheme(selectedTheme)
     this.selectedTheme = selectedTheme
+
 
   }
   loadTheme() {
