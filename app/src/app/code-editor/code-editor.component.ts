@@ -38,6 +38,7 @@ export class CodeEditorComponent implements OnInit {
     private languageDetector: LanguageDetectorService) { }
 
   ngOnInit() {
+    console.time('start')
     this.code = `var x = { 
       a: 1,
         b: 2,
@@ -59,15 +60,15 @@ export class CodeEditorComponent implements OnInit {
     this.setModel(code, this.selectedLanguage)
   }
   onEditorInit(e: editor.ICodeEditor): void {
-    this.editor = e;
-    this.setModel(this.code, this.selectedLanguage);
-    this.loadTheme();
-    this.loadLanguage();
-    this.editor.onDidChangeModelContent(e => {
-      this.autoDetecLanguage = this.languageDetector.detectLanguage(this.editor.getModel().getValue())
-      console.log(event, this.autoDetecLanguage)
+    this.zone.run(() => {
+      console.timeEnd('start')
 
+      this.editor = e;
+      this.setModel(this.code, this.selectedLanguage);
+      this.loadTheme();
+      this.loadLanguage();
     })
+
   }
   format() {
     this.editor.getAction('editor.action.formatDocument').run();

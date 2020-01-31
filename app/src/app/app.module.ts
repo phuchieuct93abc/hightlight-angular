@@ -18,10 +18,11 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
+import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 
 @NgModule({
     imports: [
-    BrowserModule,
+BrowserModule,
         FormsModule,
         NgbModule,
         BrowserAnimationsModule,
@@ -40,7 +41,8 @@ import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
         ImageRecognizationComponent,
         ThemeChooserComponent,
         ThumbnailComponent,
-        CodeEditorComponent
+        CodeEditorComponent,
+        LanguageSelectorComponent
     ],
     bootstrap: [AppComponent]
 })

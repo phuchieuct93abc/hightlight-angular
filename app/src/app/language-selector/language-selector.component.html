@@ -1,0 +1,5 @@
+
+<nz-select *ngIf="languages" [(ngModel)]="selectedLanguage" nzShowSearch (ngModelChange)="select($event)" nzServerSearch
+    (nzOnSearch)="onSearch($event)">
+    <nz-option *ngFor="let o of filteredLanguage" [nzValue]="o" [nzLabel]="o"></nz-option>
+</nz-select>
