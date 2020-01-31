@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import hljs from 'highlight.js';
 import * as beauty from "js-beautify"
 import { Subject } from "rxjs";
-import css from 'highlight.js/lib/languages/css';
-import xml from 'highlight.js/lib/languages/xml';
 
 @Injectable({
     providedIn: 'root'

@@ -25,7 +25,7 @@
         {{selectedTheme}}
         <i nz-icon nzType="down"></i>
     </a>
-    <nz-dropdown-menu #themesMenu="nzDropdownMenu" >
+    <nz-dropdown-menu #themesMenu="nzDropdownMenu">
         <ul nz-menu nzSelectable>
             <li nz-menu-item *ngFor="let theme of themes" (click)="onSelectTheme(theme)">{{theme}}</li>
 
@@ -34,11 +34,13 @@
 
 
     <a nz-dropdown [nzDropdownMenu]="languagesMenu" [nzOverlayClassName]="'max-height-menu'">
-        {{selectedLanguage}}
+        {{selectedLanguage==='auto'?'Auto '+autoDetecLanguage:selectedLanguage}}
         <i nz-icon nzType="down"></i>
     </a>
-    <nz-dropdown-menu #languagesMenu="nzDropdownMenu" >
-        <ul nz-menu nzSelectable >
+    <nz-dropdown-menu #languagesMenu="nzDropdownMenu">
+        <ul nz-menu nzSelectable>
+            <!-- <li nz-menu-item (click)="onSelectLanguage('auto')">Auto: {{autoDetecLanguage}}</li> -->
+
             <li nz-menu-item *ngFor="let language of languages" (click)="onSelectLanguage(language)">{{language}}</li>
 
         </ul>

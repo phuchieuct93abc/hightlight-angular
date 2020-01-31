@@ -1,16 +1,14 @@
-import {Component, ElementRef, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild} from '@angular/core';
+import { Component, ElementRef, Input, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
 
-import {MatSnackBar} from "@angular/material";
-import {CopyService} from "../../shared/copy.service";
-import {CssService} from "../../shared/css.service";
-import {CodeFormatterService} from "../../shared/code-formatter.service";
-import {NgForm} from "@angular/forms";
-import {Subject} from "rxjs";
-import {NzMessageService} from "ng-zorro-antd";
+import { CopyService } from "../shared/copy.service";
+import { CssService } from "../shared/css.service";
+import { CodeFormatterService } from "../shared/code-formatter.service";
+import { NgForm } from "@angular/forms";
+import { Subject } from "rxjs";
+import { NzMessageService } from "ng-zorro-antd";
 import html2canvas from 'html2canvas';
 import * as $ from "jquery"
-import {CodeInputComponent} from "../code-input/code-input.component";
 
 @Component({
     selector: 'app-code-format',
@@ -21,7 +19,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
     @Input()
     code: string;
-    @ViewChild('formattedCode',{static:false})
+    @ViewChild('formattedCode', { static: false })
     formattedCode: ElementRef<HTMLDivElement>;
     beautyCode = '';
     beautyCodeCopy = '';
@@ -33,10 +31,10 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     selectedTheme = 'default';
 
 
-    @ViewChild('formattedCodeCope',{static:false})
+    @ViewChild('formattedCodeCope', { static: false })
     formattedCodeCope: ElementRef<HTMLDivElement>;
 
-    @ViewChild('form',{static:true})
+    @ViewChild('form', { static: true })
     form: NgForm;
 
     applyHighlight = new Subject();
@@ -46,7 +44,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
     fontSize = 13;
 
 
-    constructor(private zone:NgZone,private message: NzMessageService, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
+    constructor(private zone: NgZone, private message: NzMessageService, private copyService: CopyService, private cssService: CssService, private codeFormatter: CodeFormatterService) {
 
     }
 
@@ -73,7 +71,7 @@ export class CodeFormatComponent implements OnInit, OnChanges {
 
         this.beautyCode = this.codeFormatter.beautify(this.code);
         this.beautyCodeCopy = this.codeFormatter.beautify(this.code, true);
-        console.log(this.code,this.beautyCode)
+        console.log(this.code, this.beautyCode)
         setTimeout(() => {
             this.codeFormatter.highlight(this.formattedCode.nativeElement);
             this.codeFormatter.highlight(this.formattedCodeCope.nativeElement);
@@ -117,14 +115,14 @@ export class CodeFormatComponent implements OnInit, OnChanges {
             html2canvas(this.formattedCode.nativeElement).then(canvas => {
                 canvas.toBlob((data) => {
                     var a = $("<a style='display: none;'/>");
-                    var url = window.URL.createObjectURL(new Blob([data], {type: "image/png"}));
+                    var url = window.URL.createObjectURL(new Blob([data], { type: "image/png" }));
                     a.attr("href", url);
                     a.attr("download", "screenshot");
-                    $("body").append(a);
+                    $("body").append(a); 
                     a[0].click();
                     window.URL.revokeObjectURL(url);
                     a.remove();
-                    this.zone.run(()=>{
+                    this.zone.run(() => {
 
                         this.isFullScreen = originalFullScreen;
                         this.isScreenShotting = false;

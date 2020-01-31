@@ -3,7 +3,7 @@ import Quill from 'quill';
 import { Observable, timer } from "rxjs";
 import { ImageDrop } from 'quill-image-drop-module';
 import { ImageRecognizationComponent } from "./image-recognization/image-recognization.component";
-import { CodeFormatterService } from "../../shared/code-formatter.service";
+import { CodeFormatterService } from "../shared/code-formatter.service";
 import { debounce } from "rxjs/operators";
 import { CodeHistoryComponent } from "../code-history/code-history.component";
 
@@ -15,7 +15,7 @@ import { CodeHistoryComponent } from "../code-history/code-history.component";
 })
 export class CodeInputComponent implements AfterViewInit, OnInit {
 
-    @Output()
+    @Output() 
     onChange = new EventEmitter<string>();
 
     @ViewChild(ImageRecognizationComponent, { static: false })
@@ -45,7 +45,7 @@ export class CodeInputComponent implements AfterViewInit, OnInit {
         var loadImage = function (file) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                var img = document.createElement('img');
+                var img = document.createElement('img'); 
                 img.src = e.target['result'];
                 var range = window.getSelection().getRangeAt(0);
                 range.deleteContents();

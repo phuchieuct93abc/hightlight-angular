@@ -1,11 +1,12 @@
-import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { NzCodeEditorService, NzCodeEditorComponent, } from 'ng-zorro-antd/code-editor';
-import { CopyService } from '../../shared/copy.service';
+import { CopyService } from '../shared/copy.service';
 import { NzMessageService } from 'ng-zorro-antd';
-import { CssService } from 'src/shared/css.service';
-import { editor, languages } from 'monaco-editor';
+import { CssService } from 'src/app/shared/css.service';
+import { editor } from 'monaco-editor';
 import { ImageExtractorService } from '../services/image-extractor.service';
 import * as themes from '../themes'
+import { LanguageDetectorService } from '../shared/language-detector.service';
 declare const monaco: any;
 @Component({
   selector: 'app-code-editor',
@@ -22,8 +23,9 @@ export class CodeEditorComponent implements OnInit {
   option: editor.IEditorConstructionOptions = {}
   themes: string[] = ['vs', 'vs-dark']
   selectedTheme: string = "vs"
-  selectedLanguage: string = 'html';
-  languages: string[]
+  selectedLanguage: string = 'javascript';
+  languages: string[];
+  autoDetecLanguage: string;
 
   @ViewChild('codeEditor', { static: false })
   codeEditor: NzCodeEditorComponent
@@ -32,10 +34,11 @@ export class CodeEditorComponent implements OnInit {
     private copyService: CopyService,
     private message: NzMessageService,
     private cssService: CssService,
-    private imageExtractor: ImageExtractorService) { }
+    private imageExtractor: ImageExtractorService,
+    private languageDetector: LanguageDetectorService) { }
 
   ngOnInit() {
-    this.code = `var x = {
+    this.code = `var x = { 
       a: 1,
         b: 2,
         c:3
@@ -51,6 +54,7 @@ export class CodeEditorComponent implements OnInit {
 
     })
   }
+
   onSelectedImage(code: string) {
     this.setModel(code, this.selectedLanguage)
   }
@@ -59,6 +63,11 @@ export class CodeEditorComponent implements OnInit {
     this.setModel(this.code, this.selectedLanguage);
     this.loadTheme();
     this.loadLanguage();
+    this.editor.onDidChangeModelContent(e => {
+      this.autoDetecLanguage = this.languageDetector.detectLanguage(this.editor.getModel().getValue())
+      console.log(event, this.autoDetecLanguage)
+
+    })
   }
   format() {
     this.editor.getAction('editor.action.formatDocument').run();
@@ -67,7 +76,11 @@ export class CodeEditorComponent implements OnInit {
 
 
   setModel(code: string, language: string) {
-    this.editor.setModel(monaco.editor.createModel(code, language));
+    let applyLanguage = language;
+    if (applyLanguage === 'auto') {
+      applyLanguage = this.autoDetecLanguage;
+    }
+    this.editor.setModel(monaco.editor.createModel(code, applyLanguage));
     setTimeout(() => this.format());
   }
   async onCopy() {

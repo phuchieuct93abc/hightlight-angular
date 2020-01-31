@@ -1,9 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {TextExtractorService} from "../../../shared/text-extractor.service";
 import {Observable} from "rxjs";
 import {bounce} from "ng-animate";
 import {transition, trigger, useAnimation} from "@angular/animations";
 import {NzMessageService} from "ng-zorro-antd";
+import { TextExtractorService } from 'src/app/shared/text-extractor.service';
 
 @Component({
     selector: 'app-image-recognization',

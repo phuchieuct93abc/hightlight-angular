@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {History} from "../history.model";
-import getUuid from "../../shared/uuid";
-import {StorageService} from "../../shared/storage.service";
+import getUuid from "../shared/uuid";
+import {StorageService} from "../shared/storage.service";
 import {Subject, timer} from "rxjs";
 import {debounce} from "rxjs/operators";
 
@@ -16,7 +16,7 @@ export class CodeHistoryComponent implements OnInit {
 
 
     @Output()
-    historySelected = new EventEmitter<History>();
+    historySelected = new EventEmitter<History>(); 
 
     updateHistoryDebounce = new Subject<string>();
 
