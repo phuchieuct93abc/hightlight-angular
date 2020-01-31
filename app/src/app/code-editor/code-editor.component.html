@@ -8,18 +8,28 @@
     <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="small">
         <i nz-icon nzType="camera"></i>ScreenShot
     </button>
-    <nz-divider nzType="vertical"></nz-divider>
 
     <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="small">
         <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
     </button>
-    <nz-divider nzType="vertical"></nz-divider>
     <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="small">
         <i nz-icon nzType="copy"></i>Copy
     </button>
+    <nz-divider nzType="vertical"></nz-divider>
 
-    <button (click)="theme()" nz-dropdown nz-button nzType="default" nzSize="small">
-        <i nz-icon nzType="copy"></i>Copy
+    <button (click)="format()" nz-dropdown nz-button nzType="default" nzSize="small">
+        <i nz-icon nzType="copy"></i>Format
     </button>
+
+    <a nz-dropdown [nzDropdownMenu]="menu">
+        {{selectedTheme}}
+        <i nz-icon nzType="down"></i>
+      </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu nzSelectable  >
+            <li nz-menu-item *ngFor="let theme of themeList" (click)="onSelectTheme(theme)">{{theme}}</li> 
+
+        </ul>
+    </nz-dropdown-menu>
 </ng-template>
 <app-image-recognization (onSelectedImage)="onSelectedImage($event)"></app-image-recognization>

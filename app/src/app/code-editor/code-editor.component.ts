@@ -6,7 +6,7 @@ import { CssService } from 'src/shared/css.service';
 import { CodeFormatterService } from 'src/shared/code-formatter.service';
 import { editor, languages } from 'monaco-editor';
 import { ImageExtractorService } from '../services/image-extractor.service';
-
+import * as themes from '../themes'
 declare const monaco: any;
 @Component({
   selector: 'app-code-editor',
@@ -21,7 +21,9 @@ export class CodeEditorComponent implements OnInit {
   editor: editor.ICodeEditor;
   isShowEditor = true;
   option: editor.IEditorConstructionOptions = {}
-
+  themeList: string[] = ['vs', 'vs-dark']
+  selectedTheme: string = "vs"
+  selectedLanguage: string = 'java';
 
   @ViewChild('codeEditor', { static: false })
   codeEditor: NzCodeEditorComponent
@@ -50,11 +52,13 @@ export class CodeEditorComponent implements OnInit {
     })
   }
   onSelectedImage(code: string) {
-    this.setModel(code, 'typescript')
+    this.setModel(code, this.selectedLanguage)
   }
   onEditorInit(e: editor.ICodeEditor): void {
     this.editor = e;
-    this.setModel(this.code, 'typescript');
+    this.setModel(this.code, this.selectedLanguage);
+    this.loadTheme()
+
   }
   format() {
     this.editor.getAction('editor.action.formatDocument').run();
@@ -69,22 +73,21 @@ export class CodeEditorComponent implements OnInit {
   async onCopy() {
 
     await this.reset()
-    await this.format()
     await this.sleep(1000);
 
 
     let editorElement = this.getCodeEditorElement();
     this.cssService.inlineCSS(editorElement);
-    this.copyService.copyHtml(editorElement.innerHTML).then(() => {
-      this.message.success("Copied code successful! Now you can paste to doc, docx, evernote with the format")
-    });
+    await this.copyService.copyHtml(editorElement.innerHTML);
+    this.message.success("Copied code successful! Now you can paste to doc, docx, evernote with the format")
+
   }
 
   async reset(): Promise<any> {
     this.code = this.editor.getModel().getValue()
     return new Promise(resolve => {
-      this.editor.setModel(monaco.editor.createModel(this.code, 'typescript'));
-      this.sleep().then(()=>this.format()).then(resolve)
+      this.editor.setModel(monaco.editor.createModel(this.code, this.selectedLanguage));
+      this.sleep().then(() => this.format()).then(resolve)
 
     })
   }
@@ -97,7 +100,6 @@ export class CodeEditorComponent implements OnInit {
 
   async screenShot() {
 
-    console.log('start')
     this.isScreenShotting = true;
     let originalFullScreen = this.isFullScreen;
     this.isFullScreen = true;
@@ -135,9 +137,7 @@ export class CodeEditorComponent implements OnInit {
 
 
 
-theme(){
-  this.nzCodeEditorService.updateDefaultOption({ theme:  'vs-dark'  });
-}
+
   private getCodeEditorElement(): HTMLElement {
     return (<HTMLElement>this.codeEditor.el).querySelector(".view-lines");
 
@@ -153,6 +153,19 @@ theme(){
         resolve()
       }, time);
     })
+  }
+
+  onSelectTheme(selectedTheme) {
+    monaco.editor.setTheme(selectedTheme)
+    this.selectedTheme = selectedTheme
+
+  }
+  loadTheme() {
+    Object.keys(themes).forEach(k => {
+      monaco.editor.defineTheme(k, themes[k]);
+      this.themeList.push(k);
+    })
+
   }
 
 
