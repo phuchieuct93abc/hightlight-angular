@@ -21,13 +21,25 @@
         <i nz-icon nzType="copy"></i>Format
     </button>
 
-    <a nz-dropdown [nzDropdownMenu]="menu">
+    <a nz-dropdown [nzDropdownMenu]="themesMenu" [nzOverlayClassName]="'max-height-menu'">
         {{selectedTheme}}
         <i nz-icon nzType="down"></i>
-      </a>
-    <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu nzSelectable  >
-            <li nz-menu-item *ngFor="let theme of themeList" (click)="onSelectTheme(theme)">{{theme}}</li> 
+    </a>
+    <nz-dropdown-menu #themesMenu="nzDropdownMenu" >
+        <ul nz-menu nzSelectable>
+            <li nz-menu-item *ngFor="let theme of themes" (click)="onSelectTheme(theme)">{{theme}}</li>
+
+        </ul>
+    </nz-dropdown-menu>
+
+
+    <a nz-dropdown [nzDropdownMenu]="languagesMenu" [nzOverlayClassName]="'max-height-menu'">
+        {{selectedLanguage}}
+        <i nz-icon nzType="down"></i>
+    </a>
+    <nz-dropdown-menu #languagesMenu="nzDropdownMenu" >
+        <ul nz-menu nzSelectable >
+            <li nz-menu-item *ngFor="let language of languages" (click)="onSelectLanguage(language)">{{language}}</li>
 
         </ul>
     </nz-dropdown-menu>

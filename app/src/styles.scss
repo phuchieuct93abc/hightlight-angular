@@ -9,7 +9,8 @@ body .hljs {
   background-color: transparent;
 
 }
-button:focus{
+
+button:focus {
   outline: none !important;
 }
 
@@ -24,16 +25,23 @@ body {
 
   }
 
-  .ant-btn,.ant-message-custom-content {
+  .ant-btn,
+  .ant-message-custom-content {
     display: inline-flex;
     align-items: center;
+  }
+
+  .max-height-menu ul {
+    max-height: 300px;
+    overflow: auto;
   }
 
 
 
 }
-.ant-checkbox-wrapper.left-label{
-  .ant-checkbox + span{
+
+.ant-checkbox-wrapper.left-label {
+  .ant-checkbox+span {
     float: left;
   }
 }

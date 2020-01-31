@@ -3,7 +3,6 @@ import { NzCodeEditorService, NzCodeEditorComponent, } from 'ng-zorro-antd/code-
 import { CopyService } from '../../shared/copy.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { CssService } from 'src/shared/css.service';
-import { CodeFormatterService } from 'src/shared/code-formatter.service';
 import { editor, languages } from 'monaco-editor';
 import { ImageExtractorService } from '../services/image-extractor.service';
 import * as themes from '../themes'
@@ -21,9 +20,10 @@ export class CodeEditorComponent implements OnInit {
   editor: editor.ICodeEditor;
   isShowEditor = true;
   option: editor.IEditorConstructionOptions = {}
-  themeList: string[] = ['vs', 'vs-dark']
+  themes: string[] = ['vs', 'vs-dark']
   selectedTheme: string = "vs"
   selectedLanguage: string = 'html';
+  languages: string[]
 
   @ViewChild('codeEditor', { static: false })
   codeEditor: NzCodeEditorComponent
@@ -57,8 +57,8 @@ export class CodeEditorComponent implements OnInit {
   onEditorInit(e: editor.ICodeEditor): void {
     this.editor = e;
     this.setModel(this.code, this.selectedLanguage);
-    this.loadTheme()
-
+    this.loadTheme();
+    this.loadLanguage();
   }
   format() {
     this.editor.getAction('editor.action.formatDocument').run();
@@ -72,7 +72,6 @@ export class CodeEditorComponent implements OnInit {
   }
   async onCopy() {
 
-    this.selectedLanguage = "kotlin"
     await this.reset()
 
     await this.sleep(1000);
@@ -93,7 +92,7 @@ export class CodeEditorComponent implements OnInit {
 
     })
   }
- 
+
 
 
   maximize() {
@@ -164,14 +163,21 @@ export class CodeEditorComponent implements OnInit {
 
 
   }
+  onSelectLanguage(language) {
+    this.selectedLanguage = language;
+    this.reset()
+  }
   loadTheme() {
     Object.keys(themes).forEach(k => {
       monaco.editor.defineTheme(k, themes[k]);
-      this.themeList.push(k);
+      this.themes.push(k);
     })
 
   }
 
+  loadLanguage() {
+    this.languages = monaco.languages.getLanguages().map(language => language.id);
+  }
 
 
 }
