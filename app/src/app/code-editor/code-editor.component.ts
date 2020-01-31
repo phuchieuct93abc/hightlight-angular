@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone, ElementRef } from '@angular/core';
 import { NzCodeEditorService, NzCodeEditorComponent, } from 'ng-zorro-antd/code-editor';
 import { CopyService } from '../shared/copy.service';
 import { NzMessageService } from 'ng-zorro-antd';
@@ -27,8 +27,8 @@ export class CodeEditorComponent implements OnInit {
   languages: string[];
   autoDetecLanguage: string;
 
-  @ViewChild('codeEditor', { static: false })
-  codeEditor: NzCodeEditorComponent
+  @ViewChild('codeEditor', { static: false, read: ElementRef })
+  codeEditor: ElementRef
   constructor(private zone: NgZone,
     private nzCodeEditorService: NzCodeEditorService,
     private copyService: CopyService,
@@ -39,11 +39,15 @@ export class CodeEditorComponent implements OnInit {
 
   ngOnInit() {
     console.time('start')
-    this.code = `var x = { 
-      a: 1,
-        b: 2,
-        c:3
-  }    `
+    this.code = `class Car {
+      readonly carName:string;
+
+      private present() {
+        var message = "I have a " + this.carName
+        return message;
+      }
+    } 
+    `
     this.nzCodeEditorService.updateDefaultOption({
       formatOnType: true,
       formatOnPaste: true,
@@ -155,12 +159,12 @@ export class CodeEditorComponent implements OnInit {
 
 
   private getCodeEditorElement(): HTMLElement {
-    return (<HTMLElement>this.codeEditor.el).querySelector(".view-lines");
+    return (<HTMLElement>this.codeEditor.nativeElement).querySelector(".view-lines");
 
   }
 
   private getCodeEditorParent(): HTMLElement {
-    return (<HTMLElement>this.codeEditor.el);
+    return (<HTMLElement>this.codeEditor.nativeElement);
 
   }
   private async  sleep(time = 0): Promise<any> {

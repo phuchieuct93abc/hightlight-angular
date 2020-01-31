@@ -6,7 +6,6 @@
     "@angular-devkit/build-angular": "^0.803.20",
     "@angular/animations": "^8.2.1",
     "@angular/cdk": "^8.2.3",
-    "@angular/cli": "^8.2.1",
     "@angular/common": "^8.2.1",
     "@angular/compiler": "^8.2.1",
     "@angular/compiler-cli": "^8.2.1",
@@ -32,7 +31,7 @@
     "jquery": "^3.4.1",
     "js-beautify": "^1.10.2",
     "lodash": "^4.17.15",
-    "monaco-editor": "^0.19.3",
+    "monaco-editor": "~0.18.1",
     "monaco-themes": "^0.3.3",
     "ng-animate": "^0.3.4",
     "ng-zorro-antd": "^8.5.2",
@@ -55,6 +54,7 @@
     "deploy": "npm run build && firebase deploy"
   },
   "devDependencies": {
+    "@angular/cli": "^8.3.24",
     "@angular/language-service": "^8.2.1",
     "@types/jasmine": "^3.5.0",
     "@types/jasminewd2": "^2.0.8",

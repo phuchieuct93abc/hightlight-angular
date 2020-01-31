@@ -30,7 +30,7 @@
 
         </ul>
     </nz-dropdown-menu>
-
+<app-theme-chooser [themes]="themes" [selectedTheme]="selectedTheme" (selectedThemeChange)="onSelectTheme($event)"></app-theme-chooser>
 <app-language-selector [defaultLanguage]="selectedLanguage"  [languages]="languages" (onSelect)="onSelectLanguage($event)"></app-language-selector> 
 
 </ng-template>

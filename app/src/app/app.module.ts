@@ -42,7 +42,8 @@ BrowserModule,
         ThemeChooserComponent,
         ThumbnailComponent,
         CodeEditorComponent,
-        LanguageSelectorComponent
+        LanguageSelectorComponent,
+        
     ],
     bootstrap: [AppComponent]
 })

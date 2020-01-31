@@ -8,18 +8,19 @@ import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from 
 })
 export class ThemeChooserComponent implements OnInit {
 
+    @Input() 
     themes: string[];
     @Input()
     selectedTheme: string;
     @Output()
     selectedThemeChange = new EventEmitter<string>();
-    visible: boolean;
+    visible: boolean; 
 
     constructor() {
     }
 
     ngOnInit() {
-        this.themes = ["default", 'darcula', 'github', 'codepen', 'googlecode','xcode'];
+       // this.themes = ["default", 'darcula', 'github', 'codepen', 'googlecode','xcode'];
 
     }
 
