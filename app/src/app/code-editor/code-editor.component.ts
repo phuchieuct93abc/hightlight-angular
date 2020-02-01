@@ -4,7 +4,7 @@ import { CopyService } from '../shared/copy.service';
 import { NzMessageService } from 'ng-zorro-antd';
 import { CssService } from 'src/app/shared/css.service';
 import { editor } from 'monaco-editor';
-import { ImageExtractorService } from '../services/image-extractor.service';
+import { ImageExtractorService } from '../shared/image-extractor.service';
 import * as themes from '../themes'
 import { LanguageDetectorService } from '../shared/language-detector.service';
 declare const monaco: any;
@@ -68,7 +68,7 @@ export class CodeEditorComponent implements OnInit {
       console.timeEnd('start')
 
       this.editor = e;
-      this.setModel(this.code, this.selectedLanguage); 
+      this.setModel(this.code, this.selectedLanguage);
       this.loadTheme();
       this.loadLanguage();
     })
@@ -125,7 +125,6 @@ export class CodeEditorComponent implements OnInit {
     this.isScreenShotting = true;
     this.code = this.editor.getModel().getValue();
 
-    this.option.automaticLayout = true
 
     await this.sleep();//Apply css
 
@@ -139,20 +138,12 @@ export class CodeEditorComponent implements OnInit {
     await this.sleep(1000)
 
     // 19 is the line height of default theme.
-    await this.imageExtractor.extract(this.getCodeEditorParent(), { height: contentHeight, width: contentWidth });
+    await this.imageExtractor.extract(this.getCodeEditorParent(), { height: contentHeight + 20, width: contentWidth });
 
     this.isScreenShotting = false;
     await this.sleep(2000)
     this.editor.layout();
     await this.reset()
-
-
-
-
-
-
-
-
   };
 
 
@@ -164,7 +155,7 @@ export class CodeEditorComponent implements OnInit {
   }
 
   private getCodeEditorParent(): HTMLElement {
-    return (<HTMLElement>this.codeEditor.nativeElement);
+    return (<HTMLElement>this.codeEditor.nativeElement).querySelector(".editor");
 
   }
   private async  sleep(time = 0): Promise<any> {

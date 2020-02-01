@@ -1,0 +1,27 @@
+<div class="p-2">
+    <app-theme-chooser [themes]="themes" [selectedTheme]="selectedTheme" (selectedThemeChange)="selectTheme($event)">
+    </app-theme-chooser>
+    <app-language-selector class="ml-2" [defaultLanguage]="selectedLanguage" [languages]="languages"
+        (onSelect)="selectLanguage($event)"></app-language-selector>
+
+    <nz-divider nzType="vertical" class=" mx-4"></nz-divider>
+
+
+    <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
+        <i nz-icon nzType="camera"></i>ScreenShot
+    </button>
+
+
+    <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
+        <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
+    </button>
+    <button (click)="copy()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
+        <i nz-icon nzType="copy"></i>Copy
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button (click)="format()" nz-dropdown nz-button nzType="default" nzSize="default">
+        <i nz-icon nzType="copy"></i>Format
+    </button>
+
+</div>

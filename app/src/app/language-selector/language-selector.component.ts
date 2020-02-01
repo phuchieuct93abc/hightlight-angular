@@ -38,6 +38,7 @@ export class LanguageSelectorComponent implements OnInit {
     this.filteredLanguage = this.languages.filter(l => !selectedLanguage || 0 === selectedLanguage.length || l.indexOf(selectedLanguage) > -1);
   }
   select(selectedLanguage) {
+    console.log(12);
     this.selectedLanguage = selectedLanguage; 
     this.onSelect.emit(selectedLanguage);
   }

@@ -1,39 +1,14 @@
-<div class="p-2">
-    <app-theme-chooser  [themes]="themes" [selectedTheme]="selectedTheme"
-    (selectedThemeChange)="onSelectTheme($event)"></app-theme-chooser>
-<app-language-selector  class="ml-2" [defaultLanguage]="selectedLanguage" [languages]="languages"
-    (onSelect)="onSelectLanguage($event)"></app-language-selector>
-
-    <nz-divider nzType="vertical" class=" mx-4"></nz-divider>
-
-    
-    <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
-        <i nz-icon nzType="camera"></i>ScreenShot
-    </button>
-
-
-    <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
-        <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
-    </button>
-    <button (click)="onCopy()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
-        <i nz-icon nzType="copy"></i>Copy
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-
-    <button (click)="format()" nz-dropdown nz-button nzType="default" nzSize="default">
-        <i nz-icon nzType="copy"></i>Format
-    </button>
-
-
-
- 
-</div>
-
+<app-toolkit [languages]="languages" [selectedLanguage]="selectedLanguage" (onSelectLanguage)="onSelectLanguage($event)"
+    [themes]="themes" [selectedTheme]="selectedTheme" (onSelectTheme)="onSelectTheme($event)" (onMaximize)="maximize()"
+    (onCopy)="onCopy()" (onFormat)="format()" (onScreenShot)="screenShot()">
+</app-toolkit>
 
 <div class="editor-wrapper" #codeEditor [class.screen-shooting]="isScreenShotting" [class.full-screen]="isFullScreen">
     <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1 minimize">
         <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
     </button>
+    <nz-spin *ngIf="isScreenShotting" nzSize="large"></nz-spin>
+
     <nz-code-editor [nzFullControl]="true" (nzEditorInitialized)="onEditorInit($event)" class="editor"
         [(ngModel)]="code" [nzEditorOption]="option"></nz-code-editor>
 </div>
