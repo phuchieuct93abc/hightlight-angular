@@ -4,7 +4,7 @@
     <app-language-selector class="ml-2" [defaultLanguage]="selectedLanguage" [languages]="languages"
         (onSelect)="selectLanguage($event)"></app-language-selector>
 
-    <nz-divider nzType="vertical" class=" mx-4"></nz-divider>
+    <nz-divider nzType="vertical" class="mx-3"></nz-divider>
 
 
     <button (click)="screenShot()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
@@ -15,10 +15,10 @@
     <button (click)="maximize()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
         <i nz-icon [nzType]="isFullScreen?'fullscreen-exit':'fullscreen'"></i>Fullscreen
     </button>
-    <button (click)="copy()" nz-dropdown nz-button nzType="default" nzSize="default" class="mr-1">
+    <button (click)="copy()" nz-dropdown nz-button nzType="default" nzSize="default" >
         <i nz-icon nzType="copy"></i>Copy
     </button>
-    <nz-divider nzType="vertical"></nz-divider>
+    <nz-divider nzType="vertical" class="mx-3"></nz-divider>
 
     <button (click)="format()" nz-dropdown nz-button nzType="default" nzSize="default">
         <i nz-icon nzType="copy"></i>Format

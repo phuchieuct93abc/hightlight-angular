@@ -89,12 +89,6 @@ export class CodeEditorComponent implements OnInit {
     setTimeout(() => this.format());
   }
   async onCopy() {
-
-    await this.reset()
-
-    await this.sleep(1000);
-
-
     let editorElement = this.getCodeEditorElement();
     this.cssService.inlineCSS(editorElement);
     await this.copyService.copyHtml(editorElement.innerHTML);
@@ -105,13 +99,11 @@ export class CodeEditorComponent implements OnInit {
   async reset(): Promise<any> {
     this.code = this.editor.getModel().getValue()
     return new Promise(resolve => {
-      this.editor.setModel(monaco.editor.createModel(this.code, this.selectedLanguage));
+      this.editor.getModel().setValue(this.code);
+      monaco.editor.setModelLanguage(this.editor.getModel(), this.selectedLanguage);
       this.sleep().then(() => this.format()).then(resolve)
-
     })
   }
-
-
 
   async maximize() {
 
