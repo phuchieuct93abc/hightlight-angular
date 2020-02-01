@@ -42,13 +42,14 @@ export class CodeEditorComponent implements OnInit {
   ngOnInit() {
     this.code = `class Car {
   readonly carName: string;
+
   private present() {
     var message = "I have a " + this.carName
     return message;
   }
 }`
-    this.nzCodeEditorService.updateDefaultOption({
-      formatOnType: true,
+    this.nzCodeEditorService.updateDefaultOption({  
+      formatOnType: true, 
       formatOnPaste: true,
       copyWithSyntaxHighlighting: true,
       contextmenu: false,
