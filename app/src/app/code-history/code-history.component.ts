@@ -25,7 +25,7 @@ export class CodeHistoryComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.history = this.storage.load("history") || [];
+        // this.history = this.storage.load("history") || [];
         this.updateHistoryDebounce.pipe(debounce(() => timer(1000))).subscribe((code: string) => {
             if (code.trim() == '') {
                 return;
@@ -43,7 +43,7 @@ export class CodeHistoryComponent implements OnInit {
             } else {
                 this.selectedHistoryId = existedHistory.id;
             }
-            this.storage.save("history", this.history);
+            // this.storage.save("history", this.history);
         })
 
     }
@@ -67,7 +67,7 @@ export class CodeHistoryComponent implements OnInit {
 
     clearAll() {
         this.history = [];
-        this.storage.save("history", this.history);
+        // this.storage.save("history", this.history);
     }
 
     findSameHistory(code): History {

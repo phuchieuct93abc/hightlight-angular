@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
 import * as clipboard from "clipboard-polyfill";
 
+let x = 10;
+let y =20;
+export default x;
 @Injectable({
     providedIn: 'root'
 })

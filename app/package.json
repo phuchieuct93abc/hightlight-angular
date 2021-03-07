@@ -18,6 +18,7 @@
     "@angular/router": "^8.2.1",
     "@angular/service-worker": "^8.2.1",
     "@ng-bootstrap/ng-bootstrap": "^5.1.4",
+    "@ngx-pwa/local-storage": "^8.2.4",
     "@types/quill": "^2.0.3",
     "animate.css": "^3.7.2",
     "boostrap": "^2.0.0",

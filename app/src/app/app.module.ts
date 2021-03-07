@@ -20,6 +20,7 @@ import { CodeEditorComponent } from './code-editor/code-editor.component';
 import { NzCodeEditorModule } from 'ng-zorro-antd/code-editor';
 import { LanguageSelectorComponent } from './language-selector/language-selector.component';
 import { ToolkitComponent } from './toolkit/toolkit.component';
+import { StorageModule } from '@ngx-pwa/local-storage';
 @NgModule({
     imports: [
         BrowserModule,
@@ -29,7 +30,8 @@ import { ToolkitComponent } from './toolkit/toolkit.component';
         HttpClientModule,
         NgZorroAntdModule,
         NzCodeEditorModule,
-        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        StorageModule.forRoot({ IDBNoWrap: true })
 
     ],
     exports: [MaterialModule],

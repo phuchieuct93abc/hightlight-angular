@@ -6,8 +6,18 @@ import { CssService } from 'src/app/shared/css.service';
 import { editor } from 'monaco-editor';
 import { ImageExtractorService } from '../shared/image-extractor.service';
 import * as themes from '../themes'
-import { LanguageDetectorService } from '../shared/language-detector.service';
-declare const monaco: any;
+import { StorageService } from '../shared/storage.service';
+import { Observable } from 'rxjs';
+declare let monaco: any;
+
+const codeExample = `class Car {
+  readonly carName: string;
+
+  private present() {
+    var message = "I have a " + this.carName
+    return message;
+  }
+}`
 @Component({
   selector: 'app-code-editor',
   templateUrl: './code-editor.component.html',
@@ -23,11 +33,44 @@ export class CodeEditorComponent implements OnInit {
   isShowEditor = true;
   option: editor.IEditorConstructionOptions = {}
   themes: string[] = ['vs', 'vs-dark']
-  selectedTheme: string = "vs"
-  selectedLanguage: string = 'typescript';
+
   languages: string[];
   autoDetecLanguage: string;
   loading = true;
+
+  private _selectedTheme: string = "vs-dark";
+  public get selectedTheme(): string {
+    return this._selectedTheme;
+  }
+  public set selectedTheme(value: string) {
+    if (this._selectedTheme !== value) {
+      this.storageService.set('selectedTheme', value).subscribe()
+    }
+    this._selectedTheme = value;
+    if (typeof monaco != undefined) {
+      monaco.editor.setTheme(this._selectedTheme)
+
+    }
+
+
+
+  }
+
+  private _selectedLanguage: string = 'typescript';
+  public get selectedLanguage(): string {
+    return this._selectedLanguage;
+  }
+  public set selectedLanguage(value: string) {
+    if (this._selectedLanguage !== value) {
+      this.storageService.set('selectedLanguage', value).subscribe()
+    }
+    this._selectedLanguage = value;
+    if (typeof monaco != undefined) {
+
+      monaco.editor.setModelLanguage(this.editor.getModel(), this.selectedLanguage);
+    }
+
+  }
 
   @ViewChild('codeEditor', { static: true, read: ElementRef })
   codeEditor: ElementRef
@@ -37,19 +80,11 @@ export class CodeEditorComponent implements OnInit {
     private message: NzMessageService,
     private cssService: CssService,
     private imageExtractor: ImageExtractorService,
-    private languageDetector: LanguageDetectorService) { }
+    private storageService: StorageService) { }
 
   ngOnInit() {
-    this.code = `class Car {
-  readonly carName: string;
-
-  private present() {
-    var message = "I have a " + this.carName
-    return message;
-  }
-}`
-    this.nzCodeEditorService.updateDefaultOption({  
-      formatOnType: true, 
+    this.nzCodeEditorService.updateDefaultOption({
+      formatOnType: true,
       formatOnPaste: true,
       copyWithSyntaxHighlighting: true,
       contextmenu: false,
@@ -59,6 +94,20 @@ export class CodeEditorComponent implements OnInit {
 
     })
 
+    this.loadDefaultData();
+
+  }
+  loadDefaultData() {
+    this.storageService.get<string>('selectedLanguage').subscribe(v => { if (v) this.selectedLanguage = v });
+    this.storageService.get<string>('selectedTheme').subscribe(v => { if (v) this.selectedTheme = v });
+    this.storageService.get<string>('code').subscribe(v => {
+      if (v) {
+        this.code = v
+      } else {
+        this.code = codeExample
+      }
+    });
+
   }
 
   onSelectedImage(code: string) {
@@ -66,12 +115,15 @@ export class CodeEditorComponent implements OnInit {
   }
   onEditorInit(e: editor.ICodeEditor): void {
     this.zone.run(() => {
-      console.timeEnd('start')
-
       this.editor = e;
       this.setModel(this.code, this.selectedLanguage);
+
       this.loadTheme();
       this.loadLanguage();
+      this.editor.getModel().onDidChangeContent(() => {
+        console.log("code", this.editor.getModel().getValue())
+        this.storageService.set("code", this.editor.getModel().getValue()).subscribe()
+      })
     })
 
   }
@@ -83,9 +135,6 @@ export class CodeEditorComponent implements OnInit {
 
   setModel(code: string, language: string) {
     let applyLanguage = language;
-    if (applyLanguage === 'auto') {
-      applyLanguage = this.autoDetecLanguage;
-    }
     this.editor.setModel(monaco.editor.createModel(code, applyLanguage));
     setTimeout(() => this.format());
   }
@@ -160,21 +209,19 @@ export class CodeEditorComponent implements OnInit {
   }
 
   onSelectTheme(selectedTheme) {
-    monaco.editor.setTheme(selectedTheme)
     this.selectedTheme = selectedTheme
 
 
   }
   onSelectLanguage(language) {
     this.selectedLanguage = language;
-    this.reset()
   }
   loadTheme() {
     Object.keys(themes).forEach(k => {
       monaco.editor.defineTheme(k, themes[k]);
       this.themes.push(k);
     })
-
+    monaco.editor.setTheme(this.selectedTheme)
   }
 
   loadLanguage() {

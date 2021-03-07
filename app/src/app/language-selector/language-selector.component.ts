@@ -10,18 +10,28 @@ export class LanguageSelectorComponent implements OnInit {
 
   @Output()
   onSelect = new EventEmitter<string>()
+  
   private _languages: string[];
   @Input()
   set languages(value: string[]) {
-    console.log("set value", value)
+    
     this._languages = value;
     this.filteredLanguage = value
   }
   get languages() {
     return this._languages
   }
+  private _defaultLanguage: string;
+
   @Input()
-  defaultLanguage: string
+  public set defaultLanguage(value: string) {
+    this._defaultLanguage = value;
+    this.selectedLanguage = this._defaultLanguage;
+
+  }
+  public get defaultLanguage(): string {
+    return this._defaultLanguage;
+  }
 
 
 
